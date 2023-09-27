@@ -3,7 +3,7 @@ view: programas_sociales_mujer_es_vida {
   derived_table: {
     sql: Select
         NumCuenta As 'Numero Cuenta',
-        CONVERT(Date,Fecha) As 'Fecha',
+        Fecha,
         Producto,
         DenMov As 'Descripción',
         ImpTotal As 'Importe',
