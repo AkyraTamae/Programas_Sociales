@@ -27,7 +27,7 @@ view: programas_sociales_mujer_es_vida {
   }
 
   dimension: fecha {
-    type: date
+    type: date_time
     sql: ${TABLE}.Fecha ;;
   }
 
