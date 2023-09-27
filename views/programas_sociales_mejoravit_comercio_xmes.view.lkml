@@ -1,5 +1,5 @@
 
-view: sql_runner_query {
+view: programas_sociales_mejoravit_comercio_xmes {
   derived_table: {
     sql: Select *
       From
