@@ -647,3 +647,5 @@ explore: programas_sociales_repara {}
 explore: programas_sociales_mujer_es_vida {}
 
 explore: pre_pay_studio_movements_v {}
+
+explore: programas_sociales_mejoravit_comercio_xmes {}
