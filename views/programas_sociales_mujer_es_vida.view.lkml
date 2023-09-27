@@ -1,7 +1,7 @@
 
 view: programas_sociales_mujer_es_vida {
   derived_table: {
-    sql: Select 
+    sql: Select
         NumCuenta As 'Numero Cuenta',
         CONVERT(Date,Fecha) As 'Fecha',
         Producto,
@@ -12,9 +12,7 @@ view: programas_sociales_mujer_es_vida {
       From
         broxelpaymentsws.PrePayStudioMovements_v With (Nolock)
       Where
-        Producto = 'K301' And Fecha >= '2023-06-01'
-      Order By 
-        Fecha ;;
+        Producto = 'K301' And Fecha >= '2023-06-01' ;;
   }
 
   measure: count {
@@ -61,12 +59,12 @@ view: programas_sociales_mujer_es_vida {
   set: detail {
     fields: [
         numero_cuenta,
-	fecha,
-	producto,
-	descripcin,
-	importe,
-	autorizacin,
-	rrn
+  fecha,
+  producto,
+  descripcin,
+  importe,
+  autorizacin,
+  rrn
     ]
   }
 }
