@@ -71,7 +71,7 @@ view: programas_sociales_renueva {
             Left Join
               broxelco_rdg.ComercioNoReportar C On A.comercio = C.Comercio
             Where
-              A.fecha >= '2023-09-01' And A.idPrograma In ('219') And C.Comercio Is Null
+              A.fecha <= '2023-09-30' And A.idPrograma In ('219') And C.Comercio Is Null
             ) D
 
             Left Join
