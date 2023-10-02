@@ -12,7 +12,7 @@ view: programas_sociales_mujer_es_vida {
       From
         broxelpaymentsws.PrePayStudioMovements_v With (Nolock)
       Where
-        Producto = 'K301' And Fecha >= '2023-06-01' ;;
+        Producto = 'K301' And Fecha >= '2023-09-01' ;;
   }
 
   measure: count {
