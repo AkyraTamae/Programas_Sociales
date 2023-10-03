@@ -12,7 +12,7 @@ view: programas_sociales_mujer_es_vida {
       From
         broxelpaymentsws.PrePayStudioMovements_v With (Nolock)
       Where
-        Producto = 'K301' And Fecha >= DATEDIFF(DAY,15,CONVERT(Date,GETDATE()));;
+        Producto = 'K301' And Fecha >= DATEDIFF(DAY,10,CONVERT(Date,GETDATE()));;
   }
 
   measure: count {
