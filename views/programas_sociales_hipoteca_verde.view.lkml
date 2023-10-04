@@ -4,7 +4,7 @@ view: programas_sociales_hipoteca_verde {
     sql: Select
               D.Comercio,
               D.Fecha,
-              D.Mes_txt,
+              DATETRUNC(MONTH,D.Fecha) AS 'Mes_txt',
               D.NombreMedidas,
               UPPER(E.razon_social) As 'razon_social',
               E.rfc,
