@@ -4,7 +4,7 @@ view: programas_sociales_renueva {
     sql: Select
               D.Comercio,
               D.Fecha,
-              DATETRUNC(MONTH,D.Fecha) AS 'Mes_txt',
+              D.Mes_txt,
               D.NombreMedidas,
               UPPER(E.razon_social) As 'razon_social',
               E.rfc,
