@@ -20,7 +20,7 @@ view: programas_sociales_all {
         E.Estado_Comercial,
         D.Municipio_Comercial,
         CONVERT(DATE,DATENAME(MONTH,D.Mes_txt) + ' ' + DATENAME(YEAR,D.Mes_txt)) As 'Month_Txt'
-      
+
       From
         (
         Select
@@ -43,9 +43,9 @@ view: programas_sociales_all {
           MunicipioComercial As 'Municipio_Comercial'
         From
           dbo.Consolidadov6
-      
+
         Union All
-      
+
         Select
           A.Comercio,
           A.Fecha,
@@ -75,7 +75,7 @@ view: programas_sociales_all {
           Where
             A.fecha >= '2023-09-01' And A.idPrograma In ('5','10','219','220') And C.Comercio Is Null
         ) D
-      
+
       Left Join
         (
           Select
@@ -221,23 +221,23 @@ view: programas_sociales_all {
   set: detail {
     fields: [
         comercio,
-	fecha,
-	mes_txt,
-	nombre_medidas,
-	razon_social,
-	rfc,
-	email_contacto,
-	usuario,
-	ventas,
-	devoluciones,
-	iva,
-	importe_ventas,
-	importe_descuento,
-	transacciones,
-	estado_fiscal,
-	estado_comercial,
-	municipio_comercial,
-	month_txt
+  fecha,
+  mes_txt,
+  nombre_medidas,
+  razon_social,
+  rfc,
+  email_contacto,
+  usuario,
+  ventas,
+  devoluciones,
+  iva,
+  importe_ventas,
+  importe_descuento,
+  transacciones,
+  estado_fiscal,
+  estado_comercial,
+  municipio_comercial,
+  month_txt
     ]
   }
 }
