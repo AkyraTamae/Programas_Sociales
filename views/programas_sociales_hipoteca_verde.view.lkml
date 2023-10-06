@@ -71,7 +71,7 @@ view: programas_sociales_hipoteca_verde {
             Left Join
               broxelco_rdg.ComercioNoReportar C On A.comercio = C.Comercio
             Where
-              A.fecha >= '2023-09-01' And A.idPrograma In ('10') And C.Comercio Is Null
+              A.fecha Between '2023-09-01'And '2023-10-31' And A.idPrograma In ('10') And C.Comercio Is Null
             ) D
 
             Left Join
