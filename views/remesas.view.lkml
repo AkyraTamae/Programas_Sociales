@@ -2,6 +2,7 @@
 view: remesas {
   derived_table: {
     sql: Select
+        CONVERT(Date,AA.FechaCreacion) As 'Date',
         AA.ProductoOrigen,
         AA.ProductoDestino,
         AA.Receptor_1,
@@ -18,7 +19,7 @@ view: remesas {
         When ZZZ.FoundRmtt Is Not Null Then ZZZ.FoundRmtt
         When ZZA.FoundRmttC Is Not Null Then ZZA.FoundRmttC
         When ZZB.FoundRmttC Is Not Null Then ZZB.FoundRmttC
-        End As 'Status_Rmt',  
+        End As 'Status_Rmt',
         AA.CuentaOrigen,
         AA.CuentaDestino,
         AA.IdOperacion,
@@ -28,7 +29,7 @@ view: remesas {
         When ZZZ.RemittanceKey Is Not Null Then ZZZ.RemittanceKey
         When ZZA.RemittanceKey Is Not Null Then ZZA.RemittanceKey
         When ZZB.RemittanceKey Is Not Null Then ZZB.RemittanceKey
-        End As 'RemittanceKey',  
+        End As 'RemittanceKey',
         AA.AuthNum,
         Case
         When ZZ.TxnDate Is Not Null Then ZZ.TxnDate
@@ -71,7 +72,7 @@ view: remesas {
           E.Producto As 'ProductoDestino',
           CONCAT(RANK()Over(Partition By CONCAT(A.CuentaOrigen,'_',CONVERT(Decimal(20,1),A.MontoMXN),'_',REPLACE(CONVERT(Varchar(10),A.FechaCreacion,101),'/','')) Order By A.IdMeltsan),'-',A.CuentaOrigen,'_',CONVERT(Decimal(20,1),A.MontoMXN),'_',REPLACE(CONVERT(Varchar(10),A.FechaCreacion,101),'/','')) As 'primarykey',
           Case
-          When B.GalileoAccountId Is Null Then D.GalileoAccountId 
+          When B.GalileoAccountId Is Null Then D.GalileoAccountId
           Else B.GalileoAccountId
           End As 'AuthNum',
           A.MontoMXN As 'AmountMXN',
@@ -104,7 +105,7 @@ view: remesas {
           F.ComisionUSD,
           F.ComisionMXN
         From
-          [dbo].[BroxelCoreRemesas] A With (Nolock)  
+          [dbo].[BroxelCoreRemesas] A With (Nolock)
         --Código GAL Sender
         Left Join
           (
@@ -140,7 +141,7 @@ view: remesas {
             [broxelco_rdg].[ClientesBroxel] B With (Nolock) On A.Cliente = B.claveCliente
           Left Join
             (
-            Select 
+            Select
               nombre_completo,
               cuenta,
               Email
@@ -154,13 +155,13 @@ view: remesas {
             From
               [broxelco_rdg].[accessos_clientes_baja] With (Nolock)
             ) C On A.Cuenta = C.cuenta
-          ) C On A.CuentaOrigen = C.Cuenta 
+          ) C On A.CuentaOrigen = C.Cuenta
         --Código GAL Recipient
         Left Join
           (
           Select
             PRN,
-            MAX(GalileoAccountId) As 'GalileoAccountId', 
+            MAX(GalileoAccountId) As 'GalileoAccountId',
             CONCAT('GAL',MAX(ProgramId),MAX(GalileoAccountId),MAX(CardId)) As 'GAL'
           From
             [broxelco_rdg].[ind_movi_galileo_post_tran] With (Nolock)
@@ -190,7 +191,7 @@ view: remesas {
             [broxelco_rdg].[ClientesBroxel] B With (Nolock) On A.Cliente = B.claveCliente
           Left Join
             (
-            Select 
+            Select
               nombre_completo,
               cuenta,
               Email
@@ -239,7 +240,7 @@ view: remesas {
             CONVERT(Decimal(20,2),A.RemittanceAmount) As 'RemittanceAmount',
             CONVERT(Decimal(20,2),A.BeneficiaryAmount,0) As 'BeneficiaryAmount',
             CONVERT(Decimal(20,2),Case
-            When A.IdCurrencyOrigin = 'MXN' Then A.BeneficiaryAmount  
+            When A.IdCurrencyOrigin = 'MXN' Then A.BeneficiaryAmount
             ELSE A.BeneficiaryAmount/A.FinalExchangeAmount
             End) As 'AmountUSD',
             CONVERT(Decimal(20,2),Case
@@ -251,7 +252,7 @@ view: remesas {
         Left Join
           (
           Select *
-          From 
+          From
             (
             Select Distinct
               RANK()Over(Partition By CONCAT(A.Cuenta, LOWER(Case When C.Email Is Null Or C.Email = '' Then B.CorreoContacto Else C.Email End )) Order By Case When LEN(C.nombre_completo) > LEN(A.Titular) Then C.nombre_completo When LEN(A.Titular) > LEN(C.nombre_completo) Then A.Titular End) As 'DistinctKey',
@@ -261,8 +262,8 @@ view: remesas {
               End As 'Titular',
               A.Cuenta,
               LOWER(Case
-              When C.Email Is Null Or C.Email = '' Then B.CorreoContacto 
-              Else C.Email 
+              When C.Email Is Null Or C.Email = '' Then B.CorreoContacto
+              Else C.Email
               End) As 'CorreoContacto',
               Case
               When LEN(A.Cuenta) > 10 Then 'USD'
@@ -288,14 +289,14 @@ view: remesas {
               From
                 [broxelco_rdg].[accessos_clientes_baja] With (Nolock)
               ) C On A.Cuenta = C.cuenta
-            Where 
+            Where
               C.Cuenta Not Like '%S%'
             ) AA
           Where
             AA.DistinctKey = 1
           )B On CONCAT(A.IdUserOrigin,A.IdCurrencyOrigin) = CONCAT(B.CorreoContacto,B.UserType)
         )ZZ On AA.primaryKey = ZZ.primarykey
-        
+
         Left Join
           (
           Select
@@ -311,7 +312,7 @@ view: remesas {
             CONVERT(Decimal(20,2),A.RemittanceAmount) As 'RemittanceAmount',
             CONVERT(Decimal(20,2),A.BeneficiaryAmount,0) As 'BeneficiaryAmount',
             CONVERT(Decimal(20,2),Case
-            When A.IdCurrencyOrigin = 'MXN' Then A.BeneficiaryAmount  
+            When A.IdCurrencyOrigin = 'MXN' Then A.BeneficiaryAmount
             ELSE A.BeneficiaryAmount/A.FinalExchangeAmount
             End) As 'AmountUSD',
             CONVERT(Decimal(20,2),Case
@@ -323,7 +324,7 @@ view: remesas {
           Left Join
             (
             Select *
-            From 
+            From
               (
               Select Distinct
                 RANK()Over(Partition By CONCAT(A.Cuenta, LOWER(Case When C.Email Is Null Or C.Email = '' Then B.CorreoContacto Else C.Email End )) Order By Case When LEN(C.nombre_completo) > LEN(A.Titular) Then C.nombre_completo When LEN(A.Titular) > LEN(C.nombre_completo) Then A.Titular End) As 'DistinctKey',
@@ -333,8 +334,8 @@ view: remesas {
                 End As 'Titular',
                 A.Cuenta,
                 LOWER(Case
-                When C.Email Is Null Or C.Email = '' Then B.CorreoContacto 
-                Else C.Email 
+                When C.Email Is Null Or C.Email = '' Then B.CorreoContacto
+                Else C.Email
                 End) As 'CorreoContacto',
                 Case
                 When LEN(A.Cuenta) > 10 Then 'USD'
@@ -382,7 +383,7 @@ view: remesas {
             CONVERT(Decimal(20,2),A.RemittanceAmountCancel) As 'RemittanceAmount',
             CONVERT(Decimal(20,2),A.BeneficiaryAmount,0) As 'BeneficiaryAmount',
             CONVERT(Decimal(20,2),Case
-            When A.IdCurrencyOriginCancel = 'MXN' Then A.BeneficiaryAmount 
+            When A.IdCurrencyOriginCancel = 'MXN' Then A.BeneficiaryAmount
             ELSE A.BeneficiaryAmount/A.FinalExchangeAmountCancel
             End) As 'AmountUSD',
             CONVERT(Decimal(20,2),Case
@@ -394,7 +395,7 @@ view: remesas {
           Left Join
             (
             Select *
-            From 
+            From
               (
               Select Distinct
                 RANK()Over(Partition By CONCAT(A.Cuenta, LOWER(Case When C.Email Is Null Or C.Email = '' Then B.CorreoContacto Else C.Email End )) Order By Case When LEN(C.nombre_completo) > LEN(A.Titular) Then C.nombre_completo When LEN(A.Titular) > LEN(C.nombre_completo) Then A.Titular End) As 'DistinctKey',
@@ -404,8 +405,8 @@ view: remesas {
                 End As 'Titular',
                 A.Cuenta,
                 LOWER(Case
-                When C.Email Is Null Or C.Email = '' Then B.CorreoContacto 
-                Else C.Email 
+                When C.Email Is Null Or C.Email = '' Then B.CorreoContacto
+                Else C.Email
                 End) As 'CorreoContacto',
                 Case
                 When LEN(A.Cuenta) > 10 Then 'USD'
@@ -440,7 +441,7 @@ view: remesas {
           Where
             DATEADD(HOUR,-6,A.DateRegister) >= '2023-01-01'
         )ZZA On AA.primaryKey = ZZA.primarykey
-        
+
         Left Join
           (
           Select
@@ -456,7 +457,7 @@ view: remesas {
             CONVERT(Decimal(20,2),A.RemittanceAmountCancel) As 'RemittanceAmount',
             CONVERT(Decimal(20,2),A.BeneficiaryAmount,0) As 'BeneficiaryAmount',
             CONVERT(Decimal(20,2),Case
-            When A.IdCurrencyOriginCancel = 'MXN' Then A.BeneficiaryAmount 
+            When A.IdCurrencyOriginCancel = 'MXN' Then A.BeneficiaryAmount
             ELSE A.BeneficiaryAmount/A.FinalExchangeAmountCancel
             End) As 'AmountUSD',
             CONVERT(Decimal(20,2),Case
@@ -468,7 +469,7 @@ view: remesas {
           Left Join
             (
             Select *
-            From 
+            From
               (
               Select Distinct
                 RANK()Over(Partition By CONCAT(A.Cuenta, LOWER(Case When C.Email Is Null Or C.Email = '' Then B.CorreoContacto Else C.Email End )) Order By Case When LEN(C.nombre_completo) > LEN(A.Titular) Then C.nombre_completo When LEN(A.Titular) > LEN(C.nombre_completo) Then A.Titular End) As 'DistinctKey',
@@ -478,8 +479,8 @@ view: remesas {
                 End As 'Titular',
                 A.Cuenta,
                 LOWER(Case
-                When C.Email Is Null Or C.Email = '' Then B.CorreoContacto 
-                Else C.Email 
+                When C.Email Is Null Or C.Email = '' Then B.CorreoContacto
+                Else C.Email
                 End) As 'CorreoContacto',
                 Case
                 When LEN(A.Cuenta) > 10 Then 'USD'
@@ -515,7 +516,7 @@ view: remesas {
             DATEADD(HOUR,-6,A.DateRegister) >= '2023-01-01'
         )ZZB On AA.primaryKey = ZZB.primarykey
       Where
-        CONVERT(Date,AA.FechaCreacion) >= '2023-01-01' 
+        CONVERT(Date,AA.FechaCreacion) >= '2023-01-01'
       Order By
         AA.Id ;;
   }
@@ -523,6 +524,11 @@ view: remesas {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  dimension: date {
+    type: date
+    sql: ${TABLE}.Date ;;
   }
 
   dimension: producto_origen {
@@ -677,36 +683,37 @@ view: remesas {
 
   set: detail {
     fields: [
+        date,
         producto_origen,
-	producto_destino,
-	receptor_1,
-	emisor_2,
-	estatus_3,
-	comision_4,
-	monto_usd_op,
-	monto_mxn_op,
-	comision_usd,
-	comision_mxn,
-	status_op,
-	status_rmt,
-	cuenta_origen,
-	cuenta_destino,
-	id_operacion,
-	id_meltsan,
-	remittance_key,
-	auth_num,
-	txn_date,
-	amount_usd,
-	amount_mxn,
-	sender_country,
-	sender_account_num,
-	sender_name,
-	sender_email,
-	recipient_country,
-	recipient_account_num,
-	recipient_name,
-	recipient_email,
-	primarykey
+        producto_destino,
+        receptor_1,
+        emisor_2,
+        estatus_3,
+        comision_4,
+        monto_usd_op,
+        monto_mxn_op,
+        comision_usd,
+        comision_mxn,
+        status_op,
+        status_rmt,
+        cuenta_origen,
+        cuenta_destino,
+        id_operacion,
+        id_meltsan,
+        remittance_key,
+        auth_num,
+        txn_date,
+        amount_usd,
+        amount_mxn,
+        sender_country,
+        sender_account_num,
+        sender_name,
+        sender_email,
+        recipient_country,
+        recipient_account_num,
+        recipient_name,
+        recipient_email,
+        primarykey
     ]
   }
 }
