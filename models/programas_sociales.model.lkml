@@ -650,4 +650,4 @@ explore: pre_pay_studio_movements_v {}
 
 explore: programas_sociales_mejoravit_comercio_xmes {}
 
-explore: programas_sociales_all {}
+explore: remesas{}
