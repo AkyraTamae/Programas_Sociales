@@ -516,9 +516,7 @@ view: remesas {
             DATEADD(HOUR,-6,A.DateRegister) >= '2023-01-01'
         )ZZB On AA.primaryKey = ZZB.primarykey
       Where
-        CONVERT(Date,AA.FechaCreacion) >= '2023-01-01'
-      Order By
-        AA.Id ;;
+        CONVERT(Date,AA.FechaCreacion) >= '2023-01-01' ;;
   }
 
   measure: count {
