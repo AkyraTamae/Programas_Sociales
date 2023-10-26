@@ -1,7 +1,7 @@
 view: prueba_promos_broxel {
   derived_table: {
     sql: SELECT m.nombre_titular, m.num_cuenta, m.clave_cliente, m.producto
-      FROM [broxelco_rdg].[FiltrosGRL12] gr (nolock)
+      FROM [broxelco_rdg.maquila] m (nolock)
       where Fecha >= '2023-08-15' and m.producto = 'S150' ;;
   }
   measure: count {
