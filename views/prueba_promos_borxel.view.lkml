@@ -10,6 +10,7 @@ view: prueba_promos_broxel {
   }
 
   dimension: fecha {
+    hidden: yes
     type: string
     sql: ${TABLE}.Fecha ;;
   }
@@ -57,7 +58,6 @@ view: prueba_promos_broxel {
   set: detail {
     fields: [
 
-      fecha,
       import_total,
       tipo_movimiento,
       clave_grupo_cliente
