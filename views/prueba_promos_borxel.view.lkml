@@ -58,10 +58,6 @@ view: prueba_promos_broxel {
     fields: [
 
       fecha,
-      nombre_titular,
-      num_cuenta,
-      clave_cliente,
-      productos,
       import_total,
       tipo_movimiento,
       clave_grupo_cliente
