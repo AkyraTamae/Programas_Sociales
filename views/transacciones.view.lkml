@@ -27,7 +27,7 @@ view: transacciones {
           Else A.DenMov
           End As 'Comercio',
           F.Clasificacion As 'Clasificacion_Cliente',
-          Case 
+          Case
           When C.Categoria Is Not Null Then C.Categoria
           When A.TipoReg = 'A' Then 'Otros'
           When A.TipoReg = 'B' Then 'Comisiones'
@@ -67,10 +67,10 @@ view: transacciones {
         Left Join
           [broxelco_rdg].[CatalogoClasificacionClientes] F With (Nolock) On E.ClasificacionCtesBroxel = F.Codigo
         Where
-          CONVERT(Date,A.Fecha) >= '2023-01-01'
-      
+          CONVERT(Date,A.Fecha) Between '2023-01-01' And '2023-02-28'
+
         Union All
-      
+
         Select
           A.FClear,
           B.Cuenta,
@@ -81,7 +81,7 @@ view: transacciones {
           Else A.ImpTotal
           End  As 'ImportePesos',
           Case
-          When A.CodMont <> '484' Then (A.TasaIntercambio * (A.importe_pesos/A.ImpTotal)) 
+          When A.CodMont <> '484' Then (A.TasaIntercambio * (A.importe_pesos/A.ImpTotal))
           Else A.TasaIntercambio
           End As 'MontoIntercambio',
           Case
@@ -99,16 +99,16 @@ view: transacciones {
           [broxelco_rdg].[ClientesBroxel] C With (Nolock) On B.Cliente = C.claveCliente
         Left Join
           [broxelco_rdg].[Comercio] D With (Nolock) On A.DenMov = D.Comercio
-        Left Join 
+        Left Join
           [broxelco_rdg].[CatalogoClasificacionClientes] E With (Nolock) On C.ClasificacionCtesBroxel = E.Codigo
-        Left Join 
+        Left Join
           [broxelco_rdg].[CatalogoCategoriaComercio] F With (Nolock) On D.Categoria = F.Id
         Left Join
           [broxelco_rdg].[CatalogoTipoTransaccion] G With (Nolock) On A.CodTransac = G.CodigoTransaccional
         Left Join
           [dbo].[Cat_Procesador] H With (Nolock) On B.Procesador = H.Nombre
         Where
-          A.FClear >= '2023-01-01' And H.Nombre <> 'PayStudio'
+          A.FClear Between '2023-01-01' And '2023-02-28' And H.Nombre <> 'PayStudio'
       ) AA
       Group By
         AA.Fecha,
@@ -184,16 +184,16 @@ view: transacciones {
   set: detail {
     fields: [
         transacciones,
-	fecha,
-	cuentas,
-	producto,
-	importe_pesos,
-	monto_intercambio,
-	clave_cliente,
-	comercio,
-	clasificacion_cliente,
-	tipo_movimiento,
-	procesador
+  fecha,
+  cuentas,
+  producto,
+  importe_pesos,
+  monto_intercambio,
+  clave_cliente,
+  comercio,
+  clasificacion_cliente,
+  tipo_movimiento,
+  procesador
     ]
   }
 }
