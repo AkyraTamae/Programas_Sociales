@@ -67,7 +67,7 @@ view: transacciones_pruebas {
         Left Join
           [broxelco_rdg].[CatalogoClasificacionClientes] F With (Nolock) On E.ClasificacionCtesBroxel = F.Codigo
         Where
-          CONVERT(Date,A.Fecha) Between '2023-09-04' And '2023-09-17'
+          CONVERT(Date,A.Fecha) Between '2023-08-05' And '2023-08-18'
 
         Union All
 
@@ -108,7 +108,7 @@ view: transacciones_pruebas {
         Left Join
           [dbo].[Cat_Procesador] H With (Nolock) On B.Procesador = H.Nombre
         Where
-          H.Nombre <> 'PayStudio' And A.FClear Between '2023-09-04' And '2023-09-17'
+          H.Nombre <> 'PayStudio' And A.FClear Between '2023-08-05' And '2023-08-18'
         )AA
       Group By
         AA.Fecha,
