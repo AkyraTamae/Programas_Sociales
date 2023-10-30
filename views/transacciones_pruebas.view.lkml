@@ -1,7 +1,7 @@
 
 view: transacciones_pruebas {
   derived_table: {
-    sql: Select Top 5000
+    sql: Select
         AA.Fecha,
         COUNT(Distinct AA.Cuentas) As 'Cuentas',
         COUNT(AA.Cuentas) As 'Transacciones',
@@ -109,8 +109,6 @@ view: transacciones_pruebas {
         Where
           H.Nombre <> 'PayStudio' And A.FClear Between '2023-01-01' And '2023-01-31'
         )AA
-      Where
-        AA.Fecha = '2023-01-01'
       Group By
         AA.Fecha,
         AA.Producto,
