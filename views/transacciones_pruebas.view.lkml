@@ -12,7 +12,21 @@ view: transacciones_pruebas {
         AA.Comercio,
         AA.Clasificacion_Cliente,
         AA.TipoMovimiento,
-        AA.Procesador
+        AA.Procesador,
+        MIN(AB.FechaPrimerMovimiento) As 'FechaPrimerMovimiento',
+        MAX(AB.FechaUltimoMovimiento) As 'FechaUltimoMovimiento',
+        MIN(AB.FechaMinPago) As 'FechaMinPago',
+        MAX(AB.FechaMaxPago) As 'FechaMaxPago',
+        MIN(AB.FechaMinDispersion) As 'FechaMinDispersion',
+        MAX(AB.FechaMaxDispersion) As 'FechaMaxDispersion',
+        MIN(AB.FechaMinTransaccion) As 'FechaMinTransaccion',
+        MAX(AB.FechaMaxTransaccion) As 'FechaMaxTransaccion',
+        MIN(AB.FechaMinTransferencia) As 'FechaMinTransferencia',
+        MAX(AB.FechaMaxTransferencia) As 'FechaMaxTransferencia',
+        MIN(AB.FechaMinC2CEntrada) As 'FechaMinC2CEntrada',
+        MAX(AB.FechaMaxC2CEntrada) As 'FechaMaxC2CEntrada',
+        MIN(AB.FechaMinC2CSalida) As 'FechaMinC2CSalida',
+        MAX(AB.FechaMaxC2CSalida) As 'FechaMaxC2CSalida'
       From
         (
         Select
@@ -110,6 +124,34 @@ view: transacciones_pruebas {
         Where
           H.Nombre <> 'PayStudio' And A.FClear Between '2023-07-01' And '2023-07-31'
         )AA
+      Left Join
+        (
+        Select
+          DATETRUNC(MONTH,FechaCorte) As 'FechaCorte',
+          Cliente,
+          MIN(FechaPrimerMovimiento) As 'FechaPrimerMovimiento',
+          MAX(FechaUltimoMovimiento) As 'FechaUltimoMovimiento',
+          MIN(FechaMinPago) As 'FechaMinPago',
+          MAX(FechaMaxPago) As 'FechaMaxPago',
+          MIN(FechaMinDispersion) As 'FechaMinDispersion',
+          MAX(FechaMaxDispersion) As 'FechaMaxDispersion',
+          MIN(FechaMinTransaccion) As 'FechaMinTransaccion',
+          MAX(FechaMaxTransaccion) As 'FechaMaxTransaccion',
+          MIN(FechaMinTransferencia) As 'FechaMinTransferencia',
+          MAX(FechaMaxTransferencia) As 'FechaMaxTransferencia',
+          MIN(FechaMinC2CEntrada) As 'FechaMinC2CEntrada',
+          MAX(FechaMaxC2CEntrada) As 'FechaMaxC2CEntrada',
+          MIN(FechaMinC2CSalida) As 'FechaMinC2CSalida',
+          MAX(FechaMaxC2CSalida) As 'FechaMaxC2CSalida'
+        From
+          [recursos].[Acceso_cuentas] With (Nolock)
+        Where
+          FechaCorte Between '2023-07-01' And '2023-07-31' And Cliente Is Not Null
+        Group By
+          Cliente,
+          DATETRUNC(MONTH,FechaCorte)
+        )AB On AA.Clave_Cliente = AB.Cliente
+
       Group By
         AA.Fecha,
         AA.Producto,
@@ -180,19 +222,103 @@ view: transacciones_pruebas {
     sql: ${TABLE}.Procesador ;;
   }
 
+  dimension: fecha_primer_movimiento {
+    type: date
+    sql: ${TABLE}.FechaPrimerMovimiento ;;
+  }
+
+  dimension: fecha_ultimo_movimiento {
+    type: date
+    sql: ${TABLE}.FechaUltimoMovimiento ;;
+  }
+
+  dimension_group: fecha_min_pago {
+    type: time
+    sql: ${TABLE}.FechaMinPago ;;
+  }
+
+  dimension_group: fecha_max_pago {
+    type: time
+    sql: ${TABLE}.FechaMaxPago ;;
+  }
+
+  dimension_group: fecha_min_dispersion {
+    type: time
+    sql: ${TABLE}.FechaMinDispersion ;;
+  }
+
+  dimension_group: fecha_max_dispersion {
+    type: time
+    sql: ${TABLE}.FechaMaxDispersion ;;
+  }
+
+  dimension_group: fecha_min_transaccion {
+    type: time
+    sql: ${TABLE}.FechaMinTransaccion ;;
+  }
+
+  dimension_group: fecha_max_transaccion {
+    type: time
+    sql: ${TABLE}.FechaMaxTransaccion ;;
+  }
+
+  dimension_group: fecha_min_transferencia {
+    type: time
+    sql: ${TABLE}.FechaMinTransferencia ;;
+  }
+
+  dimension_group: fecha_max_transferencia {
+    type: time
+    sql: ${TABLE}.FechaMaxTransferencia ;;
+  }
+
+  dimension_group: fecha_min_c2_centrada {
+    type: time
+    sql: ${TABLE}.FechaMinC2CEntrada ;;
+  }
+
+  dimension_group: fecha_max_c2_centrada {
+    type: time
+    sql: ${TABLE}.FechaMaxC2CEntrada ;;
+  }
+
+  dimension_group: fecha_min_c2_csalida {
+    type: time
+    sql: ${TABLE}.FechaMinC2CSalida ;;
+  }
+
+  dimension_group: fecha_max_c2_csalida {
+    type: time
+    sql: ${TABLE}.FechaMaxC2CSalida ;;
+  }
+
   set: detail {
     fields: [
-      fecha,
-      cuentas,
-      transacciones,
-      producto,
-      clave_cliente,
-      importe_pesos,
-      monto_intercambio,
-      comercio,
-      clasificacion_cliente,
-      tipo_movimiento,
-      procesador
+        fecha,
+  cuentas,
+  transacciones,
+  producto,
+  clave_cliente,
+  importe_pesos,
+  monto_intercambio,
+  comercio,
+  clasificacion_cliente,
+  tipo_movimiento,
+  procesador,
+  fecha_primer_movimiento,
+  fecha_ultimo_movimiento,
+  fecha_min_pago_time,
+  fecha_max_pago_time,
+  fecha_min_dispersion_time,
+  fecha_max_dispersion_time,
+  fecha_min_transaccion_time,
+  fecha_max_transaccion_time,
+  fecha_min_transferencia_time,
+  fecha_max_transferencia_time,
+  fecha_min_c2_centrada_time,
+  fecha_max_c2_centrada_time,
+  fecha_min_c2_csalida_time,
+  fecha_max_c2_csalida_time
     ]
   }
 }
