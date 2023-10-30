@@ -15,7 +15,7 @@ view: transacciones_pruebas {
         AA.Procesador
       From
         (
-        Select
+        Select Top 10000
           DATETRUNC(MONTH, CONVERT(Date,A.Fecha)) As 'Fecha',
           A.NumCuenta As 'Cuentas',
           A.Producto,
@@ -69,7 +69,7 @@ view: transacciones_pruebas {
 
         Union All
 
-        Select
+        Select Top 1000
           DATETRUNC(MONTH, A.FClear),
           B.Cuenta,
           A.CodPtoCuota,
