@@ -66,7 +66,8 @@ view: transacciones_pruebas {
           [broxelco_rdg].[ClientesBroxel] E With (Nolock) On A.ClaveCliente = E.claveCliente
         Left Join
           [broxelco_rdg].[CatalogoClasificacionClientes] F With (Nolock) On E.ClasificacionCtesBroxel = F.Codigo
-
+        Where
+          CONVERT(Date,A.Fecha) Between '2023-01-01' And '2023-01-31'
         Union All
 
         Select Top 10000
@@ -106,7 +107,7 @@ view: transacciones_pruebas {
         Left Join
           [dbo].[Cat_Procesador] H With (Nolock) On B.Procesador = H.Nombre
         Where
-          H.Nombre <> 'PayStudio'
+          H.Nombre <> 'PayStudio' And A.FClear Between '2023-01-01' And '2023-01-31'
         )AA
       Where
         AA.Fecha = '2023-01-01'
