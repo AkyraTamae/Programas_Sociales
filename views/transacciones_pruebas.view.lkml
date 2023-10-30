@@ -69,7 +69,7 @@ view: transacciones_pruebas {
 
         Union All
 
-        Select Top 1000
+        Select Top 10000
           DATETRUNC(MONTH, A.FClear),
           B.Cuenta,
           A.CodPtoCuota,
