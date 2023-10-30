@@ -652,6 +652,5 @@ explore: programas_sociales_mejoravit_comercio_xmes {}
 
 explore: remesas{}
 
-explore: transacciones{}
 
 explore: prueba_promos_broxel {}
