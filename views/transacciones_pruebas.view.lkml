@@ -81,7 +81,7 @@ view: transacciones_pruebas {
         Left Join
           [broxelco_rdg].[CatalogoClasificacionClientes] F With (Nolock) On E.ClasificacionCtesBroxel = F.Codigo
         Where
-          CONVERT(Date,A.Fecha) Between '2023-07-01' And '2023-07-31'
+          CONVERT(Date,A.Fecha) Between '2023-07-03' And '2023-07-17'
 
         Union All
 
@@ -146,7 +146,7 @@ view: transacciones_pruebas {
         From
           [recursos].[Acceso_cuentas] With (Nolock)
         Where
-          FechaCorte Between '2023-07-01' And '2023-07-31' And Cliente Is Not Null
+          FechaCorte Between '2023-07-03' And '2023-07-17' And Cliente Is Not Null
         Group By
           Cliente,
           DATETRUNC(MONTH,FechaCorte)
