@@ -15,7 +15,7 @@ view: transacciones_pruebas {
         AA.Procesador
       From
         (
-        Select Top 10000
+        Select
           DATETRUNC(MONTH, CONVERT(Date,A.Fecha)) As 'Fecha',
           A.NumCuenta As 'Cuentas',
           A.Producto,
@@ -67,10 +67,11 @@ view: transacciones_pruebas {
         Left Join
           [broxelco_rdg].[CatalogoClasificacionClientes] F With (Nolock) On E.ClasificacionCtesBroxel = F.Codigo
         Where
-          CONVERT(Date,A.Fecha) Between '2023-01-01' And '2023-01-31'
+          CONVERT(Date,A.Fecha) Between '2023-09-04' And '2023-09-17'
+
         Union All
 
-        Select Top 10000
+        Select
           DATETRUNC(MONTH, A.FClear),
           B.Cuenta,
           A.CodPtoCuota,
@@ -107,7 +108,7 @@ view: transacciones_pruebas {
         Left Join
           [dbo].[Cat_Procesador] H With (Nolock) On B.Procesador = H.Nombre
         Where
-          H.Nombre <> 'PayStudio' And A.FClear Between '2023-01-01' And '2023-01-31'
+          H.Nombre <> 'PayStudio' And A.FClear Between '2023-09-04' And '2023-09-17'
         )AA
       Group By
         AA.Fecha,
