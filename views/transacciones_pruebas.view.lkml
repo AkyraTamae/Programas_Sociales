@@ -146,7 +146,7 @@ view: transacciones_pruebas {
         From
           [recursos].[Acceso_cuentas] With (Nolock)
         Where
-          FechaCorte Between '2023-07-03' And '2023-07-17' And Cliente Is Not Null
+          FechaCorte = '2023-07-14' And Cliente Is Not Null And Cliente Is Not Null
         Group By
           Cliente,
           DATETRUNC(MONTH,FechaCorte)
