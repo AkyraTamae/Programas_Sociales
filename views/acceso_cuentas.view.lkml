@@ -1,7 +1,7 @@
 
 view: acceso_cuentas {
   derived_table: {
-    sql: Select
+    sql: Select *
       From
         [recursos].[Acceso_cuentas] With (Nolock) ;;
   }
