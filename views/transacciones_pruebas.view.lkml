@@ -42,6 +42,7 @@ view: transacciones_pruebas {
 
   dimension: importe_pesos {
     type: number
+    value_format: "#,##0;-#,##0"
     sql: ${TABLE}.Importe_Pesos ;;
   }
 
