@@ -2,7 +2,8 @@
 view: transacciones_pruebas {
   derived_table: {
     sql: Select *
-      From recursos.AnalisisClientes ;;
+      From
+        recursos.AnalisisClientes ;;
   }
 
   measure: count {
@@ -42,7 +43,6 @@ view: transacciones_pruebas {
 
   dimension: importe_pesos {
     type: number
-    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Importe_Pesos ;;
   }
 
@@ -158,6 +158,7 @@ view: transacciones_pruebas {
 
   dimension: country_id {
     type: string
+    map_layer_name: countries
     sql: ${TABLE}.Country_Id ;;
   }
 
