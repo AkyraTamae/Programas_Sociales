@@ -154,12 +154,12 @@ view: transacciones_pruebas {
 
   dimension: estado {
     type: string
+    map_layer_name: countries
     sql: ${TABLE}.Estado ;;
   }
 
   dimension: country_id {
     type: string
-    map_layer_name: countries
     sql: ${TABLE}.Country_Id ;;
   }
 
