@@ -33,11 +33,13 @@ view: transacciones_pruebas {
 
   dimension: importe_pesos {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Importe_Pesos ;;
   }
 
   dimension: monto_intercambio {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Monto_Intercambio ;;
   }
 
