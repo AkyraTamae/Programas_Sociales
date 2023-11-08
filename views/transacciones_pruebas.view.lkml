@@ -80,6 +80,7 @@ view: transacciones_pruebas {
 
   dimension: country_id {
     type: string
+    map_layer_name: countries
     sql: ${TABLE}.Country_Id ;;
   }
 
