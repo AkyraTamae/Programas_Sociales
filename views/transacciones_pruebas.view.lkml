@@ -16,19 +16,9 @@ view: transacciones_pruebas {
     sql: ${TABLE}.Id ;;
   }
 
-  dimension: fecha {
+  dimension: fecha_corte {
     type: date
-    sql: ${TABLE}.Fecha ;;
-  }
-
-  dimension: cuentas {
-    type: number
-    sql: ${TABLE}.Cuentas ;;
-  }
-
-  dimension: transacciones {
-    type: number
-    sql: ${TABLE}.Transacciones ;;
+    sql: ${TABLE}.Fecha_Corte ;;
   }
 
   dimension: producto {
@@ -43,13 +33,22 @@ view: transacciones_pruebas {
 
   dimension: importe_pesos {
     type: number
-    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Importe_Pesos ;;
   }
 
   dimension: monto_intercambio {
     type: number
     sql: ${TABLE}.Monto_Intercambio ;;
+  }
+
+  dimension: transacciones {
+    type: number
+    sql: ${TABLE}.Transacciones ;;
+  }
+
+  dimension: cuentas {
+    type: number
+    sql: ${TABLE}.Cuentas ;;
   }
 
   dimension: comercio {
@@ -72,86 +71,6 @@ view: transacciones_pruebas {
     sql: ${TABLE}.Procesador ;;
   }
 
-  dimension: fecha_primer_movimiento {
-    type: date
-    sql: ${TABLE}.FechaPrimerMovimiento ;;
-  }
-
-  dimension: fecha_ultimo_movimiento {
-    type: date
-    sql: ${TABLE}.FechaUltimoMovimiento ;;
-  }
-
-  dimension: ultimo_movimiento_mes_ant {
-    type: date
-    sql: ${TABLE}.UltimoMovimientoMesAnt ;;
-  }
-
-  dimension: dias_sin_uso {
-    type: number
-    sql: ${TABLE}.DiasSinUso ;;
-  }
-
-  dimension: fecha_min_pago {
-    type: date
-    sql: ${TABLE}.FechaMinPago ;;
-  }
-
-  dimension: fecha_max_pago {
-    type: date
-    sql: ${TABLE}.FechaMaxPago ;;
-  }
-
-  dimension: fecha_min_dispersion {
-    type: date
-    sql: ${TABLE}.FechaMinDispersion ;;
-  }
-
-  dimension: fecha_max_dispersion {
-    type: date
-    sql: ${TABLE}.FechaMaxDispersion ;;
-  }
-
-  dimension: fecha_min_transaccion {
-    type: date
-    sql: ${TABLE}.FechaMinTransaccion ;;
-  }
-
-  dimension: fecha_max_transaccion {
-    type: date
-    sql: ${TABLE}.FechaMaxTransaccion ;;
-  }
-
-  dimension: fecha_min_transferencia {
-    type: date
-    sql: ${TABLE}.FechaMinTransferencia ;;
-  }
-
-  dimension: fecha_max_transferencia {
-    type: date
-    sql: ${TABLE}.FechaMaxTransferencia ;;
-  }
-
-  dimension: fecha_min_c2_centrada {
-    type: date
-    sql: ${TABLE}.FechaMinC2CEntrada ;;
-  }
-
-  dimension: fecha_max_c2_centrada {
-    type: date
-    sql: ${TABLE}.FechaMaxC2CEntrada ;;
-  }
-
-  dimension: fecha_min_c2_csalida {
-    type: date
-    sql: ${TABLE}.FechaMinC2CSalida ;;
-  }
-
-  dimension: fecha_max_c2_csalida {
-    type: date
-    sql: ${TABLE}.FechaMaxC2CSalida ;;
-  }
-
   dimension: estado {
     type: string
     sql: ${TABLE}.Estado ;;
@@ -159,42 +78,37 @@ view: transacciones_pruebas {
 
   dimension: country_id {
     type: string
-    map_layer_name: countries
     sql: ${TABLE}.Country_Id ;;
+  }
+
+  dimension: edad {
+    type: number
+    sql: ${TABLE}.Edad ;;
+  }
+
+  dimension: sexo {
+    type: string
+    sql: ${TABLE}.Sexo ;;
   }
 
   set: detail {
     fields: [
         id,
-  fecha,
-  cuentas,
-  transacciones,
+  fecha_corte,
   producto,
   clave_cliente,
   importe_pesos,
   monto_intercambio,
+  transacciones,
+  cuentas,
   comercio,
   clasificacion_cliente,
   tipo_movimiento,
   procesador,
-  fecha_primer_movimiento,
-  fecha_ultimo_movimiento,
-  ultimo_movimiento_mes_ant,
-  dias_sin_uso,
-  fecha_min_pago,
-  fecha_max_pago,
-  fecha_min_dispersion,
-  fecha_max_dispersion,
-  fecha_min_transaccion,
-  fecha_max_transaccion,
-  fecha_min_transferencia,
-  fecha_max_transferencia,
-  fecha_min_c2_centrada,
-  fecha_max_c2_centrada,
-  fecha_min_c2_csalida,
-  fecha_max_c2_csalida,
   estado,
-  country_id
+  country_id,
+  edad,
+  sexo
     ]
   }
 }
