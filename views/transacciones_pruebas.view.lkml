@@ -111,6 +111,36 @@ view: transacciones_pruebas {
     sql: ${TABLE}.transacciones ;;
   }
 
+  measure: Clientes_Unicos{
+    type: count_distinct
+    value_format: "#,##0;-#,##0"
+    sql: ${TABLE}.clave_cliente ;;
+  }
+
+  measure: Total_Cuentas{
+    type: sum
+    value_format: "#,##0;-#,##0"
+    sql: ${TABLE}.cuentas ;;
+  }
+
+  measure: Total_Transacciones{
+    type: sum
+    value_format: "#,##0;-#,##0"
+    sql: ${TABLE}.transacciones ;;
+  }
+
+  measure: Total_Importe_Pesos{
+    type: sum
+    value_format: "#,##0;-#,##0"
+    sql: ${TABLE}.importe_pesos ;;
+  }
+
+  measure: Total_Monto_Intercambio{
+    type: sum
+    value_format: "#,##0;-#,##0"
+    sql: ${TABLE}.monto_intercambio ;;
+  }
+
   dimension: Layer_MX {
     case: {
       when: {
