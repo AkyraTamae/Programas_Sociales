@@ -111,6 +111,142 @@ view: transacciones_pruebas {
     sql: ${TABLE}.transacciones ;;
   }
 
+  dimension: Layer_MX {
+    case: {
+      when: {
+        sql: ${TABLE}.Estado IN ("Aguascalientes");;
+        label: "AGUASCALIENTES"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Baja California");;
+        label: "BAJA CALIFORNIA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Baja California Sur");;
+        label: "BAJA CALIFORNIA SUR"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Campeche");;
+        label: "CAMPECHE"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Ciudad de Mexico");;
+        label: "DISTRITO FEDERAL"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Chiapas");;
+        label: "CHIAPAS"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Chihuahua");;
+        label: "CHIHUAHUA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Coahuila de Zaragoza");;
+        label: "COAHUILA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Colima");;
+        label: "COLIMA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Durango");;
+        label: "DURANGO"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Mexico");;
+        label: "ESTADO DE MÉXICO"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Guerrero");;
+        label: "GUERRERO"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Guanajuato");;
+        label: "GUANAJUATO"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Hidalgo");;
+        label: "HIDALGO"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Jalisco");;
+        label: "JALISCO"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Michoacan de Ocampo");;
+        label: "MICHOACÁN"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Morelos");;
+        label: "MORELOS"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Nayarit");;
+        label: "NAYARIT"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Nuevo Leon");;
+        label: "NUEVO LEÓN"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Oaxaca");;
+        label: "OAXACA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Puebla");;
+        label: "PUEBLA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Queretaro");;
+        label: "QUERÉTARO"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Quintana Roo");;
+        label: "QUINTANA ROO"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("San Luis Potosi");;
+        label: "SAN LUIS POTOSÍ"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Sinaloa");;
+        label: "SINALOA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Sonora");;
+        label: "SONORA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Tabasco");;
+        label: "SONORA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Tamaulipas");;
+        label: "TAMAULIPAS"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Tlaxcala");;
+        label: "TLAXCALA"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Veracruz de Ignacio de la Llave");;
+        label: "VERACRUZ"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Yucatan");;
+        label: "YUCATÁN"
+      }
+      when: {
+        sql: ${TABLE}.Estado IN ("Zacatecas");;
+        label: "ZACATECAS"
+      }
+      else: "unknown"
+    }
+    map_layer_name: mexico_layer
+    }
+
+
   set: detail {
     fields: [
         id,

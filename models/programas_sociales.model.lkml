@@ -10,6 +10,13 @@ datagroup: programas_sociales_default_datagroup {
 
 persist_with: programas_sociales_default_datagroup
 
+
+map_layer: mexico_layer{
+  #file: "/mapas/map.json"
+  file: "/Mapa/Estados_MX.topojson"
+  property_key: "neighborhood"
+}
+
 explore: acceso_usuarios {}
 
 explore: ado_net_destination {}
@@ -655,10 +662,3 @@ explore: remesas{}
 explore: transacciones_pruebas {}
 
 explore: prueba_promos_broxel {}
-
-map_layer: mexico_layer
-{
-  #file: "/mapas/map.json"
-  file: "/Mapa/Estados_MX.topojson"
-  property_key: "neighborhood"
-}
