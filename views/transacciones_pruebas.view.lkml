@@ -131,144 +131,144 @@ view: transacciones_pruebas {
 
   measure: Total_Importe_Pesos{
     type: sum
-    value_format: "#,##0;-#,##0"
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.importe_pesos ;;
   }
 
   measure: Total_Monto_Intercambio{
     type: sum
-    value_format: "#,##0;-#,##0"
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.monto_intercambio ;;
   }
 
   dimension: Layer_MX {
     case: {
       when: {
-        sql: ${TABLE}.Estado IN ("Aguascalientes");;
+        sql: ${TABLE}.estado IN ("Aguascalientes");;
         label: "AGUASCALIENTES"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Baja California");;
+        sql: ${TABLE}.estado IN ("Baja California");;
         label: "BAJA CALIFORNIA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Baja California Sur");;
+        sql: ${TABLE}.estado IN ("Baja California Sur");;
         label: "BAJA CALIFORNIA SUR"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Campeche");;
+        sql: ${TABLE}.estado IN ("Campeche");;
         label: "CAMPECHE"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Ciudad de Mexico");;
+        sql: ${TABLE}.estado IN ("Ciudad de Mexico");;
         label: "DISTRITO FEDERAL"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Chiapas");;
+        sql: ${TABLE}.estado IN ("Chiapas");;
         label: "CHIAPAS"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Chihuahua");;
+        sql: ${TABLE}.estado IN ("Chihuahua");;
         label: "CHIHUAHUA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Coahuila de Zaragoza");;
+        sql: ${TABLE}.estado IN ("Coahuila de Zaragoza");;
         label: "COAHUILA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Colima");;
+        sql: ${TABLE}.estado IN ("Colima");;
         label: "COLIMA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Durango");;
+        sql: ${TABLE}.estado IN ("Durango");;
         label: "DURANGO"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Mexico");;
+        sql: ${TABLE}.estado IN ("Mexico");;
         label: "ESTADO DE MÉXICO"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Guerrero");;
+        sql: ${TABLE}.estado IN ("Guerrero");;
         label: "GUERRERO"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Guanajuato");;
+        sql: ${TABLE}.estado IN ("Guanajuato");;
         label: "GUANAJUATO"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Hidalgo");;
+        sql: ${TABLE}.estado IN ("Hidalgo");;
         label: "HIDALGO"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Jalisco");;
+        sql: ${TABLE}.estado IN ("Jalisco");;
         label: "JALISCO"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Michoacan de Ocampo");;
+        sql: ${TABLE}.estado IN ("Michoacan de Ocampo");;
         label: "MICHOACÁN"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Morelos");;
+        sql: ${TABLE}.estado IN ("Morelos");;
         label: "MORELOS"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Nayarit");;
+        sql: ${TABLE}.estado IN ("Nayarit");;
         label: "NAYARIT"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Nuevo Leon");;
+        sql: ${TABLE}.estado IN ("Nuevo Leon");;
         label: "NUEVO LEÓN"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Oaxaca");;
+        sql: ${TABLE}.estado IN ("Oaxaca");;
         label: "OAXACA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Puebla");;
+        sql: ${TABLE}.estado IN ("Puebla");;
         label: "PUEBLA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Queretaro");;
+        sql: ${TABLE}.estado IN ("Queretaro");;
         label: "QUERÉTARO"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Quintana Roo");;
+        sql: ${TABLE}.estado IN ("Quintana Roo");;
         label: "QUINTANA ROO"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("San Luis Potosi");;
+        sql: ${TABLE}.estado IN ("San Luis Potosi");;
         label: "SAN LUIS POTOSÍ"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Sinaloa");;
+        sql: ${TABLE}.estado IN ("Sinaloa");;
         label: "SINALOA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Sonora");;
+        sql: ${TABLE}.estado IN ("Sonora");;
         label: "SONORA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Tabasco");;
+        sql: ${TABLE}.estado IN ("Tabasco");;
         label: "SONORA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Tamaulipas");;
+        sql: ${TABLE}.estado IN ("Tamaulipas");;
         label: "TAMAULIPAS"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Tlaxcala");;
+        sql: ${TABLE}.estado IN ("Tlaxcala");;
         label: "TLAXCALA"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Veracruz de Ignacio de la Llave");;
+        sql: ${TABLE}.estado IN ("Veracruz de Ignacio de la Llave");;
         label: "VERACRUZ"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Yucatan");;
+        sql: ${TABLE}.estado IN ("Yucatan");;
         label: "YUCATÁN"
       }
       when: {
-        sql: ${TABLE}.Estado IN ("Zacatecas");;
+        sql: ${TABLE}.estado IN ("Zacatecas");;
         label: "ZACATECAS"
       }
       else: "unknown"
