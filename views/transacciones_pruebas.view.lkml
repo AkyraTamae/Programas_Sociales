@@ -99,7 +99,17 @@ view: transacciones_pruebas {
     sql: ${TABLE}.Giro ;;
   }
 
+  measure: AVG_Impote_Pesos{
+    type: average
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.importe_pesos ;;
+  }
 
+  measure: AVG_Transacciones{
+    type: average
+    value_format: "#,##0;-#,##0"
+    sql: ${TABLE}.transacciones ;;
+  }
 
   set: detail {
     fields: [
