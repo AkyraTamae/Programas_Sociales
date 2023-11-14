@@ -94,6 +94,13 @@ view: transacciones_pruebas {
     sql: ${TABLE}.Sexo ;;
   }
 
+  dimension: Giro {
+    type: string
+    sql: ${TABLE}.Giro ;;
+  }
+
+
+
   set: detail {
     fields: [
         id,
@@ -111,7 +118,8 @@ view: transacciones_pruebas {
   estado,
   country_id,
   edad,
-  sexo
+  sexo,
+  Giro
     ]
   }
 }
