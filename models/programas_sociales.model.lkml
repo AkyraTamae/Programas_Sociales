@@ -655,3 +655,10 @@ explore: remesas{}
 explore: transacciones_pruebas {}
 
 explore: prueba_promos_broxel {}
+
+map_layer: mexico_layer
+{
+  #file: "/mapas/map.json"
+  file: "/Mapa/Estados_MX.topojson"
+  property_key: "neighborhood"
+}
