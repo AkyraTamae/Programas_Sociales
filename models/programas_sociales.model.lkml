@@ -14,7 +14,6 @@ persist_with: programas_sociales_default_datagroup
 map_layer: mexico_layer{
   #file: "/mapas/map.json"
   file: "/Mapa/Estados_MX.topojson"
-  property_key: "neighborhood"
 }
 
 explore: acceso_usuarios {}
