@@ -142,6 +142,12 @@ view: transacciones_pruebas {
     sql: ${TABLE}.monto_intercambio ;;
   }
 
+  dimension: Month {
+    type: date
+    value_format: "MMMM"
+    sql: ${TABLE}.fecha_corte ;;
+  }
+
   dimension:  Layer_MX{
     type: string
     map_layer_name: mexico_layer
