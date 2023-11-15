@@ -142,138 +142,42 @@ view: transacciones_pruebas {
   }
 
   dimension: Layer_MX {
-    case: {
-      when: {
-        sql: ${TABLE}.estado IN ("Aguascalientes");;
-        label: "AGUASCALIENTES"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Baja California");;
-        label: "BAJA CALIFORNIA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Baja California Sur");;
-        label: "BAJA CALIFORNIA SUR"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Campeche");;
-        label: "CAMPECHE"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Ciudad de Mexico");;
-        label: "DISTRITO FEDERAL"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Chiapas");;
-        label: "CHIAPAS"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Chihuahua");;
-        label: "CHIHUAHUA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Coahuila de Zaragoza");;
-        label: "COAHUILA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Colima");;
-        label: "COLIMA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Durango");;
-        label: "DURANGO"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Mexico");;
-        label: "ESTADO DE MÉXICO"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Guerrero");;
-        label: "GUERRERO"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Guanajuato");;
-        label: "GUANAJUATO"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Hidalgo");;
-        label: "HIDALGO"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Jalisco");;
-        label: "JALISCO"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Michoacan de Ocampo");;
-        label: "MICHOACÁN"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Morelos");;
-        label: "MORELOS"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Nayarit");;
-        label: "NAYARIT"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Nuevo Leon");;
-        label: "NUEVO LEÓN"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Oaxaca");;
-        label: "OAXACA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Puebla");;
-        label: "PUEBLA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Queretaro");;
-        label: "QUERÉTARO"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Quintana Roo");;
-        label: "QUINTANA ROO"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("San Luis Potosi");;
-        label: "SAN LUIS POTOSÍ"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Sinaloa");;
-        label: "SINALOA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Sonora");;
-        label: "SONORA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Tabasco");;
-        label: "SONORA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Tamaulipas");;
-        label: "TAMAULIPAS"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Tlaxcala");;
-        label: "TLAXCALA"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Veracruz de Ignacio de la Llave");;
-        label: "VERACRUZ"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Yucatan");;
-        label: "YUCATÁN"
-      }
-      when: {
-        sql: ${TABLE}.estado IN ("Zacatecas");;
-        label: "ZACATECAS"
-      }
-      else: "unknown"
-    }
-    map_layer_name: mexico_layer
+  map_layer_name: mexico_layer
+      sql:
+        Case
+          When ${TABLE}.estado IN ("Aguascalientes") Then "AGUASCALIENTES"
+          When ${TABLE}.estado IN ("Baja California") Then "BAJA CALIFORNIA"
+          When ${TABLE}.estado IN ("Baja California Sur") Then "BAJA CALIFORNIA SUR"
+          When ${TABLE}.estado IN ("Campeche") Then "CAMPECHE"
+          When ${TABLE}.estado IN ("Ciudad de Mexico" Then "DISTRITO FEDERAL"
+          When ${TABLE}.estado IN ("Chiapas") Then "CHIAPAS"
+          When ${TABLE}.estado IN ("Chihuahua") Then "CHIHUAHUA"
+          When ${TABLE}.estado IN ("Coahuila de Zaragoza") Then "COAHUILA"
+          When ${TABLE}.estado IN ("Colima") Then "COLIMA"
+          When ${TABLE}.estado IN ("Durango") Then "DURANGO"
+          When ${TABLE}.estado IN ("Mexico") Then "ESTADO DE MÉXICO"
+          When ${TABLE}.estado IN ("Guerrero") Then "GUERRERO"
+          When ${TABLE}.estado IN ("Guanajuato") Then "GUANAJUATO"
+          When ${TABLE}.estado IN ("Hidalgo") Then "HIDALGO"
+          When ${TABLE}.estado IN ("Jalisco") Then "JALISCO"
+          When ${TABLE}.estado IN ("Michoacan de Ocampo") Then "MICHOACÁN"
+          When ${TABLE}.estado IN ("Morelos") Then "MORELOS"
+          When ${TABLE}.estado IN ("Nayarit") Then "NAYARIT"
+          When ${TABLE}.estado IN ("Nuevo Leon") Then "NUEVO LEÓN"
+          When ${TABLE}.estado IN ("Oaxaca") Then "OAXACA"
+          When ${TABLE}.estado IN ("Puebla") Then "PUEBLA"
+          When ${TABLE}.estado IN ("Queretaro") Then "QUERÉTARO"
+          When ${TABLE}.estado IN ("Quintana Roo") Then "QUINTANA ROO"
+          When ${TABLE}.estado IN ("San Luis Potosi") Then "SAN LUIS POTOSÍ"
+          When ${TABLE}.estado IN ("Sinaloa") Then "SINALOA"
+          When ${TABLE}.estado IN ("Sonora") Then "SONORA"
+          When ${TABLE}.estado IN ("Tabasco") Then "SONORA"
+          When ${TABLE}.estado IN ("Tamaulipas") Then "TAMAULIPAS"
+          When ${TABLE}.estado IN ("Tlaxcala") Then "TLAXCALA"
+          When ${TABLE}.estado IN ("Veracruz de Ignacio de la Llave") Then "VERACRUZ"
+          When ${TABLE}.estado IN ("Yucatan") Then "YUCATÁN"
+          When ${TABLE}.estado IN ("Zacatecas") Then "ZACATECAS"
+          Else "unknown";;
     }
 
 
