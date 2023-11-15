@@ -147,10 +147,10 @@ view: transacciones_pruebas {
     map_layer_name: mexico_layer
     sql:
       Case
-      When Estado = 'Aguascalientes' Then 'AGUASCALIENTES'
-      When Estado = 'Baja California' Then 'BAJA CALIFORNIA'
-      When Estado = 'Baja California Sur' Then 'BAJA CALIFORNIA SUR'
-      When Estado = 'Campeche' Then 'CAMPECHE'
+      When Estado = 'Aguascalientes' Then 'Aguascalientes'
+      When Estado = 'Baja California' Then 'Baja California'
+      When Estado = 'Baja California Sur' Then 'Baja California Sur'
+      When Estado = 'Campeche' Then 'Campeche'
       When Estado = 'Ciudad de Mexico' Then 'DISTRITO FEDERAL'
       When Estado = 'Chiapas' Then 'CHIAPAS'
       When Estado = 'Chihuahua' Then 'CHIHUAHUA'
