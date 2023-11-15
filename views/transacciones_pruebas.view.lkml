@@ -75,6 +75,7 @@ view: transacciones_pruebas {
 
   dimension: estado {
     type: string
+    map_layer_name: mexico_layer
     sql: ${TABLE}.Estado ;;
   }
 
