@@ -201,9 +201,10 @@ view: transacciones_pruebas {
     type: string
     sql:
       Case
-      When Edad > 60 Then '> 60'
-      When Edad Between 20 And 60 Then '20 - 60'
-      Else "< 20" End ;;
+      When Edad > =60 Then '> 60'
+      When Edad >= 40 Then '40 - 60'
+      When Edad >= 20 Then '20 - 60'
+      Else '< 20' End ;;
   }
 
   set: detail {
