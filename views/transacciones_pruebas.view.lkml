@@ -142,45 +142,46 @@ view: transacciones_pruebas {
     sql: ${TABLE}.monto_intercambio ;;
   }
 
-  dimension: Layer_MX {
+  dimension:  Layer_MX{
     type: string
     map_layer_name: mexico_layer
     sql:
       Case
-        When ${TABLE}.estado = "Aguascalientes" Then "AGUASCALIENTES"
-        When ${TABLE}.estado = "Baja California" Then "BAJA CALIFORNIA"
-        When ${TABLE}.estado = "Baja California Sur" Then "BAJA CALIFORNIA SUR"
-        When ${TABLE}.estado = "Campeche" Then "CAMPECHE"
-        When ${TABLE}.estado = "Ciudad de Mexico" Then "DISTRITO FEDERAL"
-        When ${TABLE}.estado = "Chiapas" Then "CHIAPAS"
-        When ${TABLE}.estado = "Chihuahua" Then "CHIHUAHUA"
-        When ${TABLE}.estado = "Coahuila de Zaragoza" Then "COAHUILA"
-        When ${TABLE}.estado = "Colima" Then "COLIMA"
-        When ${TABLE}.estado = "Durango" Then "DURANGO"
-        When ${TABLE}.estado = "Mexico" Then "ESTADO DE MÉXICO"
-        When ${TABLE}.estado = "Guerrero" Then "GUERRERO"
-        When ${TABLE}.estado = "Guanajuato" Then "GUANAJUATO"
-        When ${TABLE}.estado = "Hidalgo" Then "HIDALGO"
-        When ${TABLE}.estado = "Jalisco" Then "JALISCO"
-        When ${TABLE}.estado = "Michoacan de Ocampo" Then "MICHOACÁN"
-        When ${TABLE}.estado = "Morelos" Then "MORELOS"
-        When ${TABLE}.estado = "Nayarit" Then "NAYARIT"
-        When ${TABLE}.estado = "Nuevo Leon" Then "NUEVO LEÓN"
-        When ${TABLE}.estado = "Oaxaca" Then "OAXACA"
-        When ${TABLE}.estado = "Puebla" Then "PUEBLA"
-        When ${TABLE}.estado = "Queretaro" Then "QUERÉTARO"
-        When ${TABLE}.estado = "Quintana Roo" Then "QUINTANA ROO"
-        When ${TABLE}.estado = "San Luis Potosi" Then "SAN LUIS POTOSÍ"
-        When ${TABLE}.estado = "Sinaloa" Then "SINALOA"
-        When ${TABLE}.estado = "Sonora" Then "SONORA"
-        When ${TABLE}.estado = "Tabasco" Then "SONORA"
-        When ${TABLE}.estado = "Tamaulipas" Then "TAMAULIPAS"
-        When ${TABLE}.estado = "Tlaxcala" Then "TLAXCALA"
-        When ${TABLE}.estado = "Veracruz de Ignacio de la Llave" Then "VERACRUZ"
-        When ${TABLE}.estado = "Yucatan" Then "YUCATÁN"
-        When ${TABLE}.estado = "Zacatecas" Then "ZACATECAS"
-        Else "unknown" End;;
+      When Estado = 'Aguascalientes' Then 'AGUASCALIENTES'
+      When Estado = 'Baja California' Then 'BAJA CALIFORNIA'
+      When Estado = 'Baja California Sur' Then 'BAJA CALIFORNIA SUR'
+      When Estado = 'Campeche' Then 'CAMPECHE'
+      When Estado = 'Ciudad de Mexico' Then 'DISTRITO FEDERAL'
+      When Estado = 'Chiapas' Then 'CHIAPAS'
+      When Estado = 'Chihuahua' Then 'CHIHUAHUA'
+      When Estado = 'Coahuila de Zaragoza' Then 'COAHUILA'
+      When Estado = 'Colima' Then 'COLIMA'
+      When Estado = 'Durango' Then 'DURANGO'
+      When Estado = 'Mexico' Then 'ESTADO DE MÉXICO'
+      When Estado = 'Guerrero' Then 'GUERRERO'
+      When Estado = 'Guanajuato' Then 'GUANAJUATO'
+      When Estado = 'Hidalgo' Then 'HIDALGO'
+      When Estado = 'Jalisco' Then 'JALISCO'
+      When Estado = 'Michoacan de Ocampo' Then 'MICHOACÁN'
+      When Estado = 'Morelos' Then 'MORELOS'
+      When Estado = 'Nayarit' Then 'NAYARIT'
+      When Estado = 'Nuevo Leon' Then 'NUEVO LEÓN'
+      When Estado = 'Oaxaca' Then 'OAXACA'
+      When Estado = 'Puebla' Then 'PUEBLA'
+      When Estado = 'Queretaro' Then 'QUERÉTARO'
+      When Estado = 'Quintana Roo' Then 'QUINTANA ROO'
+      When Estado = 'San Luis Potosi' Then 'SAN LUIS POTOSÍ'
+      When Estado = 'Sinaloa' Then 'SINALOA'
+      When Estado = 'Sonora' Then 'SONORA'
+      When Estado = 'Tabasco' Then 'TABASCO'
+      When Estado = 'Tamaulipas' Then 'TAMAULIPAS'
+      When Estado = 'Tlaxcala' Then 'TLAXCALA'
+      When Estado = 'Veracruz de Ignacio de la Llave' Then 'VERACRUZ'
+      When Estado = 'Yucatan' Then 'YUCATÁN'
+      When Estado = 'Zacatecas' Then 'ZACATECAS'
+      Else 'unknown' End;;
     }
+
 
 
   set: detail {
