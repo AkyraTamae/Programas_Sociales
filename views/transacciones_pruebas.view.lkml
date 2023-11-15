@@ -168,7 +168,7 @@ view: transacciones_pruebas {
       When Estado = 'Nuevo Leon' Then 'Nuevo León'
       When Estado = 'Oaxaca' Then 'Oaxaca'
       When Estado = 'Puebla' Then 'Puebla'
-      When Estado = 'Queretaro' Then 'Queretaro'
+      When Estado = 'Queretaro' Then 'Querétaro'
       When Estado = 'Quintana Roo' Then 'Quintana Roo'
       When Estado = 'San Luis Potosi' Then 'San Luis Potosí'
       When Estado = 'Sinaloa' Then 'Sinaloa'
