@@ -194,10 +194,17 @@ view: transacciones_pruebas {
       When Estado = 'Veracruz de Ignacio de la Llave' Then 'Veracruz de Ignacio de la Llave'
       When Estado = 'Yucatan' Then 'Yucatán'
       When Estado = 'Zacatecas' Then 'Zacatecas'
-      Else 'unknown' End;;
+      Else 'unknown' End ;;
     }
 
-
+  dimension: Grupo_Edades{
+    type: string
+    sql:
+      Case
+      When Edad > 60 Then '> 60'
+      When Edad Between 20 And 60 Then '20 - 60'
+      Else "< 20" End ;;
+  }
 
   set: detail {
     fields: [
