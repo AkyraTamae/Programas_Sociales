@@ -162,7 +162,7 @@ view: transacciones_pruebas {
       When Estado = 'Guanajuato' Then 'Guanajuato'
       When Estado = 'Hidalgo' Then 'Hidalgo'
       When Estado = 'Jalisco' Then 'Jalisco'
-      When Estado = 'Michoacan de Ocampo' Then 'Michoacán'
+      When Estado = 'Michoacan de Ocampo' Then 'Michoacán de Ocampo'
       When Estado = 'Morelos' Then 'Morelos'
       When Estado = 'Nayarit' Then 'Nayarit'
       When Estado = 'Nuevo Leon' Then 'Nuevo Leon'
@@ -176,7 +176,7 @@ view: transacciones_pruebas {
       When Estado = 'Tabasco' Then 'Tabasco'
       When Estado = 'Tamaulipas' Then 'Tamaulipas'
       When Estado = 'Tlaxcala' Then 'Tlaxcala'
-      When Estado = 'Veracruz de Ignacio de la Llave' Then 'Veracruz'
+      When Estado = 'Veracruz de Ignacio de la Llave' Then 'Veracruz de Ignacio de la Llave'
       When Estado = 'Yucatan' Then 'Yucatán'
       When Estado = 'Zacatecas' Then 'Zacatecas'
       Else 'unknown' End;;
