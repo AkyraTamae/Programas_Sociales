@@ -142,9 +142,18 @@ view: transacciones_pruebas {
     sql: ${TABLE}.monto_intercambio ;;
   }
 
-  dimension: Month {
-    type: date
-    value_format: "MMMM"
+  dimension_group: Month{
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}.fecha_corte ;;
   }
 
