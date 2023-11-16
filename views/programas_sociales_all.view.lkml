@@ -226,12 +226,13 @@ view: programas_sociales_all {
    type: date
     sql: ${TABLE}.Month_Txt ;;
     html: {{ rendered_value | date: "%B %Y" }};;
+
   }
 
   dimension_group:  month_txt {
     type: time
     timeframes: [
-      month
+      month_name
     ]
     convert_tz: no
     datatype: date
