@@ -228,6 +228,21 @@ view: programas_sociales_all {
     html: {{ rendered_value | date: "%B %Y" }};;
   }
 
+  dimension_group:month_txt{
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.Month_Txt ;;
+  }
+
   measure: total_ventas{
     type: number
     value_format: "#,##0.00;-#,##0.00"
