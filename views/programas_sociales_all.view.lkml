@@ -223,20 +223,20 @@ view: programas_sociales_all {
   }
 
   dimension: month_txt {
-    type: date
+   type: date
     sql: ${TABLE}.Month_Txt ;;
     html: {{ rendered_value | date: "%B %Y" }};;
   }
 
-  dimension_group:month_txt{
+  dimension_group:  month_txt {
     type: time
     timeframes: [
-      month,
-      year
+      month
     ]
     convert_tz: no
     datatype: date
     sql: ${TABLE}.Month_Txt ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
   }
 
   measure: total_ventas{
