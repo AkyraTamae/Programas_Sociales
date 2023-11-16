@@ -168,7 +168,10 @@ view: programas_sociales_mejoravit {
 
   dimension: ventas {
     type: number
-    sql: ${TABLE}.ventas ;;
+    sql:
+      Case When Fecha >= '2023-09-01' Then importe_ventas
+      Else ventas
+      End;;
   }
 
   dimension: devoluciones {
