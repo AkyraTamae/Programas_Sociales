@@ -244,7 +244,7 @@ view: programas_sociales_all {
   }
 
   measure: total_ventas{
-    type: number
+    type: sum
     value_format: "#,##0.00;-#,##0.00"
     sql:
       Case
