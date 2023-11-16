@@ -245,12 +245,18 @@ view: programas_sociales_all {
 
   measure: total_ventas{
     type: sum
-    value_format: "#,##0.00;-#,##0.00"
+    value_format: "$#,##0.00;-$#,##0.00"
     sql:
       Case
       When Fecha >= '2023-09-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
       Else ventas
       End;;
+  }
+
+  measure: total_transacciones {
+    type: sum
+    value_format: "#,##0.00;-#,##0.00"
+    sql: ${TABLE}.transacciones ;;
   }
 
   set: detail {
