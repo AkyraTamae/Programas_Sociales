@@ -223,7 +223,7 @@ view: programas_sociales_all {
   }
 
   dimension: month_txt {
-   type: date
+    type: string
     sql: ${TABLE}.Month_Txt ;;
     html: {{ rendered_value | date: "%B %Y" }};;
 
