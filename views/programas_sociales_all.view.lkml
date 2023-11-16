@@ -170,7 +170,11 @@ view: programas_sociales_all {
 
   dimension: ventas {
     type: number
-    sql: ${TABLE}.ventas ;;
+    sql:
+      Case
+      When ${TABLE}.fecha >= '2023-09-01' And ${TABLE}.nombre_medidas In ('Mejoravit','Hipoteca Verde') Then ${TABLE}.importe_ventas
+      Else ${TABLE}.ventas
+      End;;
   }
 
   dimension: devoluciones {
