@@ -218,9 +218,9 @@ view: programas_sociales_all {
   }
 
   dimension: month_txt {
-    type: string
-    value_format: "MMMM YYYY"
+    type: date
     sql: ${TABLE}.Month_Txt ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
   }
 
   set: detail {
