@@ -232,7 +232,8 @@ view: programas_sociales_all {
   dimension_group:  month_txt {
     type: time
     timeframes: [
-      month_name
+      month_name,
+      year
     ]
     convert_tz: no
     datatype: date
