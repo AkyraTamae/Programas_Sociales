@@ -172,8 +172,8 @@ view: programas_sociales_all {
     type: number
     sql:
       Case
-      When ${TABLE}.fecha >= '2023-09-01' And ${TABLE}.nombre_medidas In ('Mejoravit','Hipoteca Verde') Then ${TABLE}.importe_ventas
-      Else ${TABLE}.ventas
+      When Fecha >= '2023-09-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
+      Else ventas
       End;;
   }
 
