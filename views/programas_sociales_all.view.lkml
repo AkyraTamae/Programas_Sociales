@@ -218,7 +218,8 @@ view: programas_sociales_all {
   }
 
   dimension: month_txt {
-    type: date
+    type: string
+    value_format: "MMMM YYYY"
     sql: ${TABLE}.Month_Txt ;;
   }
 
