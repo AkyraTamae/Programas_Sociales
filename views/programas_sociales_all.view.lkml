@@ -234,6 +234,7 @@ view: programas_sociales_all {
     timeframes: [
       date,
       month_name,
+      month_num,
       year
     ]
     convert_tz: no
