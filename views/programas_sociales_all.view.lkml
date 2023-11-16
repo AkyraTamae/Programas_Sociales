@@ -2,7 +2,6 @@
 view: programas_sociales_all {
   derived_table: {
     sql:
-    Set Language 'Spanish'
     Select
         D.Comercio,
         D.Fecha,
@@ -175,6 +174,7 @@ view: programas_sociales_all {
     sql:
       Case
       When Fecha >= '2023-09-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
+      When NombreMedidas Not In ('Mejoravit','Hipoteca Verde') Then importe_ventas
       Else ventas
       End;;
   }
