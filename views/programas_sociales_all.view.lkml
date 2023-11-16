@@ -171,12 +171,8 @@ view: programas_sociales_all {
 
   dimension: ventas {
     type: number
-    sql:
-      Case
-      When Fecha >= '2023-09-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
-      When NombreMedidas Not In ('Mejoravit','Hipoteca Verde') Then importe_ventas
-      Else ventas
-      End;;
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.ventas ;;
   }
 
   dimension: devoluciones {
@@ -249,6 +245,7 @@ view: programas_sociales_all {
     value_format: "$#,##0.00;-$#,##0.00"
     sql:
       Case
+      When nombre_medidas In ('Renueva','Repara') Then importe_ventas
       When Fecha >= '2023-09-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
       Else ventas
       End;;
