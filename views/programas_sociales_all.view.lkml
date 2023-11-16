@@ -179,26 +179,31 @@ view: programas_sociales_all {
 
   dimension: devoluciones {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.devoluciones ;;
   }
 
   dimension: iva {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.iva ;;
   }
 
   dimension: importe_ventas {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.importe_ventas ;;
   }
 
   dimension: importe_descuento {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.importe_descuento ;;
   }
 
   dimension: transacciones {
     type: number
+    value_format: "#,##0.00;-#,##0.00"
     sql: ${TABLE}.transacciones ;;
   }
 
@@ -221,6 +226,16 @@ view: programas_sociales_all {
     type: date
     sql: ${TABLE}.Month_Txt ;;
     html: {{ rendered_value | date: "%B %Y" }};;
+  }
+
+  measure: total_ventas{
+    type: number
+    value_format: "#,##0.00;-#,##0.00"
+    sql:
+      Case
+      When Fecha >= '2023-09-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
+      Else ventas
+      End;;
   }
 
   set: detail {
