@@ -19,7 +19,7 @@ view: programas_sociales_all {
         D.EstadoFiscal,
         E.Estado_Comercial,
         D.Municipio_Comercial,
-        CONVERT(DATE,DATENAME(MONTH,D.Mes_txt) + ' ' + DATENAME(YEAR,D.Mes_txt)) As 'Month_Txt'
+        CONVERT(DATE,DATENAME(MONTH,D.Mes_txt) + ' ' + DATENAME(YEAR,D.Mes_txt)) As 'mes_txt2'
 
       From
         (
@@ -222,14 +222,14 @@ view: programas_sociales_all {
     sql: ${TABLE}.Municipio_Comercial ;;
   }
 
-  dimension: month_txt {
+  dimension: mes_txt2 {
     type: string
-    sql: ${TABLE}.Month_Txt ;;
+    sql: ${TABLE}.mes_txt ;;
     html: {{ rendered_value | date: "%B %Y" }};;
 
   }
 
-  dimension_group:  month_txt {
+  dimension_group: mes_txt2 {
     type: time
     timeframes: [
       date,
@@ -239,7 +239,7 @@ view: programas_sociales_all {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.Month_Txt ;;
+    sql: ${TABLE}.mes_txt2 ;;
   }
 
   measure: total_ventas{
@@ -277,7 +277,7 @@ view: programas_sociales_all {
   estado_fiscal,
   estado_comercial,
   municipio_comercial,
-  month_txt
+  mes_txt2
     ]
   }
 }
