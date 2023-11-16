@@ -169,8 +169,8 @@ view: programas_sociales_mejoravit {
   dimension: ventas {
     type: number
     sql:
-      Case When Fecha >= '2023-09-01' Then importe_ventas
-      Else ventas
+      Case When ${TABLE}.fecha >= '2023-09-01' Then ${TABLE}.importe_ventas
+      Else ${TABLE}.ventas
       End;;
   }
 
