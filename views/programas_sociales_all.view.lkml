@@ -1,7 +1,9 @@
 
 view: programas_sociales_all {
   derived_table: {
-    sql: Select
+    sql:
+    Set Language 'Spanish'
+    Select
         D.Comercio,
         D.Fecha,
         D.Mes_txt,
@@ -19,7 +21,7 @@ view: programas_sociales_all {
         D.EstadoFiscal,
         E.Estado_Comercial,
         D.Municipio_Comercial,
-        CONVERT(DATE,DATENAME(MONTH,D.Mes_txt) + ' ' + DATENAME(YEAR,D.Mes_txt)) As 'mes_txt2'
+        CONVERT(DATE,DATENAME(M,D.Mes_txt) + ' ' + DATENAME(Y,D.Mes_txt)) As 'mes_txt2'
 
       From
         (
