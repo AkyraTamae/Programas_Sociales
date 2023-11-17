@@ -264,6 +264,7 @@ view: programas_sociales_all {
     When NombreMedidas In ('Mejoravit','Hipoteca Verde','Renueva','Repara') And rfc = 'HDM001017AS1' Then razon_social
     When NombreMedidas In ('Hipoteca Verde') And  rfc = 'COP920428Q20' Then razon_social
     When NombreMedidas In ('Mejoravit') And  rfc = 'DLI931201MI9' Then razon_social
+    Else ''
     End ;;
   }
 
