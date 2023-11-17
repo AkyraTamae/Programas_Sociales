@@ -260,10 +260,10 @@ view: programas_sociales_all {
   dimension: filtro_comercio{
     type: string
     sql:
-    Case
-    When rfc In ('HDM001017AS1','COP920428Q20','DLI931201MI9' Then razon_social
-    Else ''
-    End ;;
+      Case
+      When rfc In ('HDM001017AS1','COP920428Q20','DLI931201MI9') Then razon_social
+      Else ''
+      End ;;
   }
 
   set: detail {
