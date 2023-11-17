@@ -257,16 +257,35 @@ view: programas_sociales_all {
     sql: ${TABLE}.transacciones ;;
   }
 
-  dimension: comercio_filtro {
+  dimension: filtro_home {
     type: string
     sql:
     Case
     When NombreMedidas In ('Mejoravit','Hipoteca Verde','Renueva','Repara') And rfc = 'HDM001017AS1' Then razon_social
+    Else ''
+    End ;;
+  }
+
+  dimension: filtro_coppel{
+    type: string
+    sql:
     When NombreMedidas In ('Hipoteca Verde') And  rfc = 'COP920428Q20' Then razon_social
+    Else ''
+    End ;;
+  }
+
+  dimension: filtro_liverpool{
+    type: string
+    sql:
+    Case
     When NombreMedidas In ('Mejoravit') And  rfc = 'DLI931201MI9' Then razon_social
     Else ''
     End ;;
   }
+
+
+
+
 
 
   set: detail {
