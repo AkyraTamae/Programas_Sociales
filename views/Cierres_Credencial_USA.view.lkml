@@ -10,7 +10,7 @@ view: cierres_credencial_usa {
 
   dimension: date_month {
     type: date_month_name
-    sql: ${TABLE}.Feca ;;
+    sql: ${TABLE}.Fecha ;;
   }
 
   dimension: producto {
