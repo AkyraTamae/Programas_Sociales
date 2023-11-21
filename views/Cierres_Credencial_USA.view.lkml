@@ -23,6 +23,11 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.Clave_Cliente ;;
   }
 
+  measure: clientes_unicos{
+    type: count_distinct
+    sql: ${TABLE}.Clave_Cliente ;;
+  }
+
   measure: operaciones {
     type: sum
     value_format: "#,##0"
