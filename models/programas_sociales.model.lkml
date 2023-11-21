@@ -663,3 +663,5 @@ explore: transacciones_pruebas {}
 explore: prueba_promos_broxel {}
 
 explore: programas_sociales_all {}
+
+explore: cierres_credencial_usa {}
