@@ -23,6 +23,11 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.Clave_Cliente ;;
   }
 
+  dimension: nomenclatura {
+    type: string
+    sql: regexp_extract(${TABLE}.Clave_Cliente,'[A-Z]') ;;
+  }
+
   measure: clientes_unicos{
     type: count_distinct
     sql: ${TABLE}.Clave_Cliente ;;
@@ -69,6 +74,11 @@ view: cierres_credencial_usa {
 
   dimension: productos{
     type: string
+    sql: ${TABLE}.Productos ;;
+  }
+
+  measure: numero_productos {
+    type: count_distinct
     sql: ${TABLE}.Productos ;;
   }
 
