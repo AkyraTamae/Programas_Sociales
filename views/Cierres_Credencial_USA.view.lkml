@@ -8,6 +8,12 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.Fecha ;;
   }
 
+  dimension: date_month {
+    type: date
+    sql: ${TABLE}.Feca ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
+  }
+
   dimension: producto {
     type: string
     sql: ${TABLE}.Producti ;;
