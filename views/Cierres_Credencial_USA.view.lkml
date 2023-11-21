@@ -42,5 +42,58 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.MontoIntercambio ;;
   }
 
-
+  dimension: clasificacioncliente {
+    type: string
+    sql: ${TABLE}.clasificacion_cliente ;;
   }
+
+  dimension: tipo_movimiento {
+    type: string
+    sql: ${TABLE}.TipoMovimiento ;;
+  }
+
+  dimension: procesador{
+    type: string
+    sql: ${TABLE}.Procesador ;;
+  }
+
+  dimension: productos{
+    type: string
+    sql: ${TABLE}.Productos ;;
+  }
+
+  dimension: cliente{
+    type: string
+    sql: ${TABLE}.Clientes ;;
+  }
+
+  dimension_group: fecha_h{
+    timeframes: [raw, time, date, week, month, quarter, year]
+    type: time
+    sql: ${TABLE}.FechaH ;;
+  }
+
+  dimension: clasificacion_ctes_broxel{
+    type: string
+    sql: ${TABLE}.ClasificacionCtesBroxel ;;
+  }
+
+  dimension: clave_grupo_cliente{
+    type: string
+    sql: ${TABLE}.ClaveGrupoCliente ;;
+  }
+
+  dimension: nombre_grupo_cliente{
+    type: string
+    sql: ${TABLE}.NombreGrupoCliente ;;
+  }
+
+  dimension: cohorte{
+    type: string
+    sql: ${TABLE}.Cohorte ;;
+  }
+
+  measure: count {
+    type: count
+  }
+}
