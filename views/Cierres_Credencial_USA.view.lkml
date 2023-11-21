@@ -20,7 +20,7 @@ view: cierres_credencial_usa {
 
   measure: operaciones {
     type: sum
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Operaciones ;;
   }
 
