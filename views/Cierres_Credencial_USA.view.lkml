@@ -9,9 +9,8 @@ view: cierres_credencial_usa {
   }
 
   dimension: date_month {
-    type: date
+    type: date_month_name
     sql: ${TABLE}.Feca ;;
-    html: {{ rendered_value | date: "%B %Y" }};;
   }
 
   dimension: producto {
