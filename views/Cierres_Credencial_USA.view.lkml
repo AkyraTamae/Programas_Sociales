@@ -1,5 +1,5 @@
 view: cierres_credencial_usa {
-   sql_table_name: broxelco_rdg.FiltrosGRL12USA ;;
+  sql_table_name: broxelco_rdg.FiltrosGRL12USA ;;
 
   dimension_group: fecha{
     type: time
@@ -34,15 +34,9 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.Clave_Cliente ;;
   }
 
-  dimension: clientes_por_mes {
-    type: string
-    group_label: ""
-  }
-
-  measure: operaciones {
-    type: sum
-    value_format: "#,##0"
-    label: "Operaciones"
+  dimension: operaciones_dim {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Operaciones ;;
   }
 
@@ -52,10 +46,9 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.Cuenta ;;
   }
 
-  measure: importe_pesos {
-    type: sum
-    value_format: "$#,##0.00;-$#,##0.00"
-    label: "Monto"
+  dimension: importe_pesos_dim {
+    hidden: yes
+    type: number
     sql: ${TABLE}.ImportePesos ;;
   }
 
@@ -88,9 +81,9 @@ view: cierres_credencial_usa {
   }
 
   measure: ingreso_total {
-  type: sum
-  value_format: "$#,##0.00;-$#,##0.00"
-  sql: (${TABLE}.MontoIntercambio/1.16) + (Case When ${TABLE}.TipoMovimiento = 'ATM' Then 1.9 When ${TABLE}.TipoMovimiento = 'SegurosAsistencia' Then ${TABLE}.ImportePesos*0.21  When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos/1.16 Else 0 End);;
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: (${TABLE}.MontoIntercambio/1.16) + (Case When ${TABLE}.TipoMovimiento = 'ATM' Then 1.9 When ${TABLE}.TipoMovimiento = 'SegurosAsistencia' Then ${TABLE}.ImportePesos*0.21  When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos/1.16 Else 0 End);;
   }
 
   measure: monto_intercambio{
@@ -167,12 +160,25 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.Cohorte ;;
   }
 
+  measure: importe_pesos {
+    label: "Monto"
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${importe_pesos_dim} ;;
+  }
+
+  measure: operaciones {
+    label: "Operaciones"
+    type: sum
+    value_format: "#,##0"
+    sql: ${operaciones_dim} ;;
+  }
 
 #############################Filtros#############################
 
   parameter: field_variable {
     type: unquoted
-    label: "Variable a mostrar"
+    label: "Filtro monto & operaciones"
 
     allowed_value: {
       value: "Monto"
@@ -185,15 +191,15 @@ view: cierres_credencial_usa {
   }
 
   measure: sum_variable{
-    label: "{% parameter field_variable %}"
     type: number
     sql:
-      {% if field_variable._parameter_value == 'Monto' %}
-      ${importe_pesos}
-      {% elsif field_variable._parameter_value == 'Operaciones' %}
-      ${operaciones}
-      {% endif %};;
+    case
+    when field_variable = "Monto" Then ${importe_pesos}
+    when field_variable = "Operaciones" Then ${operaciones}
+    end ;;
   }
+
+#############################Filtros#############################
 
   measure: count {
     type: count
