@@ -35,8 +35,8 @@ view: cierres_credencial_usa {
   }
 
   dimension: operaciones_dim {
-    hidden: yes
     type: number
+    value_format: "#,##0"
     sql: ${TABLE}.Operaciones ;;
   }
 
@@ -47,8 +47,8 @@ view: cierres_credencial_usa {
   }
 
   dimension: importe_pesos_dim {
-    hidden: yes
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.ImportePesos ;;
   }
 
@@ -163,14 +163,14 @@ view: cierres_credencial_usa {
   measure: importe_pesos {
     label: "Monto"
     type: sum
-    value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${importe_pesos_dim} ;;
+    value_format_name: usd
+    sql: ${importe_pesos_dim}  ;;
   }
 
   measure: operaciones {
     label: "Operaciones"
     type: sum
-    value_format: "#,##0"
+    value_format_name: decimal_0
     sql: ${operaciones_dim} ;;
   }
 
@@ -191,13 +191,14 @@ view: cierres_credencial_usa {
   }
 
   measure: sum_variable{
+    label: "{% parameter field_variable %}"
     type: number
     sql:
-    case
-    when field_variable = "Monto" Then ${importe_pesos}
-    when field_variable = "Operaciones" Then ${operaciones}
-    end ;;
+      {% if field_variable._parameter_value == 'Monto' %} ${importe_pesos}
+      {% elsif field_variable._parameter_value == 'Operaciones' %} ${operaciones}
+      {% endif %} ;;
   }
+
 
 #############################Filtros#############################
 
