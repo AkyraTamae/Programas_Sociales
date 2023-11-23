@@ -34,9 +34,15 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.Clave_Cliente ;;
   }
 
+  dimension: clientes_por_mes {
+    type: string
+    group_label: ""
+  }
+
   measure: operaciones {
     type: sum
     value_format: "#,##0"
+    label: "Operaciones"
     sql: ${TABLE}.Operaciones ;;
   }
 
@@ -49,6 +55,7 @@ view: cierres_credencial_usa {
   measure: importe_pesos {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
+    label: "Monto"
     sql: ${TABLE}.ImportePesos ;;
   }
 
@@ -158,6 +165,34 @@ view: cierres_credencial_usa {
   dimension: cohorte{
     type: string
     sql: ${TABLE}.Cohorte ;;
+  }
+
+
+#############################Filtros#############################
+
+  parameter: field_variable {
+    type: unquoted
+    label: "Variable a mostrar"
+
+    allowed_value: {
+      value: "Monto"
+      label: "Monto"
+    }
+    allowed_value: {
+      value: "Operaciones"
+      label: "Operaciones"
+    }
+  }
+
+  measure: sum_variable{
+    label: "{% parameter field_variable %}"
+    type: number
+    sql:
+      {% if field_variable._parameter_value == 'Monto' %}
+      ${importe_pesos}
+      {% elsif field_variable._parameter_value == 'Operaciones' %}
+      ${operaciones}
+      {% endif %};;
   }
 
   measure: count {
