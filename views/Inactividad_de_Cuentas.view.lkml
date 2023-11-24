@@ -34,6 +34,7 @@ view: inactividad_de_cuentas {
 
   dimension: disponible {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.disponible ;;
   }
 
