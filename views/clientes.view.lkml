@@ -18,7 +18,7 @@ view: clientes {
         Select
           clave_cliente,
           COUNT(Distinct producto) As 'Productos'
-        From 
+        From
           [broxelco_rdg].[maquila]
         Where
           producto Not Like 'K4%'
@@ -26,10 +26,10 @@ view: clientes {
           clave_cliente
         )B On A.claveCliente = B.clave_cliente
       Where
-        A.GrupoCliente In
+        A.claveCliente In
         (
-          Select  
-            Distinct clave_cliente 
+          Select
+            Distinct clave_cliente
           From
             [broxelco_rdg].[maquila]
           Where
@@ -90,14 +90,14 @@ view: clientes {
   set: detail {
     fields: [
         grupo_cliente,
-	clave_cliente,
-	razon_social,
-	rfc,
-	curp,
-	fecha_alta_time,
-	tipo_cliente,
-	prefijo_clave_cliente,
-	productos
+  clave_cliente,
+  razon_social,
+  rfc,
+  curp,
+  fecha_alta_time,
+  tipo_cliente,
+  prefijo_clave_cliente,
+  productos
     ]
   }
 }
