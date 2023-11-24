@@ -669,3 +669,5 @@ explore: cierres_credencial_usa {}
 explore: pruebas_isa {}
 
 explore: clientes {}
+
+explore: inactividad_de_cuentas {}
