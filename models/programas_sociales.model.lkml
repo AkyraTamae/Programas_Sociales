@@ -671,3 +671,5 @@ explore: pruebas_isa {}
 explore: clientes {}
 
 explore: inactividad_de_cuentas {}
+
+explore: fondeos_mejoravit {}
