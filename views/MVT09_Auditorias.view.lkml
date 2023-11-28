@@ -2,10 +2,10 @@ view: matv09_auditorias {
   derived_table: {
     sql: Select
         A.*,
-        B.MarcaTemporal,
         B.Cantidad,
         B.Producto,
-        B.RazonSocial
+        B.RazonSocial,
+        ROW_NUMBER() Over( Partition By A.IdAuditoria Order By A.IdAuditoria) As 'Distinct_IdAuditoria'
       From
         [broxelco_rdg].[Auditorias2019] A With (Nolock)
       Left Join
@@ -17,10 +17,11 @@ view: matv09_auditorias {
     drill_fields: [detail*]
   }
 
-  dimension: marca_temporal {
-    type: date
-    label: "Marca temporal"
-    sql: ${TABLE}."Marca temporal" ;;
+  dimension_group: marca_temporal {
+    timeframes: [date, week, month, quarter, year, month_name]
+    type: time
+    label: "Marca Temporal"
+    sql: ${TABLE}."Marca Temporal" ;;
   }
 
   dimension_group: hora {
@@ -59,8 +60,9 @@ view: matv09_auditorias {
     sql: ${TABLE}."Número" ;;
   }
 
-  dimension: fecha_transaction {
-    type: date
+  dimension_group: fecha_transaction {
+    timeframes: [date, week, month, quarter, year, month_name]
+    type: time
     sql: ${TABLE}.FechaTransaction ;;
   }
 
@@ -114,7 +116,7 @@ view: matv09_auditorias {
   }
 
   dimension: firma {
-    type: string
+    type: number
     sql: ${TABLE}.Firma ;;
   }
 
@@ -183,19 +185,13 @@ view: matv09_auditorias {
   }
 
   dimension: id_auditoria {
-    type: number
+    type: string
     sql: ${TABLE}.IdAuditoria ;;
   }
 
   dimension: numero_movimiento {
     type: number
     sql: ${TABLE}.NumeroMovimiento ;;
-  }
-
-  dimension_group: marca_temporal {
-    timeframes: [raw, date, week, month, quarter, year, month_name]
-    type: time
-    sql: ${TABLE}.MarcaTemporal ;;
   }
 
   dimension: cantidad {
@@ -213,9 +209,40 @@ view: matv09_auditorias {
     sql: ${TABLE}.RazonSocial ;;
   }
 
+  dimension: distinct_id_auditoria {
+    type: number
+    sql:
+    case
+    when ${TABLE}.Distinct_IdAuditoria = 1 then ${TABLE}.Distinct_IdAuditoria
+    else 0
+    end ;;
+  }
+
+###################################medidas###################################
+
+  measure: auditoria_amonestaciones {
+    type: sum
+    label: "#Amonestados"
+    sql:
+    case
+    when ${TABLE}."Estatus de Auditoria" like '%Amones%' then ${distinct_id_auditoria}
+    else 0
+    end ;;
+  }
+
+    measure: auditoria_correctas {
+    type: sum
+    label: "#Exitosos"
+    sql:
+    case
+    when ${TABLE}."Estatus de Auditoria" not like '%Amones%' then ${distinct_id_auditoria}
+    else 0
+    end ;;
+  }
+
+
   set: detail {
     fields: [
-      marca_temporal,
       hora_time,
       agente,
       turno,
@@ -223,7 +250,6 @@ view: matv09_auditorias {
       nombre_del_titular,
       telfono,
       nmero,
-      fecha_transaction,
       monto_payments,
       monto_factura,
       programa_al_que_pertenece,
@@ -247,10 +273,10 @@ view: matv09_auditorias {
       comentarios,
       id_auditoria,
       numero_movimiento,
-      marca_temporal,
       cantidad,
       producto,
-      razon_social
+      razon_social,
+      distinct_id_auditoria
     ]
   }
 }
