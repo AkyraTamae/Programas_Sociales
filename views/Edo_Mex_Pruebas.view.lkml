@@ -118,7 +118,7 @@ view: edo_mex_pruebas {
 
   dimension: layer_edo_mex {
     type: string
-    map_layer_name: mexico_edo_mex
+    map_layer_name: mexico_edo_mex_p
     sql: ${TABLE}.municipio ;;
   }
 
