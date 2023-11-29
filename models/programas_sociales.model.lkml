@@ -19,11 +19,13 @@ map_layer: mexico_layer{
 map_layer: mexico_edo_mex{
   #file: "/mapas/map.json"
   file: "/Mapa/Edo_Mex.topojson"
+  property_key: "mun_name"
 }
 
 map_layer: mexico_edo_mex_p{
   #file: "/mapas/map.json"
   file: "/Mapa/Edo_Mex_Pruebas.topojson"
+  property_key: "mun_name"
 }
 
 explore: acceso_usuarios {}
