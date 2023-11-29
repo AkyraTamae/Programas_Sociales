@@ -675,3 +675,5 @@ explore: inactividad_de_cuentas {}
 explore: fondeos_mejoravit {}
 
 explore: matv09_auditorias {}
+
+explore: edo_mex_pruebas {}
