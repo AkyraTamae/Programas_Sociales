@@ -4,7 +4,7 @@ view: edo_mex_pruebas {
     sql: Select
         S.Limite,
         S.conteo,
-        DP.* 
+        DP.*
       From
         DetalleProspecto DP With (Nolock)
       Inner Join
@@ -112,32 +112,33 @@ view: edo_mex_pruebas {
   }
 
   dimension: municipio {
-    type: string
-    sql: ${TABLE}.municipio ;;
+      type: string
+      map_layer_name: mexico_edo_mex
+      sql: ${TABLE}.municipio ;;
   }
 
   set: detail {
     fields: [
         limite,
-	conteo,
-	iddetalle_prospecto,
-	idsedes_dias,
-	hora,
-	fecha_time,
-	link,
-	estatus,
-	mensaje,
-	folio_prospecto,
-	primer_nombre,
-	segundo_nombre,
-	ap_paterno,
-	ap_materno,
-	fecha_nacimiento,
-	celular,
-	telefono_fijo,
-	correo,
-	cp,
-	municipio
+  conteo,
+  iddetalle_prospecto,
+  idsedes_dias,
+  hora,
+  fecha_time,
+  link,
+  estatus,
+  mensaje,
+  folio_prospecto,
+  primer_nombre,
+  segundo_nombre,
+  ap_paterno,
+  ap_materno,
+  fecha_nacimiento,
+  celular,
+  telefono_fijo,
+  correo,
+  cp,
+  municipio
     ]
   }
 }
