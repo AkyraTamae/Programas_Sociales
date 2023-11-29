@@ -1,0 +1,1 @@
+{"type":"Topology","objects":{"municipalities":{"type":"Polygon","properties":{"mun_code":82,"mun_name":"Tejupilco"},"arcs":[[1590,1591,1592,1593,1594,1595,1596,1597,-34,-33]]},{"type":"MultiPolygon","properties":{"state_code":15,"mun_code":104,"mun_name":"Tlalnepantla de Baz"},"arcs":[[[-32,1598]],[[1599,-28,-27,1600,1601,1602,1603]]]}}}
