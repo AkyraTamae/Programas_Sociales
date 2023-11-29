@@ -16,6 +16,11 @@ map_layer: mexico_layer{
   file: "/Mapa/Estados_MX.topojson"
 }
 
+map_layer: mexico_edo_mex{
+  #file: "/mapas/map.json"
+  file: "/Mapa/Edo_Mex.topojson"
+}
+
 explore: acceso_usuarios {}
 
 explore: ado_net_destination {}
