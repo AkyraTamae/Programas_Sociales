@@ -1,2 +1,2 @@
-{"type":"Topology","objects":{"municipalities":{"type":"GeometryCollection","geometries":[{"type":"Polygon","properties":{"mun_name":"Tejupilco"},
+{"type":"Topology","objects":{"municipalities":{"type":"GeometryCollection","geometries":[{"type":"Polygon","properties":{"municipio":"Tejupilco"},
 "arcs":[[1590,1591,1592,1593,1594,1595,1596,1597,-34,-33]]}]}}}
