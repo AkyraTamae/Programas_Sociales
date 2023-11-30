@@ -129,6 +129,7 @@ view: edo_mex_pruebas {
   }
 
 
+
   set: detail {
     fields: [
         limite,
