@@ -116,6 +116,12 @@ view: edo_mex_pruebas {
       sql: ${TABLE}.municipio ;;
   }
 
+  dimension: municipio_layer {
+    type: string
+    map_layer_name: municipios_mx
+    sql: ${TABLE}.municipio ;;
+  }
+
 
   set: detail {
     fields: [
