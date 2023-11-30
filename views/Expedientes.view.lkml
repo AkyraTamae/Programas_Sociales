@@ -65,7 +65,7 @@ view: distribucion_y_prediccion_de_las_vueltas {
   }
   dimension_group: fecha_respuesta {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, day_of_week, day_of_week_index, day_of_month, month, quarter, year, hour_of_day]
     sql: ${TABLE}.FechaRespuesta ;;
   }
   dimension: latitud {
@@ -121,8 +121,16 @@ view: distribucion_y_prediccion_de_las_vueltas {
     type: time
     timeframes: [week]
     sql: ${TABLE}.FechaRespuesta ;;
-    html: {{ rendered_value | date: "%B %Y" }};;
+    html: {{ rendered_value | date: "%e %B %Y" }};;
+  }
+  measure: tiempo_promedio_de_respuesta {
+    type: average
+    sql: DATEDIFF(Minute,${TABLE}.FechaAlta,${TABLE}.FechaRespuesta) ;;
+  }
 
+  measure: distinct_credito {
+    type: count_distinct
+    sql: ${TABLE}.credito ;;
   }
 
 
