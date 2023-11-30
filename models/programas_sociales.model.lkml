@@ -22,6 +22,12 @@ map_layer: municipios_mx {
   property_key: "NAME_2"
 }
 
+map_layer: municipios_mx_2 {
+  #file: "/mapas/map.json"
+  file: "/Mapa/Edo_Mex.topojson"
+  property_key: "mun_name"
+}
+
 
 explore: acceso_usuarios {}
 
