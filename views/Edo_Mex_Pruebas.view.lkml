@@ -116,7 +116,7 @@ view: edo_mex_pruebas {
       sql: ${TABLE}.municipio ;;
   }
 
-  dimension: amecameca {
+  dimension: edo_mex_layer {
     type: string
     map_layer_name: edo_mex_layer
     sql: ${TABLE}.municipio ;;
