@@ -116,12 +116,6 @@ view: edo_mex_pruebas {
       sql: ${TABLE}.municipio ;;
   }
 
-  dimension: layer_edo_mex {
-    type: string
-    map_layer_name: mexico_edo_mex_p
-    sql: ${TABLE}.municipio ;;
-  }
-
 
   set: detail {
     fields: [

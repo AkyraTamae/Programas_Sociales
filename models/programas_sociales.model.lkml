@@ -22,11 +22,6 @@ map_layer: mexico_edo_mex{
   property_key: "mun_name"
 }
 
-map_layer: mexico_edo_mex_p{
-  #file: "/mapas/map.json"
-  file: "/Mapa/Edo_Mex_Pruebas.topojson"
-  property_key: "municipio"
-}
 
 explore: acceso_usuarios {}
 
