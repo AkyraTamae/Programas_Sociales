@@ -19,6 +19,7 @@ map_layer: mexico_layer{
 map_layer: municipios_mx {
   #file: "/mapas/map.json"
   file: "/Mapa/Municipios_Mexico.topojson"
+  property_key: "Name_2"
 }
 
 
