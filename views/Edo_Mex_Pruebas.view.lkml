@@ -128,6 +128,7 @@ view: edo_mex_pruebas {
     sql: ${TABLE}.municipio ;;
   }
 
+
   set: detail {
     fields: [
         limite,
