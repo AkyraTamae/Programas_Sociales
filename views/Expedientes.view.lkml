@@ -116,4 +116,17 @@ view: distribución_y_predicción_de_las_vueltas {
     type: count
     drill_fields: [id]
   }
+  ###########################
+  dimension_group: week_fecha_respuesta {
+    type: time
+    timeframes: [week]
+    sql: ${TABLE}.FechaRespuesta ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
+
+  }
+
+
+
+
+
 }
