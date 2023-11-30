@@ -16,11 +16,6 @@ map_layer: mexico_layer{
   file: "/Mapa/Estados_MX.topojson"
 }
 
-map_layer: mexico_edo_mex{
-  #file: "/mapas/map.json"
-  file: "/Mapa/Edo_Mex.topojson"
-  property_key: "mun_name"
-}
 
 
 explore: acceso_usuarios {}
