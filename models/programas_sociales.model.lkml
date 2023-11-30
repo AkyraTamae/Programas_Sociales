@@ -16,17 +16,11 @@ map_layer: mexico_layer{
   file: "/Mapa/Estados_MX.topojson"
 }
 
-map_layer: municipios_mx {
+map_layer: edo_mex_layer {
   #file: "/mapas/map.json"
-  file: "/Mapa/Municipios_Mexico.topojson"
-  property_key: "NAME_2"
-}
-
-map_layer: municipios_mx_2 {
-  file: "/Mapa/Edo_Mex.json"
+  file: "/Mapa/Edo_Mex.topojson"
   property_key: "mun_name"
 }
-
 
 explore: acceso_usuarios {}
 

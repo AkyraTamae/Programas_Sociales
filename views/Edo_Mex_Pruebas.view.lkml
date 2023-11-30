@@ -116,18 +116,11 @@ view: edo_mex_pruebas {
       sql: ${TABLE}.municipio ;;
   }
 
-  dimension: municipio_layer {
+  dimension: amecameca {
     type: string
-    map_layer_name: municipios_mx
+    map_layer_name: edo_mex_layer
     sql: ${TABLE}.municipio ;;
   }
-
-  dimension: municipio_layer_2 {
-    type: string
-    map_layer_name: municipios_mx_2
-    sql: ${TABLE}.municipio ;;
-  }
-
 
 
   set: detail {
