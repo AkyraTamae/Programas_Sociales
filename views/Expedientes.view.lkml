@@ -1,4 +1,4 @@
-view: distribución_y_predicción_de_las_vueltas {
+view: distribucion_y_prediccion_de_las_vueltas {
   sql_table_name: dev_originacion.expedientes ;;
   drill_fields: [id]
 
