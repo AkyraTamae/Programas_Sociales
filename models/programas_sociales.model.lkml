@@ -16,6 +16,10 @@ map_layer: mexico_layer{
   file: "/Mapa/Estados_MX.topojson"
 }
 
+map_layer: municipios_mx {
+  #file: "/mapas/map.json"
+  file: "/Mapa/Municipios_Mexico.topojson"
+}
 
 
 explore: acceso_usuarios {}
