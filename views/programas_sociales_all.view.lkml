@@ -360,7 +360,7 @@ view: programas_sociales_all {
     value_format: "$#,##0.00;-$#,##0.00"
     sql:
       Case
-      When NombreMedidas In ('Renueva','Repara') Then importe_ventas
+      When NombreMedidas In ('Renueva','Repara','Equipa Tu Casa') Then importe_ventas
       When Fecha >= '2023-09-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
       Else ventas
       End;;
