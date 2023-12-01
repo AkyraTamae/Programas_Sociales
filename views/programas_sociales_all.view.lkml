@@ -381,8 +381,8 @@ view: programas_sociales_all {
       End ;;
   }
 
-  dimension: puntos_de_venta {
-    type: string
+  measure: puntos_de_venta {
+    type: max
     sql: ${TABLE}.Puntos_de_Venta ;;
   }
 
