@@ -50,6 +50,7 @@ view: datos_generales_dispositivos_2443 {
   }
   dimension: mes {
     type: string
+    alpha_sort: yes
     sql: ${TABLE}.Mes ;;
   }
   dimension: numero_calle {
