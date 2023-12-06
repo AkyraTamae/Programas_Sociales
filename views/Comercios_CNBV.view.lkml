@@ -86,49 +86,49 @@ view: comercios_cnbv {
 
   dimension: comercios_no_acumulado {
     type: string
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Comercios_No_Acumulado ;;
   }
 
   dimension: comercios_acumulado {
     type: string
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Comercios_Acumulado ;;
   }
 
   dimension: comercios_transaccion_no_acumulado {
     type: string
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Comercios_Transaccion_No_Acumulado ;;
   }
 
   dimension: comercios_transaccion_acumulado {
     type: string
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Comercios_Transaccion_Acumulado ;;
   }
 
   dimension: dispositivos_no_acumulado {
     type: string
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Dispositivos_No_Acumulado ;;
   }
 
   dimension: dispositivos_acumulado {
     type: string
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Dispositivos_Acumulado ;;
   }
 
   dimension: dispositivos_transaccion_no_acumulado {
     type: string
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Dispositivos_Transaccion_No_Acumulado ;;
   }
 
   dimension: dispositivos_transaccion_acumulado {
     type: string
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.Dispositivos_Transaccion_Acumulado ;;
   }
 
