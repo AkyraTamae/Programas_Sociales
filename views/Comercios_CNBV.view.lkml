@@ -4,14 +4,14 @@ view: comercios_cnbv {
         A.Id,
         A.Anio,
         A.Mes,
-        Case When A.Tipo = 'Comercios_No_Acumulado' Then 'Comercios_No_Acumulado' End As 'Comercios_No_Acumulado',
-        Case When A.Tipo = 'Comercios_Acumulado' Then 'Comercios_Acumulado' End As 'Comercios_Acumulado',
-        Case When A.Tipo = 'Comercios_Transaccion_No_Acumulado' Then 'Comercios_Transaccion_No_Acumulado' End As 'Comercios_Transaccion_No_Acumulado',
-        Case When A.Tipo = 'Comercios_Transaccion_Acumulado' Then 'Comercios_Transaccion_Acumulado' End As 'Comercios_Transaccion_Acumulado',
-        Case When A.Tipo = 'Dispositivos_No_Acumulado' Then 'Dispositivos_No_Acumulado' End As 'Dispositivos_No_Acumulado',
-        Case When A.Tipo = 'Dispositivos_Acumulado' Then 'Dispositivos_Acumulado' End As 'Dispositivos_Acumulado',
-        Case When A.Tipo = 'Dispositivos_Transaccion_No_Acumulado' Then 'Dispositivos_Transaccion_No_Acumulado' End As 'Dispositivos_Transaccion_No_Acumulado',
-        Case When A.Tipo = 'Dispositivos_Transaccion_Acumulado' Then 'Dispositivos_Transaccion_Acumulado' End As 'Dispositivos_Transaccion_Acumulado'
+        Case When A.Tipo = 'Comercios_No_Acumulado' Then A.TotalDispositivos End As 'Comercios_No_Acumulado',
+        Case When A.Tipo = 'Comercios_Acumulado' Then A.TotalDispositivos End As 'Comercios_Acumulado',
+        Case When A.Tipo = 'Comercios_Transaccion_No_Acumulado' Then A.TotalDispositivos End As 'Comercios_Transaccion_No_Acumulado',
+        Case When A.Tipo = 'Comercios_Transaccion_Acumulado' Then A.TotalDispositivos End As 'Comercios_Transaccion_Acumulado',
+        Case When A.Tipo = 'Dispositivos_No_Acumulado' Then A.TotalDispositivos End As 'Dispositivos_No_Acumulado',
+        Case When A.Tipo = 'Dispositivos_Acumulado' Then A.TotalDispositivos End As 'Dispositivos_Acumulado',
+        Case When A.Tipo = 'Dispositivos_Transaccion_No_Acumulado' Then A.TotalDispositivos End As 'Dispositivos_Transaccion_No_Acumulado',
+        Case When A.Tipo = 'Dispositivos_Transaccion_Acumulado' Then A.TotalDispositivos End As 'Dispositivos_Transaccion_Acumulado'
       From
       (
       Select
