@@ -37,7 +37,7 @@ view: datos_generales_dispositivos_2443 {
   }
   dimension_group: fecha_situacion {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, month_num, quarter, year]
     sql: ${TABLE}.FechaSituacion ;;
   }
   dimension: localidad {
