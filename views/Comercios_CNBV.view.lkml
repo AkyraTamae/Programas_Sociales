@@ -2,27 +2,27 @@ view: comercios_cnbv {
   derived_table: {
     sql: Select
         *,
-        'Comercios_No_Acumulado' As 'CNBV_Tipo'
+        'ComerciosNoAcumulado' As 'Tipo'
       From
-      [CNBV].[ComerciosNoAcumulado_2422]
+        [CNBV].[ComerciosNoAcumulado_2422]
       Union All
       Select
         *,
-        'Comercios_Acumulado' As 'CNBV_Tipo'
+        'ComerciosAcumulado' As 'Tipo'
       From
         [CNBV].[ComerciosAcumulado_2422]
       Union All
       Select
         *,
-        'Comercios_Transaccion_No_Acumulado' As 'CNBV_Tipo'
+        'ComerciosTransaccionNoAcumulado' As 'Tipo'
       From
         [CNBV].[ComerciosTransaccionNoAcumulado_2422]
       Union All
       Select
         *,
-        'Dispositivos_Transaccion_Acumulado' As 'CNBV_Tipo'
+        'ComerciosTransaccionAcumulado' As 'Tipo'
       From
-        [CNBV].[DispositivosTransaccionAcumulado_2422] ;;
+        [CNBV].[ComerciosTransaccionAcumulado_2422] ;;
   }
 
   measure: count {
@@ -50,18 +50,23 @@ view: comercios_cnbv {
     sql: ${TABLE}.TotalDispositivos ;;
   }
 
-  dimension: cnbv_tipo {
+  dimension: tipo {
     type: string
-    sql: ${TABLE}.CNBV_Tipo ;;
+    sql: ${TABLE}.Tipo ;;
+  }
+
+  measure: dispositivos {
+    type: sum
+    sql: ${TABLE}.TotalDispositivos ;;
   }
 
   set: detail {
     fields: [
-      id,
-      anio,
-      mes,
-      total_dispositivos,
-      cnbv_tipo
+        id,
+  anio,
+  mes,
+  total_dispositivos,
+  tipo
     ]
   }
 }
