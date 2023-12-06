@@ -687,3 +687,5 @@ explore: edo_mex_pruebas {}
 explore: distribucion_y_prediccion_de_las_vueltas {}
 
 explore: comercios_cnbv {}
+
+explore: datos_generales_dispositivos_2443 {}
