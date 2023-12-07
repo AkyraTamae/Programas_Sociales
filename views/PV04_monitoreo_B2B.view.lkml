@@ -64,6 +64,11 @@ view: PV04_monitoreo_B2B {
     sql: ${TABLE}.Productos ;;
   }
 
+  measure: total_cuentas {
+    type: sum
+    sql: ${TABLE}.Cuentas ;;
+  }
+
   set: detail {
     fields: [
       cuentas,
