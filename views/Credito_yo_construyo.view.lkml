@@ -35,6 +35,7 @@ view: credito_yo_construyo {
   }
   dimension: monto_credito {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoCredito ;;
   }
   dimension: nombre_derechohabiente {
