@@ -47,8 +47,9 @@ view: broxel_usa {
     sql: ${TABLE}.producto ;;
   }
 
-  dimension: maquila {
-    type: string
+  dimension_group: maquila {
+    type: time
+    timeframes: [raw, time, date, week, month, month_num, quarter, year]
     sql: ${TABLE}.maquila ;;
   }
 
@@ -88,7 +89,6 @@ view: broxel_usa {
       nombre_titular,
       num_cuenta,
       producto,
-      maquila,
       clave_cliente,
       mail_tarjeta_activada,
       celular_tarjeta_activada,
