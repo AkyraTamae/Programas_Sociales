@@ -134,8 +134,6 @@ explore: consumo_sr {}
 
 explore: consumo_srwork_bench {}
 
-explore: credito_yo_construyo {}
-
 explore: cuenta_pickit {}
 
 explore: cuentas_secre_campo {}
@@ -693,3 +691,5 @@ explore: datos_generales_dispositivos_2443 {}
 explore: PV04_monitoreo_B2B {}
 
 explore: broxel_usa {}
+
+explore: credito_yo_construyo {}
