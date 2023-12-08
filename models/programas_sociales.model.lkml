@@ -134,8 +134,6 @@ explore: consumo_sr {}
 
 explore: consumo_srwork_bench {}
 
-explore: credito_yo_construyo {}
-
 explore: cuenta_pickit {}
 
 explore: cuentas_secre_campo {}
@@ -683,3 +681,15 @@ explore: fondeos_mejoravit {}
 explore: matv09_auditorias {}
 
 explore: edo_mex_pruebas {}
+
+explore: distribucion_y_prediccion_de_las_vueltas {}
+
+explore: comercios_cnbv {}
+
+explore: datos_generales_dispositivos_2443 {}
+
+explore: PV04_monitoreo_B2B {}
+
+explore: broxel_usa {}
+
+explore: credito_yo_construyo {}
