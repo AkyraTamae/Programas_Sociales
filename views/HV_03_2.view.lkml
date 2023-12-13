@@ -1,11 +1,11 @@
 view: hv_03_2 {
   derived_table: {
     sql: Select
-        A.folio,
+        A.folio As 'Folio_2',
         A.liquidacion_comercio,
         A.fecha,
         A.fechaPago,
-        A.comercio,
+        A.comercio As 'Comercio_2',
         A.importe_ventas,
         A.transacciones,
         AA.razon_social,
@@ -30,9 +30,9 @@ view: hv_03_2 {
     drill_fields: [detail*]
   }
 
-  dimension: folio {
+  dimension: folio_2 {
     type: string
-    sql: ${TABLE}.folio ;;
+    sql: ${TABLE}.folio_2 ;;
   }
 
   dimension: liquidacion_comercio {
@@ -50,9 +50,9 @@ view: hv_03_2 {
     sql: ${TABLE}.fechaPago ;;
   }
 
-  dimension: comercio {
+  dimension: comercio_2 {
     type: string
-    sql: ${TABLE}.comercio ;;
+    sql: ${TABLE}.comercio_2 ;;
   }
 
   dimension: importe_ventas {
@@ -77,11 +77,11 @@ view: hv_03_2 {
 
   set: detail {
     fields: [
-      folio,
+      folio_2,
       liquidacion_comercio,
       fecha,
       fecha_pago,
-      comercio,
+      comercio_2,
       importe_ventas,
       transacciones,
       razon_social,

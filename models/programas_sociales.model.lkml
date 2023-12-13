@@ -702,6 +702,6 @@ explore: hv_03_2 {
   join: hv_03_1 {
     type: left_outer
     relationship: many_to_one
-    sql_on: ${hv_03_2.comercio} = ${hv_03_1.comercio} ;;
+    sql_on: ${hv_03_2.comercio_2} = ${hv_03_1.comercio} ;;
     }
     }
