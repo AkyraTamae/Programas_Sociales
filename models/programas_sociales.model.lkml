@@ -693,3 +693,7 @@ explore: PV04_monitoreo_B2B {}
 explore: broxel_usa {}
 
 explore: credito_yo_construyo {}
+
+explore: filtros_grl12 {}
+
+explore: estatus_creditos_construyo {}
