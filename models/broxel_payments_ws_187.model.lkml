@@ -1,5 +1,4 @@
 connection: "broxelpaymentsws_187"
-connection: "azurebi"
 
 # include all the views
 include: "/views/**/*.view.lkml"
