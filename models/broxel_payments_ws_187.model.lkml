@@ -16,5 +16,4 @@ explore: hv_03_1 {
     relationship: one_to_many
     sql_on: ${hv_03_1.comercio} = ${hv_03_2.comercio} ;;
   }
-
 }
