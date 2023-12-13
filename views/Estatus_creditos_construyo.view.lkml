@@ -44,6 +44,7 @@ view: estatus_creditos_construyo {
 
   dimension: monto_credito {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoCredito ;;
   }
 
@@ -74,6 +75,7 @@ view: estatus_creditos_construyo {
 
   dimension: monto_mov {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoMov ;;
   }
 
