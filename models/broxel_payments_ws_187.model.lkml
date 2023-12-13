@@ -10,10 +10,4 @@ datagroup: broxel_payments_ws_187_default_datagroup  {
 
 persist_with: broxel_payments_ws_187_default_datagroup
 
-explore: hv_03_1 {
-  join: hv_03_2 {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${hv_03_1.comercio} = ${hv_03_2.comercio} ;;
-  }
-}
+explore: hv_03_1 {}
