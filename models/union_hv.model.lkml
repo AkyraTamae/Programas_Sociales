@@ -1,7 +1,10 @@
 connection: "broxelpaymentsws_187"
+connection: "azurebi"
 
 include:"/views/HV_03_1.view.lkml"
 include:"/views/HV_03_2.view.lkml"
+
+explore: hv_03_2 {}
 
 explore: hv_03_1 {
   join: hv_03_2 {
