@@ -11,7 +11,7 @@ view: hv_03_2 {
         AA.razon_social,
         AA.rfc
       From
-        broxelco_rdg.bp_detalle_diario_comercio A With (Nolock)
+        Azure_SQLBI.broxelco_rdg.bp_detalle_diario_comercio A With (Nolock)
       Left Join
         (
         Select
@@ -19,7 +19,7 @@ view: hv_03_2 {
           razon_social,
           rfc
         From
-          broxelco_rdg.Comercio With (Nolock)
+          Azure_SQLBI.broxelco_rdg.Comercio With (Nolock)
         )AA On A.comercio = AA.comercio
       Where
         A.processor = 2 And A.importe_ventas <> 0 And A.idPrograma = 10 And fecha > '2018-04-10' ;;

@@ -17,11 +17,11 @@ view: hv_03_1 {
         AA.Estado,
         AA.Descripcion
       From
-        dbo.BitacoraTransaccionesExternas A With (Nolock)
+          BroxelPaymentsWs.dbo.BitacoraTransaccionesExternas A With (Nolock)
       Left Join
-        dbo.BitacoraTransaccionesExternasLiquidaciones B With (Nolock) On  A.IdMovimiento = B.IdMovimiento
+          BroxelPaymentsWs.dbo.BitacoraTransaccionesExternasLiquidaciones B With (Nolock) On  A.IdMovimiento = B.IdMovimiento
       Join
-        dbo.Movimiento C With (Nolock) On B.IdMovimiento = C.idMovimiento
+          BroxelPaymentsWs.dbo.Movimiento C With (Nolock) On B.IdMovimiento = C.idMovimiento
       Left Join
         (
         Select
@@ -32,9 +32,9 @@ view: hv_03_1 {
           B.Estado,
           B.Descripcion
         From
-          dbo.ConciliacionesEcoWeb A with(nolock)
+            BroxelPaymentsWs.dbo.ConciliacionesEcoWeb A with(nolock)
         Inner Join
-          dbo.CatEstadosConciliacionEcoWeb B With (Nolock) On A.EstadosConciliacionEcoWebID = B.EstadosConciliacionEcoWebID
+            BroxelPaymentsWs.dbo.CatEstadosConciliacionEcoWeb B With (Nolock) On A.EstadosConciliacionEcoWebID = B.EstadosConciliacionEcoWebID
         )AA On C.idMovimiento = AA.IdMovimiento
       Where
         C.idMovimiento > 15000000 ;;
