@@ -699,5 +699,3 @@ explore: filtros_grl12 {}
 explore: estatus_creditos_construyo {}
 
 explore: hv_03_2 {}
-
-explore: hv_03 {}
