@@ -1,4 +1,4 @@
-connection: "azurebi"
+connection: "broxelpaymentsws_187"
 
 include:"/views/HV_03_1.view.lkml"
 include:"/views/HV_03_2.view.lkml"
