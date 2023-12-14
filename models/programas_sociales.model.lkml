@@ -698,12 +698,6 @@ explore: filtros_grl12 {}
 
 explore: estatus_creditos_construyo {}
 
-explore: hv_03_1 {}
+explore: hv_03_2 {}
 
-explore: hv_03_2 {
-  join: hv_03_1 {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${hv_03_2.comercio_2} = ${hv_03_1.comercio} ;;
-    }
-    }
+explore: hv_03 {}
