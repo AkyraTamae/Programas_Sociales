@@ -51,7 +51,7 @@ view: hv_03_1 {
   }
 
   dimension: id_movimiento {
-    type: number
+    type: string
     sql: ${TABLE}.idMovimiento ;;
   }
 
