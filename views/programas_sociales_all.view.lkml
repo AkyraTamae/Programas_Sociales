@@ -361,7 +361,7 @@ view: programas_sociales_all {
     sql:
       Case
       When NombreMedidas In ('Renueva','Repara','Equipa Tu Casa') Then importe_ventas
-      When Fecha >= '2021-01-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
+      When Fecha >= '2023-09-01' And NombreMedidas In ('Mejoravit','Hipoteca Verde') Then importe_ventas
       Else ventas
       End;;
   }
