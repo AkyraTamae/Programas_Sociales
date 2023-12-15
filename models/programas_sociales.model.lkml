@@ -697,3 +697,9 @@ explore: credito_yo_construyo {}
 explore: filtros_grl12 {}
 
 explore: estatus_creditos_construyo {}
+
+explore: hv_03_comercios {}
+
+explore: hv_03_liquidacion {}
+
+explore: hv_03_spei {}
