@@ -1,4 +1,4 @@
-connection: "broxelpaymentsws_187"
+connection: "servidor187"
 
 # include all the views
 include: "/views/**/*.view.lkml"
