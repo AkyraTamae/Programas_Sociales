@@ -9,8 +9,9 @@ view: hv_03_consulta_personalizada {
         Estado,
         Descripcion
       From
-        ConciliacionesEcoWeb a with(nolock)
-      inner join CatEstadosConciliacionEcoWeb b with(nolock) on a.EstadosConciliacionEcoWebID=b.EstadosConciliacionEcoWebID ;;
+        dbo.ConciliacionesEcoWeb a with(nolock)
+      inner join
+        dbo.CatEstadosConciliacionEcoWeb b with(nolock) on a.EstadosConciliacionEcoWebID=b.EstadosConciliacionEcoWebID ;;
   }
 
   measure: count {
@@ -51,11 +52,11 @@ view: hv_03_consulta_personalizada {
   set: detail {
     fields: [
         id_movimiento,
-	no_credito,
-	conciliaciones_eco_web_id,
-	estados_conciliacion_eco_web_id,
-	estado,
-	descripcion
+  no_credito,
+  conciliaciones_eco_web_id,
+  estados_conciliacion_eco_web_id,
+  estado,
+  descripcion
     ]
   }
 }
