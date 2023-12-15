@@ -9,5 +9,3 @@ datagroup: broxel_payments_ws_187_default_datagroup  {
 }
 
 persist_with: broxel_payments_ws_187_default_datagroup
-
-explore: hv_03_1 {}
