@@ -2,11 +2,11 @@
 view: hv_03_spei {
   derived_table: {
     sql: Select
-        Monto,
-        idSTP,
-        ConceptoPago,
-        Fecha 
-      From 
+        Monto As 'S_Monto',
+        idSTP As 'S_idSTP',
+        ConceptoPago As 'S_ConceptoPago',
+        Fecha As 'S_Fecha'
+      From
         broxelco_rdg.RecepcionTransferencias With (Nolock)
       Where
         FechaOperacion > '2018-04-05' And CLABE = '646180143121032635' ;;
@@ -17,32 +17,32 @@ view: hv_03_spei {
     drill_fields: [detail*]
   }
 
-  dimension: monto {
+  dimension: s_monto {
     type: number
-    sql: ${TABLE}.Monto ;;
+    sql: ${TABLE}.s_Monto ;;
   }
 
-  dimension: id_stp {
+  dimension: s_id_stp {
     type: string
-    sql: ${TABLE}.idSTP ;;
+    sql: ${TABLE}.s_idSTP ;;
   }
 
-  dimension: concepto_pago {
+  dimension: s_concepto_pago {
     type: string
-    sql: ${TABLE}.ConceptoPago ;;
+    sql: ${TABLE}.s_ConceptoPago ;;
   }
 
-  dimension_group: fecha {
+  dimension_group: s_fecha {
     type: time
-    sql: ${TABLE}.Fecha ;;
+    sql: ${TABLE}.s_Fecha ;;
   }
 
   set: detail {
     fields: [
-        monto,
-	id_stp,
-	concepto_pago,
-	fecha_time
+        s_monto,
+  s_id_stp,
+  s_concepto_pago,
+  s_fecha_time
     ]
   }
 }
