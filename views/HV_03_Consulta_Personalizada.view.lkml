@@ -20,7 +20,7 @@ measure: count {
 }
 
 dimension: id_movimiento {
-  type: number
+  type: string
   sql: ${TABLE}.IdMovimiento ;;
 }
 

@@ -33,7 +33,7 @@ view: hv_03_compras {
   }
 
   dimension: id_movimiento {
-    type: number
+    type: string
     sql: ${TABLE}.idMovimiento ;;
   }
 
