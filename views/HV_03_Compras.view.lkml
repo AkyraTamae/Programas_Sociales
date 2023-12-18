@@ -2,16 +2,16 @@
 view: hv_03_compras {
   derived_table: {
     sql: Select Distinct
-          A.IdClienteTransaccion,
-          C.idMovimiento,
-          C.Monto,
-          A.FechaCreacion,
-          A.IdEstado,
-          A.IdTransaccionStp,
-          B.Comercio,
-          B.Folio,
-          C.Tarjeta,
-          C.NumCuenta,
+          A.IdClienteTransaccion As 'C_IdClienteTransaccion',
+          C.idMovimiento As 'C_idMovimiento',
+          C.Monto As 'C_Monto',
+          A.FechaCreacion As 'C_FechaCreacion',
+          A.IdEstado As 'C_IdEstado',
+          A.IdTransaccionStp As 'C_IdTransaccionStp',
+          B.Comercio As 'C_Comercio',
+          B.Folio As 'C_Folio',
+          C.Tarjeta As 'C_Tarjeta',
+          C.NumCuenta As 'C_NumCuenta',
           AA.NoCredito As 'P_NoCredito',
           AA.ConciliacionesEcoWebID As 'P_ConciliacionesEcoWebID',
           AA.EstadosConciliacionEcoWebID As 'P_EstadosConciliacionEcoWebID',
@@ -46,54 +46,54 @@ view: hv_03_compras {
     drill_fields: [detail*]
   }
 
-  dimension: id_cliente_transaccion {
+  dimension: c_id_cliente_transaccion {
     type: string
-    sql: ${TABLE}.IdClienteTransaccion ;;
+    sql: ${TABLE}.C_IdClienteTransaccion ;;
   }
 
-  dimension: id_movimiento {
+  dimension: c_id_movimiento {
     type: number
-    sql: ${TABLE}.idMovimiento ;;
+    sql: ${TABLE}.C_idMovimiento ;;
   }
 
-  dimension: monto {
+  dimension: c_monto {
     type: number
-    sql: ${TABLE}.Monto ;;
+    sql: ${TABLE}.C_Monto ;;
   }
 
-  dimension_group: fecha_creacion {
+  dimension_group: c_fecha_creacion {
     type: time
-    sql: ${TABLE}.FechaCreacion ;;
+    sql: ${TABLE}.C_FechaCreacion ;;
   }
 
-  dimension: id_estado {
+  dimension: c_id_estado {
     type: number
-    sql: ${TABLE}.IdEstado ;;
+    sql: ${TABLE}.C_IdEstado ;;
   }
 
-  dimension: id_transaccion_stp {
+  dimension: c_id_transaccion_stp {
     type: string
-    sql: ${TABLE}.IdTransaccionStp ;;
+    sql: ${TABLE}.C_IdTransaccionStp ;;
   }
 
-  dimension: comercio {
+  dimension: c_comercio {
     type: string
-    sql: ${TABLE}.Comercio ;;
+    sql: ${TABLE}.C_Comercio ;;
   }
 
-  dimension: folio {
+  dimension: c_folio {
     type: string
-    sql: ${TABLE}.Folio ;;
+    sql: ${TABLE}.C_Folio ;;
   }
 
-  dimension: tarjeta {
+  dimension: c_tarjeta {
     type: string
-    sql: ${TABLE}.Tarjeta ;;
+    sql: ${TABLE}.C_Tarjeta ;;
   }
 
-  dimension: num_cuenta {
+  dimension: c_num_cuenta {
     type: string
-    sql: ${TABLE}.NumCuenta ;;
+    sql: ${TABLE}.C_NumCuenta ;;
   }
 
   dimension: p_no_credito {
@@ -123,16 +123,16 @@ view: hv_03_compras {
 
   set: detail {
     fields: [
-        id_cliente_transaccion,
-  id_movimiento,
-  monto,
-  fecha_creacion_time,
-  id_estado,
-  id_transaccion_stp,
-  comercio,
-  folio,
-  tarjeta,
-  num_cuenta,
+        c_id_cliente_transaccion,
+  c_id_movimiento,
+  c_monto,
+  c_fecha_creacion_time,
+  c_id_estado,
+  c_id_transaccion_stp,
+  c_comercio,
+  c_folio,
+  c_tarjeta,
+  c_num_cuenta,
   p_no_credito,
   p_conciliaciones_eco_web_id,
   p_estados_conciliacion_eco_web_id,
