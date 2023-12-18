@@ -12,11 +12,11 @@ view: hv_03_compras {
           B.Folio,
           C.Tarjeta,
           C.NumCuenta,
-          AA.NoCredito,
-          AA.ConciliacionesEcoWebID,
-          AA.EstadosConciliacionEcoWebID,
-          AA.Estado,
-          AA.Descripcion
+          AA.NoCredito As 'P_NoCredito',
+          AA.ConciliacionesEcoWebID As 'P_ConciliacionesEcoWebID',
+          AA.EstadosConciliacionEcoWebID As 'P_EstadosConciliacionEcoWebID',
+          AA.Estado As 'P_Estado',
+          AA.Descripcion As 'P_Descripcion'
       From
         dbo.BitacoraTransaccionesExternas A With (Nolock)
       Left Join
@@ -96,29 +96,29 @@ view: hv_03_compras {
     sql: ${TABLE}.NumCuenta ;;
   }
 
-  dimension: no_credito {
+  dimension: p_no_credito {
     type: string
-    sql: ${TABLE}.NoCredito ;;
+    sql: ${TABLE}.P_NoCredito ;;
   }
 
-  dimension: conciliaciones_eco_web_id {
+  dimension: p_conciliaciones_eco_web_id {
     type: number
-    sql: ${TABLE}.ConciliacionesEcoWebID ;;
+    sql: ${TABLE}.P_ConciliacionesEcoWebID ;;
   }
 
-  dimension: estados_conciliacion_eco_web_id {
+  dimension: p_estados_conciliacion_eco_web_id {
     type: number
-    sql: ${TABLE}.EstadosConciliacionEcoWebID ;;
+    sql: ${TABLE}.P_EstadosConciliacionEcoWebID ;;
   }
 
-  dimension: estado {
+  dimension: p_estado {
     type: string
-    sql: ${TABLE}.Estado ;;
+    sql: ${TABLE}.P_Estado ;;
   }
 
-  dimension: descripcion {
+  dimension: p_descripcion {
     type: string
-    sql: ${TABLE}.Descripcion ;;
+    sql: ${TABLE}.P_Descripcion ;;
   }
 
   set: detail {
@@ -133,11 +133,11 @@ view: hv_03_compras {
   folio,
   tarjeta,
   num_cuenta,
-  no_credito,
-  conciliaciones_eco_web_id,
-  estados_conciliacion_eco_web_id,
-  estado,
-  descripcion
+  p_no_credito,
+  p_conciliaciones_eco_web_id,
+  p_estados_conciliacion_eco_web_id,
+  p_estado,
+  p_descripcion
     ]
   }
 }
