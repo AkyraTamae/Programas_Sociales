@@ -2,13 +2,16 @@
 view: hv_03_liquidacion {
   derived_table: {
     sql: Select
-        folio,
-        liquidacion_comercio,
-        fecha,fechaPago,comercio,importe_ventas,
-        transacciones 
+        folio As 'L_Folio',
+        liquidacion_comercio As 'L_liquidacion_comercio',
+        fecha As 'L_Fecha',
+        fechaPago As 'L_FechaPago',
+        comercio As 'L_Comercio',
+        importe_ventas As 'L_Importe_ventas',
+        transacciones As 'L_Transacciones'
       From
         broxelco_rdg.bp_detalle_diario_comercio With(Nolock)
-      Where 
+      Where
         Processor = 2 And importe_ventas <> 0 And  idPrograma = 10 And fecha >'2018-04-10' ;;
   }
 
@@ -17,50 +20,50 @@ view: hv_03_liquidacion {
     drill_fields: [detail*]
   }
 
-  dimension: folio {
+  dimension: l_folio {
     type: string
-    sql: ${TABLE}.folio ;;
+    sql: ${TABLE}.l_folio ;;
   }
 
-  dimension: liquidacion_comercio {
+  dimension: l_liquidacion_comercio {
     type: number
-    sql: ${TABLE}.liquidacion_comercio ;;
+    sql: ${TABLE}.l_liquidacion_comercio ;;
   }
 
-  dimension: fecha {
+  dimension: l_fecha {
     type: date
-    sql: ${TABLE}.fecha ;;
+    sql: ${TABLE}.l_fecha ;;
   }
 
-  dimension: fecha_pago {
+  dimension: l_fecha_pago {
     type: date
-    sql: ${TABLE}.fechaPago ;;
+    sql: ${TABLE}.l_fechaPago ;;
   }
 
-  dimension: comercio {
+  dimension: l_comercio {
     type: string
-    sql: ${TABLE}.comercio ;;
+    sql: ${TABLE}.l_comercio ;;
   }
 
-  dimension: importe_ventas {
+  dimension: l_importe_ventas {
     type: number
-    sql: ${TABLE}.importe_ventas ;;
+    sql: ${TABLE}.l_importe_ventas ;;
   }
 
-  dimension: transacciones {
+  dimension: l_transacciones {
     type: number
-    sql: ${TABLE}.transacciones ;;
+    sql: ${TABLE}.l_transacciones ;;
   }
 
   set: detail {
     fields: [
-        folio,
-	liquidacion_comercio,
-	fecha,
-	fecha_pago,
-	comercio,
-	importe_ventas,
-	transacciones
+        l_folio,
+  l_liquidacion_comercio,
+  l_fecha,
+  l_fecha_pago,
+  l_comercio,
+  l_importe_ventas,
+  l_transacciones
     ]
   }
 }
