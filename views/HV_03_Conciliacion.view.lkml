@@ -26,7 +26,6 @@ view: hv_03_conciliacion {
         AA.Comercio As 'Comercio_C',
         A.C_Comercio As 'Comercio_P',
         AC.ConceptoPago As 'Concepto_Pago',
-        Null As 'Diferencia',--AVG(AB.importe_ventas) - SUM(AC.Monto)
         Case
           When A.C_IdEstado = 3 Then 'Cancelada'
           When A.C_IdEstado = 2 Then 'Lista Para Pagar'
@@ -210,13 +209,9 @@ view: hv_03_conciliacion {
     sql: ${TABLE}.Concepto_Pago ;;
   }
 
-  dimension: diferencia {
+  measure: diferencia {
     type: number
-    sql: ${TABLE}.diferencia ;;
-  }
-
-  measure: diferencia_2 {
-    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${diferencia_avg} - ${diferencia_sum} ;;
   }
 
@@ -310,7 +305,6 @@ view: hv_03_conciliacion {
   comercio_c,
   comercio_p,
   concepto_pago,
-  diferencia,
   estado,
   folio_c,
   id_movimiento_c,
