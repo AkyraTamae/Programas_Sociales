@@ -703,3 +703,5 @@ explore: hv_03_comercios {}
 explore: hv_03_liquidacion {}
 
 explore: hv_03_spei {}
+
+explore: hv_03_general {}
