@@ -1,5 +1,5 @@
 
-view: hv_03_general {
+view: hv_03_conciliacion {
   derived_table: {
     sql: Select
         A.C_idMovimiento As 'Id_Movimiento',
@@ -61,7 +61,7 @@ view: hv_03_general {
           fechaPago,
           comercio,
           importe_ventas,
-          transacciones 
+          transacciones
         From
           [broxelco_rdg].[bp_detalle_diario_comercio] Wirh (Nolock)
         Where
@@ -265,40 +265,40 @@ view: hv_03_general {
   set: detail {
     fields: [
         id_movimiento,
-	comercio,
-	razon_social,
-	folio,
-	num_cuenta,
-	fecha_compra,
-	monto_de_compra,
-	id_stp,
-	fecha_spei_time,
-	monto_spei,
-	fecha_liquidacion,
-	tiempo_para_liquidacion,
-	liquidacion_comercio,
-	importe_ventas,
-	id_cliente_transaccion,
-	fecha_creacion_time,
-	conciliaciones_eco_web_id,
-	estados_conciliacion_eco_web_id,
-	estado_conciliacion,
-	descripcion,
-	id_estado,
-	comercio_c,
-	comercio_p,
-	concepto_pago,
-	diferencia,
-	estado,
-	folio_c,
-	id_movimiento_c,
-	id_transaccion_stp,
-	monto_compra_agrupado,
-	no_credito,
-	nmero_de_registros,
-	rfc,
-	tarjeta,
-	transacciones
+  comercio,
+  razon_social,
+  folio,
+  num_cuenta,
+  fecha_compra,
+  monto_de_compra,
+  id_stp,
+  fecha_spei_time,
+  monto_spei,
+  fecha_liquidacion,
+  tiempo_para_liquidacion,
+  liquidacion_comercio,
+  importe_ventas,
+  id_cliente_transaccion,
+  fecha_creacion_time,
+  conciliaciones_eco_web_id,
+  estados_conciliacion_eco_web_id,
+  estado_conciliacion,
+  descripcion,
+  id_estado,
+  comercio_c,
+  comercio_p,
+  concepto_pago,
+  diferencia,
+  estado,
+  folio_c,
+  id_movimiento_c,
+  id_transaccion_stp,
+  monto_compra_agrupado,
+  no_credito,
+  nmero_de_registros,
+  rfc,
+  tarjeta,
+  transacciones
     ]
   }
 }
