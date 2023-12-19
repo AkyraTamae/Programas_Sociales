@@ -212,7 +212,24 @@ view: hv_03_conciliacion {
 
   dimension: diferencia {
     type: number
-    sql: ${TABLE}.Diferencia ;;
+    sql: ${TABLE}.diferencia ;;
+  }
+
+  measure: diferencia_2 {
+    type: number
+    sql: ${diferencia_avg} - ${diferencia_sum} ;;
+  }
+
+  measure: diferencia_avg {
+    type: number
+    hidden: yes
+    sql: AVG(${TABLE}.importe_ventas) ;;
+  }
+
+  measure: diferencia_sum {
+    type: number
+    hidden: yes
+    sql: SUM(${TABLE}.monto_de_compra) ;;
   }
 
   dimension: estado {
