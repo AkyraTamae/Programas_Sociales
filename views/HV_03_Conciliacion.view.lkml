@@ -87,7 +87,7 @@ view: hv_03_conciliacion {
   }
 
   dimension: id_movimiento {
-    type: number
+    type: string
     sql: ${TABLE}.Id_Movimiento ;;
   }
 
@@ -118,6 +118,7 @@ view: hv_03_conciliacion {
 
   dimension: monto_de_compra {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Monto_de_Compra ;;
   }
 
@@ -133,6 +134,7 @@ view: hv_03_conciliacion {
 
   dimension: monto_spei {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Monto_SPEI ;;
   }
 
@@ -148,11 +150,13 @@ view: hv_03_conciliacion {
 
   dimension: liquidacion_comercio {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Liquidacion_Comercio ;;
   }
 
   dimension: importe_ventas {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Importe_Ventas ;;
   }
 
@@ -167,12 +171,12 @@ view: hv_03_conciliacion {
   }
 
   dimension: conciliaciones_eco_web_id {
-    type: number
+    type: string
     sql: ${TABLE}.Conciliaciones_Eco_Web_ID ;;
   }
 
   dimension: estados_conciliacion_eco_web_id {
-    type: number
+    type: string
     sql: ${TABLE}.Estados_Conciliacion_Eco_Web_ID ;;
   }
 
@@ -187,7 +191,7 @@ view: hv_03_conciliacion {
   }
 
   dimension: id_estado {
-    type: number
+    type: string
     sql: ${TABLE}.Id_Estado ;;
   }
 
@@ -222,17 +226,18 @@ view: hv_03_conciliacion {
   }
 
   dimension: id_movimiento_c {
-    type: number
+    type: string
     sql: ${TABLE}.Id_Movimiento_C ;;
   }
 
   dimension: id_transaccion_stp {
-    type: number
+    type: string
     sql: ${TABLE}.Id_Transaccion_STP ;;
   }
 
   dimension: monto_compra_agrupado {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Monto_Compra_Agrupado ;;
   }
 
