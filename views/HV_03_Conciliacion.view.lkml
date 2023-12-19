@@ -227,6 +227,18 @@ view: hv_03_conciliacion {
     sql: SUM(${TABLE}.monto_de_compra) ;;
   }
 
+  measure: monto_de_compra_sum {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.monto_de_compra ;;
+  }
+
+  measure: importe_ventas_avg {
+    type: average
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.importe_ventas ;;
+  }
+
   dimension: estado {
     type: string
     sql: ${TABLE}.Estado ;;
