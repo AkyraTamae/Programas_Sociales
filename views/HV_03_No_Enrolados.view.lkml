@@ -163,4 +163,9 @@ view: hv_03_no_enrolados {
     type: count
     drill_fields: [id]
   }
+  dimension: estatus_enrolamiento {
+      type: string
+      sql: case when ${TABLE}.Procesado = true then 'Enrolado' else 'No enrolado' end ;;
+  }
+
 }
