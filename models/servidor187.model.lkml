@@ -9,3 +9,5 @@ datagroup: servidor187_default_datagroup  {
 }
 
 persist_with: servidor187_default_datagroup
+
+explore: hv_03_no_enrolados {}
