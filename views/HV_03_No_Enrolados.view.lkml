@@ -165,7 +165,7 @@ view: hv_03_no_enrolados {
   }
   dimension: estatus_enrolamiento {
       type: string
-      sql: case when ${TABLE}.Procesado = true then 'Enrolado' else 'No enrolado' end ;;
+      sql: case when ${TABLE}.Procesado = 'true' then 'Enrolado' else 'No enrolado' end ;;
   }
 
 }
