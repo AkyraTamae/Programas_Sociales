@@ -13,3 +13,5 @@ persist_with: servidor217_default_datagroup
 explore: hv_06_campanas_email {}
 
 explore: hv_06_in_app {}
+
+explore: hv_06_sms {}
