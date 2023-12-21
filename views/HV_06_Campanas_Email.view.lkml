@@ -3,7 +3,7 @@ view: hv_06_campanas_email {
   derived_table: {
     sql: Select
       Credito.Valor As 'Credito',
-      Cuenta.Valor As 'Cuenta', 
+      Cuenta.Valor As 'Cuenta',
       P.Correo As 'EmailOrigen',
       P.Correo,
       EC.Id As 'IdEnvioCampana',
@@ -16,7 +16,7 @@ view: hv_06_campanas_email {
       EC.FechaEnvio,
       EC.Estatus As 'EstatusEnvioCampana',
       DCE.Html
-      From 
+      From
         dbo.Campana C With (Nolock)
       Inner Join
         dbo.EnvioCampana EC With (Nolock) On C.Id = EC.IdCampana
@@ -28,25 +28,25 @@ view: hv_06_campanas_email {
           EC.IdProspecto,
           DC.Asunto,
           EC.Id,
-          ROW_NUMBER() OVER (PARTITION By EC.IdProspecto Order By EC.IdProspecto,EC.Id ) AS 'N_Envio' 
+          ROW_NUMBER() OVER (PARTITION By EC.IdProspecto Order By EC.IdProspecto,EC.Id ) AS 'N_Envio'
         From
           dbo.EnvioCampana EC With (Nolock)
         Inner Join
           dbo.DetalleCampanaEmail DC With(Nolock) On EC.IdCampana = DC.IdCampana And EC.IdDetCam = DC.Id
         ) Conteo On  EC.Id = Conteo.Id
-      Inner Join 
+      Inner Join
         dbo.Prospecto P With (Nolock) On EC.IdProspecto = P.Id
-      Inner Join 
+      Inner Join
         (
         Select
           [IdProspectoProducto],
           [IdCampo],
           [Valor]
-        From 
+        From
           dbo.CamposValor With (Nolock)
         Where IdCampo = 3
         ) Credito On P.Id = Credito.IdProspectoProducto
-      Inner Join 
+      Inner Join
         (
         Select
         [IdProspectoProducto],
@@ -86,7 +86,7 @@ view: hv_06_campanas_email {
   }
 
   dimension: id_envio_campana {
-    type: number
+    type: string
     sql: ${TABLE}.IdEnvioCampana ;;
   }
 
@@ -138,19 +138,19 @@ view: hv_06_campanas_email {
   set: detail {
     fields: [
         credito,
-	cuenta,
-	email_origen,
-	correo,
-	id_envio_campana,
-	n_envio,
-	id_campana,
-	msg,
-	mensaje,
-	canal,
-	campaa,
-	fecha_envio_time,
-	estatus_envio_campana,
-	html
+  cuenta,
+  email_origen,
+  correo,
+  id_envio_campana,
+  n_envio,
+  id_campana,
+  msg,
+  mensaje,
+  canal,
+  campaa,
+  fecha_envio_time,
+  estatus_envio_campana,
+  html
     ]
   }
 }
