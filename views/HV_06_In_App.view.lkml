@@ -74,7 +74,7 @@ view: hv_06_in_app {
   }
 
   dimension: id_envio_campana {
-    type: number
+    type: string
     sql: ${TABLE}.IdEnvioCampana ;;
   }
 
