@@ -391,6 +391,12 @@ view: programas_sociales_all {
     sql: ${TABLE}.comercio ;;
   }
 
+  dimension: mexico_layer {
+    type: string
+    map_layer_name: mexico_layer
+    sql: ${TABLE}.estado_comercial ;;
+  }
+
   set: detail {
     fields: [
       comercio,
