@@ -394,7 +394,7 @@ view: programas_sociales_all {
   dimension: mexico_layer {
     type: string
     map_layer_name: mexico_layer
-    sql: ${TABLE}.estado_comercial ;;
+    sql: lower(${TABLE}.estado_comercial) ;;
   }
 
   set: detail {
