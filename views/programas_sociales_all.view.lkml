@@ -386,6 +386,11 @@ view: programas_sociales_all {
     sql: ${TABLE}.Puntos_de_Venta ;;
   }
 
+  measure: puntosdeventa {
+    type: count_distinct
+    sql: ${TABLE}.comercio ;;
+  }
+
   set: detail {
     fields: [
       comercio,
