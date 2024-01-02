@@ -2,7 +2,7 @@
 view: transacciones_mensual_all {
   derived_table: {
     sql: --Transacciones Equipa, Renueva
-      Select            
+      Select
         IdTransferencia As 'Id_Movimiento',
         NumCuenta As 'Cuenta',
         DenMov As 'Comercio',
@@ -59,15 +59,15 @@ view: transacciones_mensual_all {
       Inner Join
         [broxelco_rdg].[Comercio] With (Nolock) On DenMov = Comercio
       Where
-        Producto In ('K303','K281') And CONVERT(Date,fecha) >= '2023-12-01' And AuthorizationCode Is Not Null And Comercio.comercio Not In 
+        Producto In ('K303','K281') And CONVERT(Date,fecha) >= '2023-12-01' And AuthorizationCode Is Not Null And Comercio.comercio Not In
         (
         Select *
-        From 
+        From
           [broxelco_rdg].[ComercioNoReportar] With (Nolock)
         )
-      
+
       Union All
-      
+
       --Transacciones Repara
       Select
         id As 'Id_Movimiento',
@@ -118,7 +118,7 @@ view: transacciones_mensual_all {
         FClear As 'Fecha',
         ImpTotal As 'Monto',
         'Repara' As 'Nombre_de_Medidas'
-      From 
+      From
         [broxelco_rdg].[ind_movimientos] With (Nolock)
       Inner Join
         [broxelco_rdg].[Comercio] On DenMov = Comercio
@@ -129,9 +129,9 @@ view: transacciones_mensual_all {
         From
           [broxelco_rdg].[ComercioNoReportar] With (Nolock)
         )
-      
+
       Union All
-      
+
       --Transacciones Mejoravit
       Select
         IdMovimiento As 'Id_Movimiento',
@@ -183,8 +183,8 @@ view: transacciones_mensual_all {
         Monto,
         'Mejoravit' As 'Nombre_de_Medidas'
       From
-        [dev_originacion].[mejoravit_transacciones] With (Nolock) 
-      Where 
+        [dev_originacion].[mejoravit_transacciones] With (Nolock)
+      Where
         CONVERT(Date,Fecha) >= '2023-11-01' ;;
   }
 
@@ -230,6 +230,7 @@ view: transacciones_mensual_all {
 
   dimension: monto {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Monto ;;
   }
 
@@ -241,14 +242,14 @@ view: transacciones_mensual_all {
   set: detail {
     fields: [
         id_movimiento,
-	cuenta,
-	comercio,
-	razon_social,
-	rfc,
-	estado_comercial,
-	fecha,
-	monto,
-	nombre_de_medidas
+  cuenta,
+  comercio,
+  razon_social,
+  rfc,
+  estado_comercial,
+  fecha,
+  monto,
+  nombre_de_medidas
     ]
   }
 }
