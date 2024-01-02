@@ -240,6 +240,12 @@ view: transacciones_mensual_all {
     sql: ${TABLE}.Nombre_de_Medidas ;;
   }
 
+  dimension:  mexico_layer {
+    type: string
+    map_layer_name:  mexico_layer
+    sql: ${TABLE}.Estado_Comercial ;;
+  }
+
   set: detail {
     fields: [
         id_movimiento,
