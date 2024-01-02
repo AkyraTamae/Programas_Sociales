@@ -246,6 +246,12 @@ view: transacciones_mensual_all {
     sql: ${TABLE}.Estado_Comercial ;;
   }
 
+  measure: sum_monto {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.Monto ;;
+  }
+
   set: detail {
     fields: [
         id_movimiento,
