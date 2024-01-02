@@ -223,8 +223,9 @@ view: transacciones_mensual_all {
     sql: ${TABLE}.Estado_Comercial ;;
   }
 
-  dimension: fecha {
-    type: date
+  measure: fecha {
+    type: time
+    timeframes: [date, month_name, month_num, year]
     sql: ${TABLE}.Fecha ;;
   }
 
@@ -247,7 +248,6 @@ view: transacciones_mensual_all {
   razon_social,
   rfc,
   estado_comercial,
-  fecha,
   monto,
   nombre_de_medidas
     ]
