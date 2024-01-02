@@ -59,7 +59,7 @@ view: transacciones_mensual_all {
       Inner Join
         [broxelco_rdg].[Comercio] With (Nolock) On DenMov = Comercio
       Where
-        Producto In ('K303','K281') And CONVERT(Date,fecha) >= '2023-12-01' And AuthorizationCode Is Not Null And Comercio.comercio Not In
+        Producto In ('K303','K281') And CONVERT(Date,fecha) >= '2023-11-01' And AuthorizationCode Is Not Null And Comercio.comercio Not In
         (
         Select *
         From
