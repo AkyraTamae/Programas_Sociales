@@ -84,8 +84,8 @@ view: programas_sociales_all {
       Select
       comercio,
       Case
-      WHEN Comercio = '23CBX00958' Then 'HIDALGO'
-      WHEN Comercio = '23CBX00980' Then 'JALISCO'
+      WHEN Comercio = '23CBX00958' Then 'Hidalgo'
+      WHEN Comercio = '23CBX00980' Then 'Jalisco'
       WHEN estadoComercial Like '%cdmx%' Or estadoComercial Like '%ciudad de m%' Or estadoComercial Like '%CIUDAD DE M%' Or estadoComercial Like '%FEDERAL%' Or estadoComercial Like '%D.F.%' Or estadoComercial Like '%DF%' Or estadoComercial Like '%CMDX%' Then 'Distrito Federal'
       WHEN estadoComercial Like '%xico%' Or estadoComercial Like '%Edo. Méx' Or estadoComercial Like '%EDO MEX%' Or estadoComercial = 'MEX' Or estadoComercial = 'MEX.' Or estadoComercial Like '%Edo. Mex.%'  Then 'México'
       WHEN estadoComercial Like '%uebl%' Then 'Puebla'
