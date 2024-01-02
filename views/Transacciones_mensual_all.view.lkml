@@ -194,7 +194,7 @@ view: transacciones_mensual_all {
   }
 
   dimension: id_movimiento {
-    type: number
+    type: string
     sql: ${TABLE}.Id_Movimiento ;;
   }
 
