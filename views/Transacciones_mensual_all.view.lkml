@@ -223,7 +223,7 @@ view: transacciones_mensual_all {
     sql: ${TABLE}.Estado_Comercial ;;
   }
 
-  measure: fecha {
+  dimension_group: fecha {
     type: time
     timeframes: [date, month_name, month_num, year]
     sql: ${TABLE}.Fecha ;;
