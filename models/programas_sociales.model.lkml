@@ -705,3 +705,5 @@ explore: hv_03_liquidacion {}
 explore: hv_03_spei {}
 
 explore: hv_03_conciliacion {}
+
+explore: transacciones_mensual_all {}
