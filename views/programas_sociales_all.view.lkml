@@ -320,7 +320,7 @@ view: programas_sociales_all {
 
   dimension: transacciones {
     type: number
-    value_format: "#,##0.00;-#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.transacciones ;;
   }
 
@@ -372,7 +372,7 @@ view: programas_sociales_all {
 
   measure: total_transacciones {
     type: sum
-    value_format: "#,##0.00;-#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.transacciones ;;
   }
 
