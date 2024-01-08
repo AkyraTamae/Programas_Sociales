@@ -8,13 +8,7 @@ view: cierres_credencial_usa_agrupacion {
         CONVERT(VARCHAR(19), DATEADD(HOUR, -5, GETDATE()), 120) As 'FechaH',
         ClasificacionCtesBroxel,
         B.GrupoCliente As 'ClaveGrupoCliente',
-        D.NombreCorto As 'NombreGrupoCliente',
-        Case
-        When MONTH(A.Fecha) In ('1', '2', '3') Then CONCAT(YEAR(A.Fecha), '-0')
-        When MONTH(A.Fecha) In ('4', '5', '6') Then CONCAT(YEAR(A.Fecha), '-1')
-        When MONTH(A.Fecha) In ('7', '8', '9') Then CONCAT(YEAR(A.Fecha), '-2')
-        When MONTH(A.Fecha) In ('10', '11', '12') Then CONCAT(YEAR(A.Fecha), '-3')
-        End As 'Cohorte'
+        D.NombreCorto As 'NombreGrupoCliente'
       From
         CierreTransaccionesUSA A With (Nolock)
       Left Join
@@ -25,18 +19,15 @@ view: cierres_credencial_usa_agrupacion {
         broxelco_rdg.AgrupacionClientes D With (Nolock) On B.GrupoCliente = D.ClaveAgrupacion ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
+  dimension_group: fecha{
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year, month_name]
+    datatype: datetime
+    sql: ${TABLE}.Fecha ;;
   }
 
-  dimension: id {
-    type: number
-    sql: ${TABLE}.Id ;;
-  }
-
-  dimension: fecha {
-    type: date
+  dimension: date_month {
+    type: date_month_name
     sql: ${TABLE}.Fecha ;;
   }
 
@@ -45,29 +36,90 @@ view: cierres_credencial_usa_agrupacion {
     sql: ${TABLE}.Producto ;;
   }
 
-  dimension: clave_cliente {
+  dimension: clave_cliente{
     type: string
     sql: ${TABLE}.Clave_Cliente ;;
   }
 
-  dimension: operaciones {
+  dimension: nomenclatura {
+    type: string
+    sql: substring(${TABLE}.Clave_Cliente,patindex('%[A-Z]%', ${TABLE}.Clave_Cliente),3) ;;
+  }
+
+  measure: clientes_unicos{
+    type: count_distinct
+    value_format: "#,##0;-#,##0"
+    sql: ${TABLE}.Clave_Cliente ;;
+  }
+
+  dimension: operaciones_dim {
     type: number
+    value_format: "#,##0"
     sql: ${TABLE}.Operaciones ;;
   }
 
-  dimension: cuentas {
-    type: number
-    sql: ${TABLE}.Cuentas ;;
+  measure: cuenta {
+    type: sum
+    value_format: "#,##0.00"
+    sql: ${TABLE}.Cuenta ;;
   }
 
-  dimension: importe_pesos {
+  dimension: importe_pesos_dim {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.ImportePesos ;;
   }
 
-  dimension: monto_intercambio {
-    type: number
+  measure: importe_d {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql:
+      Case
+      When ${TABLE}.TipoMovimiento = 'Devoluciones' Then -1 * ${TABLE}.ImportePesos
+      Else ${TABLE}.ImportePesos
+      End ;;
+  }
+
+  measure: importe_sin_IVA {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.ImportePesos/1.16 ;;
+  }
+
+  measure: comision_sin_IVA {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql:
+      Case
+      When ${TABLE}.TipoMovimiento = 'ATM' Then 1.9
+      When ${TABLE}.TipoMovimiento = 'SegurosAsistencia' Then ${TABLE}.ImportePesos*0.21
+      When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos/1.16
+      Else 0
+      End ;;
+  }
+
+  measure: ingreso_total {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: (${TABLE}.MontoIntercambio/1.16) + (Case When ${TABLE}.TipoMovimiento = 'ATM' Then 1.9 When ${TABLE}.TipoMovimiento = 'SegurosAsistencia' Then ${TABLE}.ImportePesos*0.21  When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos/1.16 Else 0 End);;
+  }
+
+  measure: monto_intercambio{
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoIntercambio ;;
+  }
+
+  dimension: monto_intercambio_dim{
+    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.MontoIntercambio ;;
+  }
+
+  measure: monto_intercambio_sin_IVA{
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.MontoIntercambio/1.16 ;;
   }
 
   dimension: clasificacion_cliente {
@@ -80,72 +132,101 @@ view: cierres_credencial_usa_agrupacion {
     sql: ${TABLE}.TipoMovimiento ;;
   }
 
-  dimension: procesador {
+  dimension: procesador{
     type: string
     sql: ${TABLE}.Procesador ;;
   }
 
-  dimension: descripcion_usuario {
-    type: string
-    sql: ${TABLE}.DescripcionUsuario ;;
-  }
-
-  dimension: productos {
+  dimension: productos{
     type: string
     sql: ${TABLE}.Productos ;;
   }
 
-  dimension: clientes {
+  measure: numero_productos {
+    type: count_distinct
+    sql: ${TABLE}.Productos ;;
+  }
+
+  dimension: cliente{
     type: string
     sql: ${TABLE}.Clientes ;;
   }
 
-  dimension: fecha_h {
+  dimension: descripcionusuario {
     type: string
+    sql: ${TABLE}.descripcionusuario ;;
+  }
+
+  dimension_group: fecha_h{
+    timeframes: [raw, time, date, week, month, quarter, year, month_name]
+    type: time
     sql: ${TABLE}.FechaH ;;
   }
 
-  dimension: clasificacion_ctes_broxel {
-    type: number
+  dimension: clasificacion_ctes_broxel{
+    type: string
     sql: ${TABLE}.ClasificacionCtesBroxel ;;
   }
 
-  dimension: clave_grupo_cliente {
+  dimension: clave_grupo_cliente{
     type: string
     sql: ${TABLE}.ClaveGrupoCliente ;;
   }
 
-  dimension: nombre_grupo_cliente {
+  dimension: nombre_grupo_cliente{
     type: string
     sql: ${TABLE}.NombreGrupoCliente ;;
   }
 
-  dimension: cohorte {
+  dimension: cohorte{
     type: string
     sql: ${TABLE}.Cohorte ;;
   }
 
-  set: detail {
-    fields: [
-        id,
-  fecha,
-  producto,
-  clave_cliente,
-  operaciones,
-  cuentas,
-  importe_pesos,
-  monto_intercambio,
-  clasificacion_cliente,
-  tipo_movimiento,
-  procesador,
-  descripcion_usuario,
-  productos,
-  clientes,
-  fecha_h,
-  clasificacion_ctes_broxel,
-  clave_grupo_cliente,
-  nombre_grupo_cliente,
-  cohorte
-    ]
+  measure: importe_pesos {
+    label: "Monto"
+    type: sum
+    value_format_name: usd
+    sql: ${importe_pesos_dim}  ;;
   }
+
+  measure: operaciones {
+    label: "Operaciones"
+    type: sum
+    value_format_name: decimal_0
+    sql: ${operaciones_dim} ;;
+  }
+
+#############################Filtros#############################
+
+  parameter: field_variable {
+    type: unquoted
+    label: "Filtro monto & operaciones"
+
+    allowed_value: {
+      value: "Monto"
+      label: "Monto"
+    }
+    allowed_value: {
+      value: "Operaciones"
+      label: "Operaciones"
+    }
+  }
+
+  measure: sum_variable{
+    label: "{% parameter field_variable %}"
+    type: number
+    sql:
+      {% if field_variable._parameter_value == 'Monto' %} ${importe_pesos}
+      {% elsif field_variable._parameter_value == 'Operaciones' %} ${operaciones}
+      {% endif %} ;;
+  }
+
+
+#############################Filtros#############################
+
+  measure: count {
+    type: count
+  }
+
 }
