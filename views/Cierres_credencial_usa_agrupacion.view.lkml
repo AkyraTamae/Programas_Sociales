@@ -197,34 +197,6 @@ view: cierres_credencial_usa_agrupacion {
     sql: ${operaciones_dim} ;;
   }
 
-#############################Filtros#############################
-
-  parameter: field_variable {
-    type: unquoted
-    label: "Filtro monto & operaciones"
-
-    allowed_value: {
-      value: "Monto"
-      label: "Monto"
-    }
-    allowed_value: {
-      value: "Operaciones"
-      label: "Operaciones"
-    }
-  }
-
-  measure: sum_variable{
-    label: "{% parameter field_variable %}"
-    type: number
-    sql:
-      {% if field_variable._parameter_value == 'Monto' %} ${importe_pesos}
-      {% elsif field_variable._parameter_value == 'Operaciones' %} ${operaciones}
-      {% endif %} ;;
-  }
-
-
-#############################Filtros#############################
-
   measure: count {
     type: count
   }
