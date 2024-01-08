@@ -137,6 +137,11 @@ view: cierres_credencial_usa_agrupacion {
     sql: ${TABLE}.Procesador ;;
   }
 
+  dimension: descripcion_usuario {
+    type: string
+    sql: ${TABLE}.DescripcionUsuario ;;
+  }
+
   dimension: productos {
     type: string
     sql: ${TABLE}.Productos ;;
@@ -203,6 +208,7 @@ view: cierres_credencial_usa_agrupacion {
       clasificacion_cliente,
       tipo_movimiento,
       procesador,
+      descripcion_usuario,
       productos,
       clientes,
       clasificacion_ctes_broxel,
