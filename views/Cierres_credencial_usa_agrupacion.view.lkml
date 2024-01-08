@@ -200,5 +200,24 @@ view: cierres_credencial_usa_agrupacion {
   measure: count {
     type: count
   }
+  set: detail {
+    fields: [
+      producto,
+      clave_cliente,
+      operaciones,
+      cuenta,
+      importe_pesos,
+      monto_intercambio,
+      clasificacion_cliente,
+      tipo_movimiento,
+      procesador,
+      descripcionusuario,
+      productos,
+      cliente,
+      clasificacion_ctes_broxel,
+      clave_grupo_cliente,
+      nombre_grupo_cliente
+    ]
+  }
 
 }
