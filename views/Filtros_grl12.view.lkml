@@ -79,7 +79,7 @@ view: filtros_grl12 {
   }
   dimension: tipo_movimiento {
     type: string
-    sql:  case when ${TABLE}.TipoMovimiento like '%evol%' then 'Devoluciones' when ${TABLE}.TipoMovimiento in ('%plica%','otro') then 'Excluir' when ${TABLE}.TipoMovimiento in ('Comisione', 'Comisiones') Then 'Comisiones'  else ${TABLE}.TipoMovimiento end  ;;
+    sql:  case when ${TABLE}.TipoMovimiento like '%evol%' then 'Devoluciones' when ${TABLE}.TipoMovimiento in ('%plica%', 'otro') then 'Excluir' when ${TABLE}.TipoMovimiento in ('Comisione', 'Comisiones') Then 'Comisiones'  else ${TABLE}.TipoMovimiento end  ;;
   }
 
   ######################Measures/Dimensions######################
