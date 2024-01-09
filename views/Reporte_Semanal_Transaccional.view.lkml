@@ -90,6 +90,11 @@ view: reporte_semanal_transaccional {
   }
 
 
+  measure: puntosdeventa {
+    type: count_distinct
+    sql: ${TABLE}.comercio ;;
+  }
+
   dimension: mes_txt2 {
     type: string
     sql: ${TABLE}.mes_txt ;;
