@@ -11,6 +11,7 @@ view: reporte_semanal_transaccional {
   }
   dimension: devoluciones {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.devoluciones ;;
   }
   dimension: email_contacto {
@@ -34,14 +35,17 @@ view: reporte_semanal_transaccional {
   }
   dimension: importe_descuento {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.importe_descuento ;;
   }
   dimension: importe_ventas {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.importe_ventas ;;
   }
   dimension: iva {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.iva ;;
   }
   dimension_group: mes_txt {
@@ -81,8 +85,30 @@ view: reporte_semanal_transaccional {
   }
   dimension: ventas {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.ventas ;;
   }
+
+
+  measure: total_ventas{
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.importe_ventas ;;
+  }
+
+  measure: total_transacciones {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.transacciones ;;
+  }
+
+  dimension: mexico_layer {
+    type: string
+    map_layer_name: mexico_layer
+    sql: ${TABLE}.Estado_Comercial ;;
+  }
+
+
   measure: count {
     type: count
   }

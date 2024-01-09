@@ -709,3 +709,5 @@ explore: hv_03_conciliacion {}
 explore: transacciones_mensual_all {}
 
 explore: cierres_credencial_usa_agrupacion {}
+
+explore: reporte_semanal_transaccional {}
