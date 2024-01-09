@@ -90,6 +90,13 @@ view: reporte_semanal_transaccional {
   }
 
 
+  dimension: mes_txt2 {
+    type: string
+    sql: ${TABLE}.mes_txt ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
+
+  }
+
   measure: total_ventas{
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
