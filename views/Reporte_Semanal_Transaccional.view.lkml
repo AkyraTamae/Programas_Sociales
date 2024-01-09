@@ -105,7 +105,7 @@ view: reporte_semanal_transaccional {
   measure: total_ventas{
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.importe_ventas ;;
+    sql: ${TABLE}.ventas ;;
   }
 
   measure: total_transacciones {
