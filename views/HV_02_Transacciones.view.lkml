@@ -1,14 +1,14 @@
 
 view: hv_02_transacciones {
   derived_table: {
-    sql: Select 
+    sql: Select
         A.IdMovimiento,
         B.Programa,
         A.Producto,
         A.Cuenta,
         A.Autorizacion,
-        A.Fecha as FechaMovimiento,
-        A.Monto as MontoMovimiento,
+        A.Fecha As 'FechaMovimiento',
+        A.Monto As 'MontoMovimiento',
         A.Comercio,
         A.RazonSocial,
         A.RFC,
@@ -90,11 +90,15 @@ view: hv_02_transacciones {
 
   dimension_group: fecha_movimiento {
     type: time
+    timeframes: [raw, date, week, month, quarter, year]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}.FechaMovimiento ;;
   }
 
   dimension: monto_movimiento {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoMovimiento ;;
   }
 
@@ -118,19 +122,32 @@ view: hv_02_transacciones {
     sql: ${TABLE}.Estado_Comercial ;;
   }
 
+  ############################################3
+
+  dimension: mexico_layer {
+    type: string
+    map_layer_name: mexico_layer
+    sql: ${TABLE}.Estado_Comercial ;;
+  }
+
+  measure: monto_movimiento_sum {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.MontoMovimiento ;;
+  }
+
   set: detail {
     fields: [
         id_movimiento,
-	programa,
-	producto,
-	cuenta,
-	autorizacion,
-	fecha_movimiento_time,
-	monto_movimiento,
-	comercio,
-	razon_social,
-	rfc,
-	estado_comercial
+  programa,
+  producto,
+  cuenta,
+  autorizacion,
+  monto_movimiento,
+  comercio,
+  razon_social,
+  rfc,
+  estado_comercial
     ]
   }
 }
