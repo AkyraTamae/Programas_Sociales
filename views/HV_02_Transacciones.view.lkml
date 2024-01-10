@@ -136,6 +136,12 @@ view: hv_02_transacciones {
     sql: ${TABLE}.MontoMovimiento ;;
   }
 
+  measure: ticket_promedio {
+    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${count} / ${monto_movimiento_sum} ;;
+  }
+
   set: detail {
     fields: [
         id_movimiento,
