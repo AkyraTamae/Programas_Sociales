@@ -715,3 +715,5 @@ explore: reporte_semanal_transaccional {}
 explore: rep_mujeres_con_bienestar {}
 
 explore: hv_02_venta_por_comercio {}
+
+explore: hv_02_transacciones {}
