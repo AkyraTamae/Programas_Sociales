@@ -1,5 +1,5 @@
 
-view: hv_02 {
+view: hv_02_venta_por_comercio {
   derived_table: {
     sql: Select
         A.id As 'Id',
