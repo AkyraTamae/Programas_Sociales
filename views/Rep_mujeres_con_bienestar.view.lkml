@@ -74,6 +74,7 @@ view: rep_mujeres_con_bienestar {
 
   dimension: marca {
     label: "Marca"
+    sql: is null ;;
   }
 
   dimension: modelo {
