@@ -295,6 +295,12 @@ view: hv_02 {
     sql: ${ventas_sum}/${transacciones_sum} ;;
   }
 
+  dimension: mexico_layer {
+    type: string
+    map_layer_name: mexico_layer
+    sql: ${TABLE}.Estado_Comercial ;;
+  }
+
 
   set: detail {
     fields: [
