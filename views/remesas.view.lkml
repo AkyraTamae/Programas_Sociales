@@ -439,7 +439,7 @@ view: remesas {
               AA.DistinctKey = 1
             )B On CONCAT(A.IdUserOriginCancel,A.IdCurrencyOriginCancel) = CONCAT(B.CorreoContacto,B.UserType)
           Where
-            DATEADD(HOUR,-6,A.DateRegister) >= CONVERT(Date,GETDATE()-180)
+            DATEADD(HOUR,-6,A.DateRegister) >= CONVERT(Date,GETDATE()-90)
         )ZZA On AA.primaryKey = ZZA.primarykey
 
         Left Join
@@ -513,10 +513,10 @@ view: remesas {
               AA.DistinctKey = 1
             )B On CONCAT(A.IdUserOriginCancel,A.IdCurrencyOriginCancel) = CONCAT(B.CorreoContacto,B.UserType)
           Where
-            DATEADD(HOUR,-6,A.DateRegister) >= CONVERT(Date,GETDATE()-180)
+            DATEADD(HOUR,-6,A.DateRegister) >= CONVERT(Date,GETDATE()-90)
         )ZZB On AA.primaryKey = ZZB.primarykey
       Where
-        CONVERT(Date,AA.FechaCreacion) >= CONVERT(Date,GETDATE()-180) ;;
+        CONVERT(Date,AA.FechaCreacion) >= CONVERT(Date,GETDATE()-90) ;;
   }
 
   measure: count {
