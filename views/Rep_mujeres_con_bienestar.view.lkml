@@ -213,7 +213,7 @@ view: rep_mujeres_con_bienestar {
   dimension: meses_mascota {
     type: string
     label: "Meses Mascota"
-    sql: case when ${TABLE}.Cuenta is not null then 'NA'  else '' end ;;
+    sql: case when ${TABLE}.Cuenta is not null then null  else '' end ;;
   }
 
   dimension: senas_mascota  {
