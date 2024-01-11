@@ -556,26 +556,31 @@ view: remesas {
 
   dimension: comision_4 {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Comision_4 ;;
   }
 
   dimension: monto_usd_op {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoUSD_Op ;;
   }
 
   dimension: monto_mxn_op {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoMXN_Op ;;
   }
 
   dimension: comision_usd {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.ComisionUSD ;;
   }
 
   dimension: comision_mxn {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.ComisionMXN ;;
   }
 
@@ -626,11 +631,13 @@ view: remesas {
 
   dimension: amount_usd {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.AmountUSD ;;
   }
 
   dimension: amount_mxn {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.AmountMXN ;;
   }
 
