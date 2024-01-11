@@ -524,9 +524,12 @@ view: remesas {
     drill_fields: [detail*]
   }
 
-  dimension: date {
-    type: date
-    sql: ${TABLE}.Date ;;
+  dimension_group: date {
+    type: time
+    timeframes: [raw, date, week, month, quarter, year]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.date ;;
   }
 
   dimension: producto_origen {
@@ -688,7 +691,6 @@ view: remesas {
 
   set: detail {
     fields: [
-        date,
         producto_origen,
         producto_destino,
         receptor_1,
