@@ -608,12 +608,12 @@ view: remesas {
   }
 
   dimension: id_operacion {
-    type: number
+    type: string
     sql: ${TABLE}.IdOperacion ;;
   }
 
   dimension: id_meltsan {
-    type: number
+    type: string
     sql: ${TABLE}.IdMeltsan ;;
   }
 
