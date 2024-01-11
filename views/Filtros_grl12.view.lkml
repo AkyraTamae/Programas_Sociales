@@ -86,7 +86,7 @@ view: filtros_grl12 {
 
   dimension: agrupacion_cliente {
     type: string
-    sql: concat(${TABLE}.ClaveGrupoCliente,"-",${TABLE}.NombreGrupoCliente) ;;
+    sql: concat(${TABLE}.ClaveGrupoCliente,'-',${TABLE}.NombreGrupoCliente) ;;
   }
 
   dimension: nomenclatura_cliente {
