@@ -139,7 +139,7 @@ view: hv_02_transacciones {
   measure: ticket_promedio {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: count(1) / ${monto_movimiento_sum} ;;
+    sql: ${monto_movimiento_sum} / ${count} ;;
   }
 
   set: detail {
