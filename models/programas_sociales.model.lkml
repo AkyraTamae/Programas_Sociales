@@ -22,19 +22,13 @@ map_layer: edo_mex_layer {
   property_key: "mun_name"
 }
 
-explore: programas_sociales_mejoravit_comercio_xmes {}
-
 explore: remesas{}
 
 explore: transacciones_pruebas {}
 
-explore: prueba_promos_broxel {}
-
 explore: programas_sociales_all {}
 
 explore: cierres_credencial_usa {}
-
-explore: pruebas_isa {}
 
 explore: clientes {}
 
