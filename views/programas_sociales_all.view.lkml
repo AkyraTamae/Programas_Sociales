@@ -395,7 +395,7 @@ view: programas_sociales_all {
     sql: ${TABLE}.comercio ;;
   }
 
-  dimension: puntos_de_venta_ {
+  dimension: puntos_de_venta_dim {
     type: number
     value_format: "$#,##0"
     sql: count(distinct ${TABLE}.comerico) ;;
