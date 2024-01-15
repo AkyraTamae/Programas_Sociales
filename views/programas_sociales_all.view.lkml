@@ -395,6 +395,12 @@ view: programas_sociales_all {
     sql: ${TABLE}.comercio ;;
   }
 
+  dimension: puntos_de_venta_ {
+    type: number
+    value_format: "$#,##0"
+    sql: count(distinct ${TABLE}.comerico) ;;
+  }
+
   dimension: mexico_layer {
     type: string
     map_layer_name: mexico_layer
