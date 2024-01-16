@@ -21,7 +21,7 @@ view: programas_sociales_all {
         E.Estado_Comercial,
         D.Municipio_Comercial,
         CONVERT(DATE,DATENAME(M,D.Mes_txt) + ' ' + DATENAME(Y,D.Mes_txt)) As 'mes_txt2',
-        F.Puntos_de_Venta_Estado_Comercial_Comercios,
+        F.Puntos_de_Venta,
         F.KeyId,
         G.Fecha_de_Alta
 
@@ -131,7 +131,7 @@ view: programas_sociales_all {
       Left Join
       (
       Select --Puntos de venta
-      MAX(E.Puntos_de_venta2) As 'Puntos_de_Venta_Estado_Comercial_Comercios',
+      MAX(E.Puntos_de_venta2) As 'Puntos_de_Venta',
       CONCAT(E.Estado_Comercial, '_', E.NombreMedidas, '_', E.rfc) As 'KeyId'
       From
       (
@@ -249,8 +249,9 @@ view: programas_sociales_all {
     sql: ${TABLE}.Comercio ;;
   }
 
-  dimension: fecha {
-    type: date
+  dimension_group: fecha {
+    timeframes: [raw, time, date, week, month, quarter, year, month_name]
+    type: time
     sql: ${TABLE}.Fecha ;;
   }
 
@@ -335,11 +336,10 @@ view: programas_sociales_all {
     sql: ${TABLE}.Municipio_Comercial ;;
   }
 
-  measure: puntos_de_venta_estado_comercial_comercios {
+  measure: puntos_de_venta {
     type: sum_distinct
-    label: "Puntos de venta"
+    sql: ${TABLE}.puntos_de_venta ;;
     sql_distinct_key: ${TABLE}.keyid ;;
-    sql: ${TABLE}.puntos_de_venta_estado_comercial_comercios ;;
   }
 
   dimension: keyid {
@@ -396,7 +396,6 @@ view: programas_sociales_all {
   set: detail {
     fields: [
       comercio,
-      fecha,
       mes_txt,
       nombre_medidas,
       razon_social,
@@ -413,7 +412,7 @@ view: programas_sociales_all {
       estado_comercial,
       municipio_comercial,
       mes_txt2,
-      puntos_de_venta_estado_comercial_comercios,
+      puntos_de_venta,
       keyid
     ]
   }
