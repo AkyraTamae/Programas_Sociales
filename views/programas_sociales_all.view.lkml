@@ -344,6 +344,7 @@ view: programas_sociales_all {
 
   dimension: keyid {
     type: string
+    hidden: yes
     sql: ${TABLE}.KeyId ;;
   }
 
