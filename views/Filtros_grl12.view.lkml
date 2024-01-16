@@ -117,8 +117,10 @@ view: filtros_grl12 {
   measure: importe_pesos_sum {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: case when ${tipo_movimiento} = 'Devoluciones' then -1 * ${TABLE}.ImportePesos else ${TABLE}.ImportePesos end ;;
+    sql: ${TABLE}.importe_pesos ;;
   }
+
+  ##case when ${tipo_movimiento} = 'Devoluciones' then -1 * ${importe_pesos} else ${importe_pesos} end
   measure: monto_intercambio_sum {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
