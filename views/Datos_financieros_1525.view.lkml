@@ -2,91 +2,113 @@ view: datos_financieros_1525 {
   sql_table_name: CNBV.DatosFinancieros_1525 ;;
 
   dimension: anio {
-    type: number
+    type: string
+    label: "Año"
     sql: ${TABLE}.Anio ;;
   }
-  dimension: aprobadas_ci {
-    type: number
+  measure: aprobadas_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_CI ;;
   }
-  dimension: aprobadas_cn {
-    type: number
+  measure: aprobadas_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_CN ;;
   }
-  dimension: aprobadas_devoluciones_ci {
-    type: number
+  measure: aprobadas_devoluciones_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_Devoluciones_CI ;;
   }
-  dimension: aprobadas_devoluciones_cn {
-    type: number
+  measure: aprobadas_devoluciones_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_Devoluciones_CN ;;
   }
-  dimension: aprobadas_devoluciones_di {
-    type: number
+  measure: aprobadas_devoluciones_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_Devoluciones_DI ;;
   }
-  dimension: aprobadas_devoluciones_dn {
-    type: number
+  measure: aprobadas_devoluciones_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_Devoluciones_DN ;;
   }
-  dimension: aprobadas_di {
-    type: number
+  measure: aprobadas_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_DI ;;
   }
-  dimension: aprobadas_dn {
-    type: number
+  measure: aprobadas_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_DN ;;
   }
-  dimension: aprobadas_pagos_ci {
-    type: number
+  measure: aprobadas_pagos_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_Pagos_CI ;;
   }
-  dimension: aprobadas_pagos_cn {
-    type: number
+  measure: aprobadas_pagos_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_Pagos_CN ;;
   }
-  dimension: aprobadas_pagos_di {
-    type: number
+  measure: aprobadas_pagos_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_Pagos_DI ;;
   }
-  dimension: aprobadas_pagos_dn {
-    type: number
+  measure: aprobadas_pagos_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Aprobadas_Pagos_DN ;;
   }
-  dimension: devoluciones_ci {
-    type: number
+  measure: devoluciones_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_CI ;;
   }
-  dimension: devoluciones_cn {
-    type: number
+  measure: devoluciones_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_CN ;;
   }
-  dimension: devoluciones_di {
-    type: number
+  measure: devoluciones_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_DI ;;
   }
-  dimension: devoluciones_dn {
-    type: number
+  measure: devoluciones_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_DN ;;
   }
-  dimension: devoluciones_trimestre {
-    type: number
+  measure: devoluciones_trimestre {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_Trimestre ;;
   }
-  dimension: devoluciones_usuario_ci {
-    type: number
+  measure: devoluciones_usuario_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_Usuario_CI ;;
   }
-  dimension: devoluciones_usuario_cn {
-    type: number
+  measure: devoluciones_usuario_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_Usuario_CN ;;
   }
-  dimension: devoluciones_usuario_di {
-    type: number
+  measure: devoluciones_usuario_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_Usuario_DI ;;
   }
-  dimension: devoluciones_usuario_dn {
-    type: number
+  measure: devoluciones_usuario_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Devoluciones_Usuario_DN ;;
   }
   measure: monto_aprobadas_devoluciones_ci {
@@ -314,92 +336,113 @@ view: datos_financieros_1525 {
     value_format: "#,##0"
     sql: ${TABLE}.Operaciones_DN ;;
   }
-  dimension: pagos_ci {
-    type: number
+  measure: pagos_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_CI ;;
   }
-  dimension: pagos_cn {
-    type: number
+  measure: pagos_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_CN ;;
   }
-  dimension: pagos_di {
-    type: number
+  measure: pagos_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_DI ;;
   }
-  dimension: pagos_dn {
-    type: number
+  measure: pagos_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_DN ;;
   }
-  dimension: pagos_trimestre {
-    type: number
+  measure: pagos_trimestre {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_Trimestre ;;
   }
-  dimension: pagos_usuario_ci {
-    type: number
+  measure: pagos_usuario_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_Usuario_CI ;;
   }
-  dimension: pagos_usuario_cn {
-    type: number
+  measure: pagos_usuario_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_Usuario_CN ;;
   }
-  dimension: pagos_usuario_di {
-    type: number
+  measure: pagos_usuario_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_Usuario_DI ;;
   }
-  dimension: pagos_usuario_dn {
-    type: number
+  measure: pagos_usuario_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Pagos_Usuario_DN ;;
   }
   dimension: qanual {
     type: number
     sql: ${TABLE}.QAnual ;;
   }
-  dimension: rechazadas_ci_cticr {
-    type: number
+  measure: rechazadas_ci_cticr {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_CI_cticr ;;
   }
-  dimension: rechazadas_ci_ctidr {
-    type: number
+  measure: rechazadas_ci_ctidr {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_CI_ctidr ;;
   }
-  dimension: rechazadas_cn {
-    type: number
+  measure: rechazadas_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_CN ;;
   }
-  dimension: rechazadas_devoluciones_ci {
-    type: number
+  measure: rechazadas_devoluciones_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_Devoluciones_CI ;;
   }
-  dimension: rechazadas_devoluciones_cn {
-    type: number
+  measure: rechazadas_devoluciones_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_Devoluciones_CN ;;
   }
-  dimension: rechazadas_devoluciones_di {
-    type: number
+  measure: rechazadas_devoluciones_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_Devoluciones_DI ;;
   }
-  dimension: rechazadas_devoluciones_dn {
-    type: number
+  measure: rechazadas_devoluciones_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_Devoluciones_DN ;;
   }
-  dimension: rechazadas_dn {
-    type: number
+  measure: rechazadas_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_DN ;;
   }
-  dimension: rechazadas_pagos_ci {
-    type: number
+  measure: rechazadas_pagos_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_Pagos_CI ;;
   }
-  dimension: rechazadas_pagos_cn {
-    type: number
+  measure: rechazadas_pagos_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_Pagos_CN ;;
   }
-  dimension: rechazadas_pagos_di {
-    type: number
+  measure: rechazadas_pagos_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_Pagos_DI ;;
   }
-  dimension: rechazadas_pagos_dn {
-    type: number
+  measure: rechazadas_pagos_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Rechazadas_Pagos_DN ;;
   }
   dimension: separador1 {
@@ -426,12 +469,14 @@ view: datos_financieros_1525 {
     type: string
     sql: ${TABLE}.Separador6 ;;
   }
-  dimension: tarjetas_internacionales {
-    type: number
+  measure: tarjetas_internacionales {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Tarjetas_Internacionales ;;
   }
-  dimension: tarjetas_nacionales {
-    type: number
+  measure: tarjetas_nacionales {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Tarjetas_Nacionales ;;
   }
   measure: trans_aprobadas {
@@ -444,24 +489,29 @@ view: datos_financieros_1525 {
     value_format: "#,##0"
     sql: ${TABLE}.Trans_Rechazadas ;;
   }
-  dimension: usuarios_unicos_ci {
-    type: number
+  measure: usuarios_unicos_ci {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Usuarios_Unicos_CI ;;
   }
-  dimension: usuarios_unicos_cn {
-    type: number
+  measure: usuarios_unicos_cn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Usuarios_Unicos_CN ;;
   }
-  dimension: usuarios_unicos_di {
-    type: number
+  measure: usuarios_unicos_di {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Usuarios_Unicos_DI ;;
   }
-  dimension: usuarios_unicos_dn {
-    type: number
+  measure: usuarios_unicos_dn {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Usuarios_Unicos_DN ;;
   }
-  dimension: usuarios_unicos_trimestre {
-    type: number
+  measure: usuarios_unicos_trimestre {
+    type: sum
+    value_format: "#,##0"
     sql: ${TABLE}.Usuarios_UnicosTrimestre ;;
   }
   measure: count {
