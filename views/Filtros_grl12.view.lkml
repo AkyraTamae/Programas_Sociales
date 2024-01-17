@@ -117,7 +117,7 @@ view: filtros_grl12 {
   measure: importe_pesos_sum {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
-    sql:  ${TABLE}.importe_pesos ;;
+    sql:  ${importe_pesos} ;;
   }
   measure: monto_intercambio_sum {
     type: sum
