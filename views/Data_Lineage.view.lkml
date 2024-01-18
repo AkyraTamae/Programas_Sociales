@@ -266,15 +266,15 @@ view: data_lineage {
 
     allowed_value: {
       value: "SourceOro"
-      label: "Oro"
+      label: "SourceOro"
     }
     allowed_value: {
       value: "SourcePlata"
-      label: "Plata"
+      label: "SourcePlata"
     }
     allowed_value: {
       value: "SourceBronce"
-      label: "Bronce"
+      label: "SourceBronce"
     }
   }
 
