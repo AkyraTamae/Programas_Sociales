@@ -77,3 +77,5 @@ explore: hv_02_venta_por_comercio {}
 explore: hv_02_transacciones {}
 
 explore: datos_financieros_1525 {}
+
+explore: data_lineage {}
