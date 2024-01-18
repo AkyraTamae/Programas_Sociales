@@ -258,44 +258,79 @@ view: data_lineage {
     sql: ${TABLE}.ReasonForThisInformation ;;
   }
 
+#############################Filtros#############################
+
+  parameter: field_variable {
+    type: unquoted
+    label: "Source"
+
+    allowed_value: {
+      value: "SourceOro"
+      label: "Oro"
+    }
+    allowed_value: {
+      value: "SourcePlata"
+      label: "Plata"
+    }
+    allowed_value: {
+      value: "SourceBronce"
+      label: "Bronce"
+    }
+  }
+
+  dimension: filter_source{
+    label: "{% parameter field_variable %}"
+    type: string
+    sql:
+      {% if field_variable._parameter_value == 'SourceOro' %} ${table_name_oro}
+      {% elsif field_variable._parameter_value == 'SourcePlata' %} ${table_name_plata}
+      {% elsif field_variable._parameter_value == 'SourceBronce' %} ${table_name_bronce}
+      {% endif %} ;;
+  }
+
+
+#############################Filtros#############################
+
+
+
   set: detail {
     fields: [
         id_tablero,
-	id_oro,
-	source_oro,
-	schema_oro,
-	server_id_oro,
-	table_name_oro,
-	id_plata,
-	source_plata,
-	schema_plata,
-	server_id_plata,
-	table_name_plata,
-	id_bronce,
-	source_bronce,
-	schema_bronce,
-	server_id_bronce,
-	table_name_bronce,
-	visualization_tool,
-	dashboardreport_name,
-	dataset_name,
-	data_source_connection,
-	queryview_name,
-	visualization_elements,
-	dashboardreport_schedule,
-	linkdashboard,
-	users_viewsvisits,
-	ownercreator,
-	purposedescription,
-	tagslabels,
-	data_lineage_identifier,
-	data_quality_metrics,
-	securityaccess_controls,
-	versionrevision_history,
-	teams_consulting_info,
-	business_lead,
-	leader_business_lead,
-	reason_for_this_information
+  id_oro,
+  source_oro,
+  schema_oro,
+  server_id_oro,
+  table_name_oro,
+  id_plata,
+  source_plata,
+  schema_plata,
+  server_id_plata,
+  table_name_plata,
+  id_bronce,
+  source_bronce,
+  schema_bronce,
+  server_id_bronce,
+  table_name_bronce,
+  visualization_tool,
+  dashboardreport_name,
+  dataset_name,
+  data_source_connection,
+  queryview_name,
+  visualization_elements,
+  dashboardreport_schedule,
+  linkdashboard,
+  users_viewsvisits,
+  ownercreator,
+  purposedescription,
+  tagslabels,
+  data_lineage_identifier,
+  data_quality_metrics,
+  securityaccess_controls,
+  versionrevision_history,
+  teams_consulting_info,
+  business_lead,
+  leader_business_lead,
+  reason_for_this_information
     ]
   }
 }
