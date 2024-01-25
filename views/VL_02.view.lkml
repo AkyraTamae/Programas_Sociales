@@ -164,7 +164,7 @@ view: vl_02 {
 
   measure: count_distinct_id_bp {
     type: count_distinct
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.idBP ;;
   }
 
