@@ -11,4 +11,4 @@ datagroup: broxel_dwh_default_datagroup {
 
 persist_with: broxel_dwh_default_datagroup
 
-explore: vl02_2 {}
+explore: vl02 {}
