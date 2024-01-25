@@ -208,6 +208,11 @@ view: vl_02 {
     value_format: "$#,##0.00"
     sql: ${importe_descuento} ;;
   }
+  measure: id_bp_distinct {
+  type: count_distinct
+  label: "Recuento definido de idBP"
+  sql: {TABLE}.idBP ;;
+  }
 
   #***********************   FIN SECCIÓN:   Métricas obre dimensión    *********************
 
