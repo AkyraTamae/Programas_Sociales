@@ -76,6 +76,7 @@ view: vl_02 {
     sql: ${TABLE}.FolioDePago ;;
   }
   dimension: folio_de_reembolso {
+    primary_key: yes
     type: string
     sql: ${TABLE}.FolioDeReembolso ;;
   }
@@ -162,12 +163,6 @@ view: vl_02 {
     sql: LEFT(${folio_de_reembolso}, 8);;
   }
 
-  measure: count_distinct_id_bp {
-    type: count_distinct
-    value_format: "#,##0"
-    sql: ${TABLE}.idBP ;;
-  }
-
   #***********************   INCIO SECCIÓN:   Métricas obre dimensión    *********************
   measure: sum_total_leido {
     label: "Total Leído"
@@ -186,7 +181,7 @@ view: vl_02 {
     sql: ${total_anomalias} ;;
   }
   measure: sum_monto_del_envio {
-    label: "Monto del envío"
+    label: "Monto del envío - v1"
     type: sum
     value_format: "$#,##0.00"
     sql: ${monto_del_envio} ;;
@@ -270,16 +265,4 @@ view: vl_02 {
     type: number
     sql: ${enviado_por_folio} - ${leido_por_folio};;
   }
-################################################################################################3
-  measure: folio_de_reembolso_group{
-    type: number
-    sql_distinct_key: folio_de_reembolso ;;
-    sql: max(${TABLE}.MontoDelEnvio) ;;
-  }
-
-
-
-
-
-
 }
