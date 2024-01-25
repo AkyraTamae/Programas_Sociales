@@ -1,5 +1,5 @@
 view: vl_02 {
-  sql_table_name: `mgcp-10078073-bxl-bi-snd.BIPlata.vl02_2` ;;
+  sql_table_name: `mgcp-10078073-bxl-bi-snd.BIPlata.VL02` ;;
 
   dimension: afiliacion_id {
     type: string
