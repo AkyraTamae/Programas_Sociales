@@ -211,7 +211,7 @@ view: vl_02 {
   measure: id_bp_distinct {
   type: count_distinct
   label: "Recuento definido de idBP"
-  sql: {TABLE}.idBP ;;
+  sql: ${id_bp} ;;
   }
 
   #***********************   FIN SECCIÓN:   Métricas obre dimensión    *********************
