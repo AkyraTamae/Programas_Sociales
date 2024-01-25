@@ -1,4 +1,4 @@
-view: vl_02 {
+view: vl02_2 {
   sql_table_name: `mgcp-10078073-bxl-bi-snd.BIPlata.VL02` ;;
 
   dimension: afiliacion_id {
