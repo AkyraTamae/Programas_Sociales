@@ -1,4 +1,4 @@
-connection: "broxel_dwh"
+connection: "biplata"
 
 
 # include all the views
