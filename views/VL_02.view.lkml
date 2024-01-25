@@ -162,6 +162,12 @@ view: vl_02 {
     sql: LEFT(${folio_de_reembolso}, 8);;
   }
 
+  measure: count_distinct_id_bp {
+    type: count_distinct
+    value_format: "#,##0.00"
+    sql: ${TABLE}.idBP ;;
+  }
+
   #***********************   INCIO SECCIÓN:   Métricas obre dimensión    *********************
   measure: sum_total_leido {
     label: "Total Leído"
