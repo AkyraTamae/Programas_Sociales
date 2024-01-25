@@ -270,4 +270,21 @@ view: vl_02 {
     type: number
     sql: ${enviado_por_folio} - ${leido_por_folio};;
   }
+################################################################################################3
+  measure: folio_de_reembolso_group{
+    type: sum_distinct
+    sql_distinct_key: folio_de_reembolso ;;
+    sql: distinct max(${TABLE}.monto_del_envio) ;;
+  }
+
+
+
+
+
+
+
+
+
+
+
 }
