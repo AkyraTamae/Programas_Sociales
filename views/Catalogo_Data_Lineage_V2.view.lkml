@@ -1,7 +1,12 @@
 
 view: catalogo_data_lineage_v2 {
   derived_table: {
-    sql: Select *
+    sql: Select
+      A.[Source],
+      A.[Schema],
+      A.ServerId,
+      A.TableName,
+      B.*
       From
         (
         Select
@@ -210,32 +215,32 @@ view: catalogo_data_lineage_v2 {
   set: detail {
     fields: [
         idtablero,
-	id,
-	source,
-	schema,
-	server_id,
-	table_name,
-	id_tablero,
-	visualization_tool,
-	dashboardreport_name,
-	dataset_name,
-	data_source_connection,
-	queryview_name,
-	visualization_elements,
-	dashboardreport_schedule,
-	linkdashboard,
-	users_viewsvisits,
-	ownercreator,
-	purposedescription,
-	tagslabels,
-	data_lineage_identifier,
-	data_quality_metrics,
-	securityaccess_controls,
-	versionrevision_history,
-	teams_consulting_info,
-	business_lead,
-	leader_business_lead,
-	reason_for_this_information
+  id,
+  source,
+  schema,
+  server_id,
+  table_name,
+  id_tablero,
+  visualization_tool,
+  dashboardreport_name,
+  dataset_name,
+  data_source_connection,
+  queryview_name,
+  visualization_elements,
+  dashboardreport_schedule,
+  linkdashboard,
+  users_viewsvisits,
+  ownercreator,
+  purposedescription,
+  tagslabels,
+  data_lineage_identifier,
+  data_quality_metrics,
+  securityaccess_controls,
+  versionrevision_history,
+  teams_consulting_info,
+  business_lead,
+  leader_business_lead,
+  reason_for_this_information
     ]
   }
 }
