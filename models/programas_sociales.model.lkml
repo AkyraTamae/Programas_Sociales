@@ -81,3 +81,5 @@ explore: datos_financieros_1525 {}
 explore: data_lineage {}
 
 explore: catalogo_data_lineage_v2 {}
+
+explore: pruebas_lineage {}
