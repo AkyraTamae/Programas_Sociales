@@ -265,15 +265,15 @@ view: data_lineage {
     label: "Source"
 
     allowed_value: {
-      value: "SourceOro"
+      value: "TableNameOro"
       label: "SourceOro"
     }
     allowed_value: {
-      value: "SourcePlata"
+      value: "TableNamePlata"
       label: "SourcePlata"
     }
     allowed_value: {
-      value: "SourceBronce"
+      value: "TableNameBronce"
       label: "SourceBronce"
     }
   }
@@ -282,13 +282,16 @@ view: data_lineage {
     label: "{% parameter field_variable %}"
     type: string
     sql:
-      {% if field_variable._parameter_value == 'SourceOro' %} ${table_name_oro}
-      {% elsif field_variable._parameter_value == 'SourcePlata' %} ${table_name_plata}
-      {% elsif field_variable._parameter_value == 'SourceBronce' %} ${table_name_bronce}
+      {% if field_variable._parameter_value == 'SourceOro' %} ${TABLE}.TableNameOro
+      {% elsif field_variable._parameter_value == 'SourcePlata' %} ${TABLE}.TableNamePlata
+      {% elsif field_variable._parameter_value == 'SourceBronce' %} ${TABLE}.TableNameBronce
       {% endif %} ;;
   }
 
-
+  dimension: source_2 {
+    type: string
+    sql: ${TABLE}.{% parameter field_variable %} ;;
+  }
 #############################Filtros#############################
 
 
