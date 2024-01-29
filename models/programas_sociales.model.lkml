@@ -79,5 +79,3 @@ explore: hv_02_transacciones {}
 explore: datos_financieros_1525 {}
 
 explore: data_lineage {}
-
-explore: catalogo_data_lineage_v2 {}
