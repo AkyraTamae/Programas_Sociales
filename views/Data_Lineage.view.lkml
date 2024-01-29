@@ -258,63 +258,6 @@ view: data_lineage {
     sql: ${TABLE}.ReasonForThisInformation ;;
   }
 
-#############################Filtros#############################
-
-  parameter: field_variable {
-    type: unquoted
-    label: "Source"
-
-    allowed_value: {
-      value: "SourceOro"
-      label: "Oro"
-    }
-    allowed_value: {
-      value: "SchemaOro"
-      label: "Oro"
-    }
-    allowed_value: {
-      value: "ServerIdOro"
-      label: "Oro"
-    }
-    allowed_value: {
-      value: "TableNameOro"
-      label: "Oro"
-    }
-
-
-#'SourceOro',
-#'SchemaOro',
-#ServerId As 'ServerIdOro',
-#TableName As 'TableNameOro',
-
-
-
-  }
-
-
-  dimension: filter_source{
-    label: "{% parameter field_variable %}"
-    type: string
-    sql:
-      {% if field_variable._parameter_value == 'SourceOro' %} ${TABLE}.SourceOro
-      {% elsif field_variable._parameter_value == 'SchemaOro' %} ${TABLE}.SchemaOro
-      {% elsif field_variable._parameter_value == 'ServerIdOro' %} ${TABLE}.ServerIdOro
-      {% elsif field_variable._parameter_value == 'TableNameOro' %} ${TABLE}.TableNameOro
-      {% endif %} ;;
-  }
-
-#  dimension: source_2 {
-#    type: string
-#    sql: ${TABLE}.{% parameter field_variable %} ;;
-#  }
-#  dimension: source_3 {
-#    type: string
-#    sql: ${TABLE}.{% parameter field_variable_2 %} ;;
-#  }
-#############################Filtros#############################
-
-
-
   set: detail {
     fields: [
         id_tablero,
