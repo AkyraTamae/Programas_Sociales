@@ -49,6 +49,10 @@ view: rep_mujeres_con_bienestar {
     type: string
     sql: ${TABLE}.Nombre ;;
   }
+  dimension: oficio {
+    type: string
+    sql: ${TABLE}.Oficio ;;
+  }
   dimension: paternal_last_name {
     type: string
     sql: ${TABLE}.PaternalLastName ;;
