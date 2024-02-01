@@ -376,6 +376,42 @@ view: programas_sociales_all_v2 {
     sql: ${TABLE}.estado_comercial ;;
   }
 
+  filter: date_filter {
+    type: date
+    suggest_dimension: fecha_date
+  }
+
+  measure: dynamic_measure {
+    type: number
+    sql: case
+          when ${date_filter} = 'day' then ${total_ventas}
+          when ${date_filter} = 'week' then ${total_ventas}
+          when ${date_filter} = 'month' then ${total_ventas}
+        end ;;
+  }
+#############################Filtros#############################
+
+#  parameter: field_variable {
+#    type: unquoted
+#    label: "total_ventas_2"
+#
+#    allowed_value: {
+#      value: "total_ventas"
+#      label: "total_ventas_2"
+#    }
+#  }
+#
+#  measure: sum_variable{
+#    label: "{% parameter field_variable %}"
+#    type: number
+#    sql:
+#      {% if field_variable._parameter_value == ${fecha_date} %} ${total_ventas}
+#      {% endif %} ;;
+#  }
+
+
+#############################Filtros#############################
+
   set: detail {
     fields: [
       comercio,
