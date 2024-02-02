@@ -377,9 +377,8 @@ view: programas_sociales_all_v2 {
     sql: ${TABLE}.estado_comercial ;;
   }
 
-  measure: puntos_de_venta_2 {
+  measure: puntos_de_venta_filtro_nombre_medida{
     type: sum_distinct
-    label: "Puntos_de_venta"
     sql_distinct_key: concat(${TABLE}.Estado_Comercial, '_', ${TABLE}.NombreMedidas, '_', ${TABLE}.rfc) ;;
     sql: ${TABLE}.Puntos_de_Venta ;;
   }
