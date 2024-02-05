@@ -78,7 +78,7 @@ view: programas_sociales_all {
       Left Join
       broxelco_rdg.ComercioNoReportar C On A.comercio = C.Comercio
       Where
-      A.fecha Between '2023-09-01' And '2024-02-29' And A.idPrograma In ('5','10','219','220','223') And C.Comercio Is Null
+      A.fecha Between '2023-09-01' And '2024-01-31' And A.idPrograma In ('5','10','219','220','223') And C.Comercio Is Null
       ) D
 
       Left Join
