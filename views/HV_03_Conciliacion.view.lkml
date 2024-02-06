@@ -39,7 +39,9 @@ view: hv_03_conciliacion {
         '1' As 'Número de registros',
         AA.rfc As 'RFC',
         A.C_Tarjeta As 'Tarjeta',
-        AB.transacciones As 'Transacciones'
+        AB.transacciones As 'Transacciones',
+        AD.Estado_Comercial
+
       From
         [dbo].[BitacoraTransacciones] A With (Nolock)
       Left Join
@@ -77,7 +79,52 @@ view: hv_03_conciliacion {
           [broxelco_rdg].[RecepcionTransferencias] With (Nolock)
         Where
           FechaOperacion > '2018-04-05' And CLABE = '646180143121032635'
-        )AC On C_IdCLienteTransaccion = AC.ConceptoPago ;;
+        )AC On C_IdCLienteTransaccion = AC.ConceptoPago
+      Left Join
+        (
+        Select
+          comercio,
+          Case
+          When comercio = '23CBX00958' Then 'Hidalgo'
+          When Comercio = '23CBX00980' Then 'Jalisco'
+          When estadoComercial Like '%cdmx%' Or estadoComercial Like '%ciudad de m%' Or estadoComercial Like '%CIUDAD DE M%' Or estadoComercial Like '%FEDERAL%' Or estadoComercial Like '%D.F.%' Or estadoComercial Like '%DF%' Or estadoComercial Like '%CMDX%' Then 'Distrito Federal'
+          When estadoComercial Like '%xico%' Or estadoComercial Like '%Edo. Méx' Or estadoComercial Like '%EDO MEX%' Or estadoComercial = 'MEX' Or estadoComercial = 'MEX.' Or estadoComercial Like '%Edo. Mex.%'  Then 'México'
+          When estadoComercial Like '%uebl%' Then 'Puebla'
+          When estadoComercial Like '%guerr%' Then 'Guerrero'
+          When estadoComercial Like '%quer%' Then 'Querétaro'
+          When estadoComercial Like '%nuevo le%' Or estadoComercial Like '%nuevo le%' Or estadoComercial Like '%NUENO LEON%' Then 'Nuevo León'
+          When estadoComercial = 'Baja California' Or estadoComercial = 'Baja California ' Or estadoComercial = 'BAJA CALIFORNA ' Or estadoComercial = 'Baja California Norte ' Or estadoComercial = 'BAJA CALIFORNIA NORTE' Then 'Baja California'
+          When estadoComercial Like '%sur%' Then 'Baja California Sur'
+          When estadoComercial Like '%campech%' Then 'Campeche'
+          When estadoComercial Like '%chiap%' Then 'Chiapas'
+          When estadoComercial Like '%aulipa%' Then 'Tamaulipas'
+          When estadoComercial Like '%jalis%' Then 'Jalisco'
+          When estadoComercial Like '%sonor%' Then 'Sonora'
+          When estadoComercial Like '%naya%' Then 'Nayarit'
+          When estadoComercial Like '%micho%' Then 'Michoacán de Ocampo'
+          When estadoComercial Like '%potos%' Then 'San Luis Potosí'
+          When estadoComercial Like '%oahu%' Then 'Coahuila de Zaragoza'
+          When estadoComercial Like '%vera%' Then 'Veracruz de Ignacio de la Llave'
+          When estadoComercial Like '%yuca%' Then 'Yucatán'
+          When estadoComercial Like '%more%' Then 'Morelos'
+          When estadoComercial Like '%chih%' Then 'Chihuahua'
+          When estadoComercial Like '%zaca%' Then 'Zacatecas'
+          When estadoComercial Like '%guana%' Then 'Guanajuato'
+          When estadoComercial Like '%roo%' Then 'Quintana Roo'
+          When estadoComercial Like '%coli%' Then 'Colima'
+          When estadoComercial Like '%aguas%' Then 'Aguascalientes'
+          When estadoComercial Like '%oax%' Then 'Oaxaca'
+          When estadoComercial Like '%sina%' Then 'Sinaloa'
+          When estadoComercial Like '%chia%' Then 'Chiapas'
+          When estadoComercial Like '%dura%' Then 'Durango'
+          When estadoComercial Like '%hidal%' Then 'Hidalgo'
+          When estadoComercial Like '%tlax%' Then 'Tlaxcala'
+          When estadoComercial Like '%taba%' Then 'Tabasco'
+          Else 'México'
+          End As 'Estado_Comercial'
+        From
+          broxelco_rdg.Comercio With (Nolock)
+        )AD On A.C_Comercio = AD.Comercio ;;
   }
 
   measure: count {
@@ -289,6 +336,12 @@ view: hv_03_conciliacion {
   dimension: transacciones {
     type: number
     sql: ${TABLE}.Transacciones ;;
+  }
+
+  dimension: mexico_layer {
+    type: string
+    map_layer_name: mexico_layer
+    sql: ${TABLE}.Estado_Comercial ;;
   }
 
   set: detail {
