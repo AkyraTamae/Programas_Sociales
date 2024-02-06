@@ -338,10 +338,24 @@ view: hv_03_conciliacion {
     sql: ${TABLE}.Transacciones ;;
   }
 
+#####################################3
+
   dimension: mexico_layer {
     type: string
     map_layer_name: mexico_layer
     sql: ${TABLE}.Estado_Comercial ;;
+  }
+
+  measure: transacciones_sum {
+    type: sum
+    value_format: "#,##0"
+    sql: ${TABLE}.Transacciones ;;
+  }
+
+  measure: ticket_promedio {
+    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${transacciones_sum} / ${monto_de_compra_sum} ;;
   }
 
   set: detail {
