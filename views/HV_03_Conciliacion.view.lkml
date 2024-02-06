@@ -359,6 +359,12 @@ view: hv_03_conciliacion {
     sql: ${monto_de_compra_sum} / ${transacciones_sum} ;;
   }
 
+  measure: importe_ventas_sum {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.Importe_Ventas ;;
+  }
+
   set: detail {
     fields: [
         id_movimiento,
