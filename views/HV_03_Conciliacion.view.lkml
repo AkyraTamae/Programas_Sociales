@@ -157,9 +157,10 @@ view: hv_03_conciliacion {
     sql: ${TABLE}.Num_Cuenta ;;
   }
 
-  dimension: fecha_compra {
-    type: date
-    sql: ${TABLE}.Fecha_Compra ;;
+  dimension_group: fecha_compra {
+    timeframes: [raw, time, date, week, month, quarter, year, month_name]
+    type: time
+    sql: ${TABLE}.fecha_compra ;;
   }
 
   dimension: monto_de_compra {
@@ -365,7 +366,6 @@ view: hv_03_conciliacion {
   razon_social,
   folio,
   num_cuenta,
-  fecha_compra,
   monto_de_compra,
   id_stp,
   fecha_spei_time,
