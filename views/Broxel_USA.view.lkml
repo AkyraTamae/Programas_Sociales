@@ -5,7 +5,7 @@ view: broxel_usa {
           A.nombre_titular,
           A.num_cuenta,
           A.producto,
-          A.maquila,
+           CAST(Left(A.maquila,10) As Date) As maquila,
           A.clave_cliente,
           B.Email mailTarjetaActivada,
           B.celular celularTarjetaActivada,
