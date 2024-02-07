@@ -27,7 +27,7 @@ view: broxel_usa {
     drill_fields: [detail*]
   }
 
-  dimension: nrotarjeta {
+  dimension: nro_tarjeta {
     type: string
     sql: ${TABLE}."nro_tarjeta" ;;
   }
@@ -85,7 +85,7 @@ view: broxel_usa {
 
   set: detail {
     fields: [
-      nrotarjeta,
+      nro_tarjeta,
       nombre_titular,
       num_cuenta,
       producto,
