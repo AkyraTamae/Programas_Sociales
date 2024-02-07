@@ -29,7 +29,7 @@ view: broxel_usa {
 
   dimension: nrotarjeta {
     type: string
-    sql: ${TABLE}."nro-tarjeta" ;;
+    sql: ${TABLE}."nro_tarjeta" ;;
   }
 
   dimension: nombre_titular {
