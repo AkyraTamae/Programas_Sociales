@@ -1,25 +1,25 @@
 view: broxel_usa {
   derived_table: {
     sql: Select
-        A.[nro-tarjeta],
-        A.nombre_titular,
-        A.num_cuenta,
-        A.producto,
-        A.maquila,
-        A.clave_cliente,
-        B.Email mailTarjetaActivada,
-        B.celular celularTarjetaActivada,
-        C.CorreoContacto,
-        C.paisTel,
-        C.tel
-      From
-        [broxelco_rdg].[maquila] A With (Nolock)
-      Left Join
-        [broxelco_rdg].[accessos_clientes] B On B.cuenta = A.num_cuenta
-      left join
-        [broxelco_rdg].[ClientesBroxel] C On A.clave_cliente = C.claveCliente
-      Where
-        A.procesador = 7 And A.nombre_titular Not Like 'Innominada%' ;;
+          A.nro_tarjeta,
+          A.nombre_titular,
+          A.num_cuenta,
+          A.producto,
+          A.maquila,
+          A.clave_cliente,
+          B.Email mailTarjetaActivada,
+          B.celular celularTarjetaActivada,
+          C.CorreoContacto,
+          C.paisTel,
+          C.tel
+        From
+          `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.maquila` A
+        Left Join
+          `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.accessos_clientes` B On B.cuenta = A.num_cuenta
+        left join
+          `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.clientesBroxel` C On A.clave_cliente = C.claveCliente
+        Where
+          A.procesador = 7 And A.nombre_titular Not Like 'Innominada%' ;;
   }
 
   measure: count {
