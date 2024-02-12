@@ -13,5 +13,3 @@ datagroup: broxelpaymentsws_187_default_datagroup  {
 persist_with: broxelpaymentsws_187_default_datagroup
 
 explore: hv_03_compras {}
-
-explore: cierres_credencial_usa_agrupacion {}
