@@ -13,6 +13,7 @@ view: astro_main {
         End As 'DescripcionIntento_C',
         D.ClienteID,
         E.TelefonoCelular,
+        CONCAT(A.MensajeID, '_', A.ConversacionID) As 'KeyID',
         A.*
       From
         [Core].[TMensaje] A With (Nolock)

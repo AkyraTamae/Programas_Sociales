@@ -5,7 +5,7 @@ include: "/views/**/*.view.lkml"
 
 datagroup: multicanales_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+  max_cache_age: "20 hour"
 }
 
 persist_with: multicanales_default_datagroup
