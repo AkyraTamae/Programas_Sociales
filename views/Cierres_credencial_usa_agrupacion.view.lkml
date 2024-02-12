@@ -5,7 +5,6 @@ view: cierres_credencial_usa_agrupacion {
             A.*,
             CONCAT(A.Producto, ' - ', C.descripcion) As Productos,
             CONCAT(A.Clave_Cliente, ' - ', B.NombreCorto) As Clientes,
-            DATETIME_ADD(CURRENT_DATETIME(),interval -5 HOUR) As FechaH,
             ClasificacionCtesBroxel,
             B.GrupoCliente As ClaveGrupoCliente,
             D.NombreCorto As NombreGrupoCliente
@@ -156,12 +155,6 @@ view: cierres_credencial_usa_agrupacion {
     type: string
     sql: ${TABLE}.Clientes ;;
   }
-
-  #dimension_group: fecha_h{
-  #  timeframes: [raw, time, date, week, month, quarter, year, month_name]
-  #  type: time
-  #  sql: ${TABLE}.FechaH ;;
-  #}
 
   dimension: clasificacion_ctes_broxel {
     type: number
