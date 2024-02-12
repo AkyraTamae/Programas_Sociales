@@ -64,8 +64,6 @@ explore: hv_03_conciliacion {}
 
 explore: transacciones_mensual_all {}
 
-explore: cierres_credencial_usa_agrupacion {}
-
 explore: reporte_semanal_transaccional {}
 
 explore: rep_mujeres_con_bienestar {}
@@ -77,3 +75,5 @@ explore: datos_financieros_1525 {}
 explore: data_lineage {}
 
 explore: programas_sociales_all_v2 {}
+
+explore: cierres_credencial_usa_agrupacion {}

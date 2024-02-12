@@ -27,9 +27,9 @@ view: broxel_usa {
     drill_fields: [detail*]
   }
 
-  dimension: nrotarjeta {
+  dimension: nro_tarjeta {
     type: string
-    sql: ${TABLE}."nro-tarjeta" ;;
+    sql: ${TABLE}.nro_tarjeta ;;
   }
 
   dimension: nombre_titular {
@@ -47,10 +47,39 @@ view: broxel_usa {
     sql: ${TABLE}.producto ;;
   }
 
-  dimension_group: maquila {
-    type: time
-    timeframes: [raw, time, date, week, month, month_num, quarter, year]
-    sql: ${TABLE}.maquila ;;
+  dimension: maquila {
+    type: string
+    sql: left(${TABLE}.maquila, 10) ;;
+  }
+
+  dimension: maquila_year {
+    type: string
+    sql: left(${TABLE}.maquila, 4) ;;
+  }
+
+  dimension: maquila_month {
+    type: number
+    sql: right(left(${TABLE}.maquila, 7), 2)  ;;
+  }
+
+  dimension: maquila_month_name {
+    type: string
+    order_by_field: maquila_month
+    sql:
+    case
+    when right(left(${TABLE}.maquila, 7), 2) = '01' then 'january'
+    when right(left(${TABLE}.maquila, 7), 2) = '02' then 'february'
+    when right(left(${TABLE}.maquila, 7), 2) = '03' then 'march'
+    when right(left(${TABLE}.maquila, 7), 2) = '04' then 'april'
+    when right(left(${TABLE}.maquila, 7), 2) = '05' then 'may'
+    when right(left(${TABLE}.maquila, 7), 2) = '06' then 'june'
+    when right(left(${TABLE}.maquila, 7), 2) = '07' then 'july'
+    when right(left(${TABLE}.maquila, 7), 2) = '08' then 'august'
+    when right(left(${TABLE}.maquila, 7), 2) = '09' then 'september'
+    when right(left(${TABLE}.maquila, 7), 2) = '10' then 'october'
+    when right(left(${TABLE}.maquila, 7), 2) = '11' then 'november'
+    when right(left(${TABLE}.maquila, 7), 2) = '12' then 'december'
+    end ;;
   }
 
   dimension: clave_cliente {
@@ -85,10 +114,11 @@ view: broxel_usa {
 
   set: detail {
     fields: [
-      nrotarjeta,
+      nro_tarjeta,
       nombre_titular,
       num_cuenta,
       producto,
+      maquila,
       clave_cliente,
       mail_tarjeta_activada,
       celular_tarjeta_activada,

@@ -2,21 +2,21 @@
 view: cierres_credencial_usa_agrupacion {
   derived_table: {
     sql: Select
-              A.*,
-              CONCAT(A.Producto, ' - ', C.descripcion) As 'Productos',
-              CONCAT(A.Clave_Cliente, ' - ', B.NombreCorto) As 'Clientes',
-              CONVERT(VARCHAR(19), DATEADD(HOUR, -5, GETDATE()), 120) As 'FechaH',
-              ClasificacionCtesBroxel,
-              B.GrupoCliente As 'ClaveGrupoCliente',
-              D.NombreCorto As 'NombreGrupoCliente'
-            From
-              CierreTransaccionesUSA A With (Nolock)
-            Left Join
-              broxelco_rdg.ClientesBroxel B With (Nolock) On A.Clave_Cliente = B.claveCliente
-            Left Join
-              broxelco_rdg.productos_broxel C With (Nolock) On A.Producto = C.codigo
-            Left Join
-              broxelco_rdg.AgrupacionClientes D With (Nolock) On B.GrupoCliente = D.ClaveAgrupacion ;;
+            A.*,
+            CONCAT(A.Producto, ' - ', C.descripcion) As 'Productos',
+            CONCAT(A.Clave_Cliente, ' - ', B.NombreCorto) As 'Clientes',
+            CONVERT(VARCHAR(19), DATEADD(HOUR, -5, GETDATE()), 120) As 'FechaH',
+            ClasificacionCtesBroxel,
+            B.GrupoCliente As 'ClaveGrupoCliente',
+            D.NombreCorto As 'NombreGrupoCliente'
+          From
+            CierreTransaccionesUSA A With (Nolock)
+          Left Join
+            broxelco_rdg.ClientesBroxel B With (Nolock) On A.Clave_Cliente = B.claveCliente
+          Left Join
+            broxelco_rdg.productos_broxel C With (Nolock) On A.Producto = C.codigo
+          Left Join
+            broxelco_rdg.AgrupacionClientes D With (Nolock) On B.GrupoCliente = D.ClaveAgrupacion ;;
   }
 
   dimension_group: fecha{
@@ -155,12 +155,6 @@ view: cierres_credencial_usa_agrupacion {
   dimension: clientes {
     type: string
     sql: ${TABLE}.Clientes ;;
-  }
-
-  dimension_group: fecha_h{
-    timeframes: [raw, time, date, week, month, quarter, year, month_name]
-    type: time
-    sql: ${TABLE}.FechaH ;;
   }
 
   dimension: clasificacion_ctes_broxel {
