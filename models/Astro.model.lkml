@@ -20,3 +20,11 @@ map_layer: edo_mex_layer {
   file: "/Mapa/Edo_Mex.topojson"
   property_key: "mun_name"
 }
+
+explore: astro_main {
+  join: astro_destino {
+    sql_on: ${astro_main.agente_id} = ${astro_destino.key_id}  ;;
+    relationship: one_to_one
+    type: left_outer # Could be excluded since left_outer is the default
+  }
+}
