@@ -20,3 +20,5 @@ map_layer: edo_mex_layer {
   file: "/Mapa/Edo_Mex.topojson"
   property_key: "mun_name"
 }
+
+explore: astro_main {}
