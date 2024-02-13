@@ -22,9 +22,9 @@ map_layer: edo_mex_layer {
 }
 
 explore: astro_main {
-  join: astro_destino {
-    sql_on: ${astro_main.agente_id} = ${astro_destino.key_id}  ;;
-    relationship: one_to_one
-    type: left_outer # Could be excluded since left_outer is the default
-  }
+#  join: astro_destino {
+#    sql_on: ${astro_main.agente_id} = ${astro_destino.key_id}  ;;
+#    relationship: one_to_one
+#    type: left_outer # Could be excluded since left_outer is the default
+#  }
 }
