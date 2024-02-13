@@ -115,6 +115,8 @@ view: astro_main {
 
   dimension_group: fecha_registro {
     type: time
+    timeframes: [raw, time, date, week, month, quarter, year, month_name]
+    datatype: datetime
     sql: ${TABLE}.FechaRegistro ;;
   }
 
@@ -151,7 +153,6 @@ view: astro_main {
   agente_id,
   tipo_envio_id,
   solicita_respuesta,
-  fecha_registro_time,
   mensaje_proveedor_id,
   estatus_mensaje_id,
   cantidad_mensajes

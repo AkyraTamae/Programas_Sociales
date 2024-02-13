@@ -1,7 +1,7 @@
 
 view: astro_destino {
   derived_table: {
-    sql: Select Top 100
+    sql: Select
         B.DescripcionIntento,
         CONCAT(A.MensajeID -1, '_', A.ConversacionID) As 'KeyID'
       From
@@ -28,7 +28,7 @@ view: astro_destino {
   set: detail {
     fields: [
         descripcion_intento,
-	key_id
+  key_id
     ]
   }
 }

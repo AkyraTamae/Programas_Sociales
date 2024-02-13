@@ -21,4 +21,11 @@ map_layer: edo_mex_layer {
   property_key: "mun_name"
 }
 
-explore: astro_main {}
+explore: astro_main {
+  join: astro_destino {
+      sql_on: ${astro_main.key_id} = ${astro_destino.key_id}  ;;
+      relationship: one_to_one
+      type: left_outer # Could be excluded since left_outer is the default
+    }
+
+}
