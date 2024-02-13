@@ -25,10 +25,7 @@ view: astro_main {
       Left Join
         [Core].[TCliente] E With (Nolock) On D.ClienteID = E.ClienteID
       Left Join
-        [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID
-      Order By
-        A.ConversacionID,
-        A.FechaRegistro ;;
+        [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID ;;
   }
 
   measure: count {
@@ -139,25 +136,25 @@ view: astro_main {
   set: detail {
     fields: [
         descripcion_tipo_envio,
-	descripcion_canal,
-	origen,
-	descripcion_intento_c,
-	cliente_id,
-	telefono_celular,
-	key_id,
-	mensaje_id,
-	conversacion_id,
-	canal_id,
-	mensaje,
-	intento_id,
-	autorizacion_operacion,
-	agente_id,
-	tipo_envio_id,
-	solicita_respuesta,
-	fecha_registro_time,
-	mensaje_proveedor_id,
-	estatus_mensaje_id,
-	cantidad_mensajes
+  descripcion_canal,
+  origen,
+  descripcion_intento_c,
+  cliente_id,
+  telefono_celular,
+  key_id,
+  mensaje_id,
+  conversacion_id,
+  canal_id,
+  mensaje,
+  intento_id,
+  autorizacion_operacion,
+  agente_id,
+  tipo_envio_id,
+  solicita_respuesta,
+  fecha_registro_time,
+  mensaje_proveedor_id,
+  estatus_mensaje_id,
+  cantidad_mensajes
     ]
   }
 }
