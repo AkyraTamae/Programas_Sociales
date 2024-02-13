@@ -28,3 +28,5 @@ explore: astro_main {
 #    type: left_outer # Could be excluded since left_outer is the default
 #  }
 }
+
+explore: astro_test {}
