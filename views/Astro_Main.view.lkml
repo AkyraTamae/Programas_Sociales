@@ -9,7 +9,7 @@ view: astro_main {
         When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then ''
         When C.IntentoID = '1' Then 'unknow'
         Else C.DescripcionIntento
-        End As 'DescripcionIntento_C',
+        End As 'Contact_Reason',
         D.ClienteID,
         E.TelefonoCelular,
         CONCAT(A.MensajeID, '_', A.ConversacionID) As 'KeyID',
