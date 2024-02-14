@@ -51,7 +51,7 @@ view: astro_main {
 
   dimension: contact_reason {
     type: string
-    sql: ${TABLE}.ContactReason ;;
+    sql: ${TABLE}.Contact_Reason ;;
   }
 
   dimension: cliente_id {
