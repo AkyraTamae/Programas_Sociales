@@ -13,6 +13,7 @@ view: astro_main {
         D.ClienteID,
         E.TelefonoCelular,
         CONCAT(A.MensajeID, '_', A.ConversacionID) As 'KeyID',
+        IIF(Case When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End = '', '', CONCAT(Case When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End, '_', A.ConversacionID)) As 'Primary_Key',
         A.*
       From
         [Core].[TMensaje] A With (Nolock)
@@ -66,6 +67,12 @@ view: astro_main {
   dimension: key_id {
     type: string
     sql: ${TABLE}.KeyID ;;
+  }
+
+  dimension: primary_key {
+    type: string
+    hidden: yes
+    sql: ${TABLE}.Primary_Key ;;
   }
 
   dimension: mensaje_id {
@@ -135,6 +142,15 @@ view: astro_main {
     sql: ${TABLE}.CantidadMensajes ;;
   }
 
+###########################################
+
+
+  measure: conteo_distinto_contact_reason {
+    type: count_distinct
+    sql_distinct_key: ${primary_key} ;;
+    sql: ${TABLE}.Primary_Key ;;
+  }
+
   set: detail {
     fields: [
         descripcion_tipo_envio,
@@ -144,6 +160,7 @@ view: astro_main {
   cliente_id,
   telefono_celular,
   key_id,
+  primary_key,
   mensaje_id,
   conversacion_id,
   canal_id,
