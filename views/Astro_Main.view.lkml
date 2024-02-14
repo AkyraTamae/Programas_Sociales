@@ -4,7 +4,7 @@ view: astro_main {
     sql: Select
         F.DescripcionTipoEnvio,
         B.DescripcionCanal,
-        C.DescripcionIntento As 'Origen',
+        C.DescripcionIntento,
         Case
         When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then ''
         When C.IntentoID = '1' Then 'unknow'
@@ -44,14 +44,14 @@ view: astro_main {
     sql: ${TABLE}.DescripcionCanal ;;
   }
 
-  dimension: origen {
+  dimension: descripcion_intento {
     type: string
-    sql: ${TABLE}.Origen ;;
+    sql: ${TABLE}.DescripcionIntento ;;
   }
 
-  dimension: descripcion_intento_c {
+  dimension: contact_reason {
     type: string
-    sql: ${TABLE}.DescripcionIntento_C ;;
+    sql: ${TABLE}.ContactReason ;;
   }
 
   dimension: cliente_id {
@@ -155,8 +155,8 @@ view: astro_main {
     fields: [
         descripcion_tipo_envio,
   descripcion_canal,
-  origen,
-  descripcion_intento_c,
+  descripcion_intento,
+  contact_reason,
   cliente_id,
   telefono_celular,
   key_id,
