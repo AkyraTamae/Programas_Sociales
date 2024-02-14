@@ -122,7 +122,7 @@ view: astro_main {
 
   dimension_group: fecha_registro {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year, month_name]
+    timeframes: [raw, time, date, week, month, quarter, year, month_name, month_num]
     datatype: datetime
     sql: ${TABLE}.FechaRegistro ;;
   }
@@ -149,6 +149,11 @@ view: astro_main {
     type: count_distinct
     sql_distinct_key: ${primary_key} ;;
     sql: ${TABLE}.Primary_Key ;;
+  }
+
+  measure: conteo_distinto_conversacion_id {
+    type: count_distinct
+    sql: ${TABLE}.ConversacionID ;;
   }
 
   set: detail {
