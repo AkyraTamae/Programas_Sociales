@@ -156,6 +156,12 @@ view: astro_main {
     sql: ${TABLE}.ConversacionID ;;
   }
 
+  measure: reiteracion {
+    type: count_distinct
+    sql_distinct_key: ${conversacion_id} ;;
+    sql: ${TABLE}.TelefonoCelular ;;
+  }
+
   set: detail {
     fields: [
         descripcion_tipo_envio,
