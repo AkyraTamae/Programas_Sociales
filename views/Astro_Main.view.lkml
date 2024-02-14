@@ -158,7 +158,7 @@ view: astro_main {
 
   dimension: distinct_conversacion_id  {
     type: string
-    sql: DISTINCT(${TABLE}.ConversacionID) ;;
+    sql: distinct ${TABLE}.ConversacionID ;;
   }
 
   set: detail {
