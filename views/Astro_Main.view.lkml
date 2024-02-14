@@ -156,11 +156,6 @@ view: astro_main {
     sql: ${TABLE}.ConversacionID ;;
   }
 
-  dimension: distinct_conversacion_id  {
-    type: string
-    sql: distinct ${TABLE}.ConversacionID ;;
-  }
-
   set: detail {
     fields: [
         descripcion_tipo_envio,
