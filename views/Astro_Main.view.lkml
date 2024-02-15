@@ -27,8 +27,6 @@ view: astro_main {
         [Core].[TCliente] E With (Nolock) On D.ClienteID = E.ClienteID
       Left Join
         [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID
-      Where
-        YEAR(A.FechaRegistro) >= '2022'
       Union All
       --Histórico
       Select
@@ -56,9 +54,7 @@ view: astro_main {
       Left Join
         [Core].[TCliente] E With (Nolock) On D.ClienteID = E.ClienteID
       Left Join
-        [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID
-      Where
-        YEAR(A.FechaRegistro) >= '2022' ;;
+        [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID ;;
   }
 
   measure: count {
