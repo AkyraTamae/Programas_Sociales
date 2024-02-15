@@ -6,14 +6,14 @@ view: astro_main {
         B.DescripcionCanal,
         C.DescripcionIntento,
         Case
-        When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then ''
+        When C.IntentoID In ('2', '10', '20', '21', '23', '28', '30', '31', '35', '38', '39', '40', '41', '49', '51', '55', '76', '79', '93', '100', '101') Then ''
         When C.IntentoID = '1' Then 'unknow'
         Else C.DescripcionIntento
         End As 'Contact_Reason',
         D.ClienteID,
         E.TelefonoCelular,
         CONCAT(A.MensajeID, '_', A.ConversacionID) As 'KeyID',
-        IIF(Case When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End = '', '', CONCAT(Case When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End, '_', A.ConversacionID)) As 'Primary_Key',
+        IIF(Case When C.IntentoID In ('2', '10', '20', '21', '23', '28', '30', '31', '35', '38', '39', '40', '41', '49', '51', '55', '76', '79', '93', '100', '101') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End = '', '', CONCAT(Case When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End, '_', A.ConversacionID)) As 'Primary_Key',
         A.*
       From
         [Core].[TMensaje] A With (Nolock)
@@ -139,7 +139,7 @@ view: astro_main {
 
   dimension: cantidad_mensajes {
     type: number
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.CantidadMensajes ;;
   }
 
@@ -148,14 +148,14 @@ view: astro_main {
 
   measure: conteo_distinto_contact_reason {
     type: count_distinct
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql_distinct_key: ${primary_key} ;;
     sql: ${TABLE}.Primary_Key ;;
   }
 
   measure: conteo_distinto_conversacion_id {
     type: count_distinct
-    value_format: "#,##0.00"
+    value_format: "#,##0"
     sql: ${TABLE}.ConversacionID ;;
   }
 
