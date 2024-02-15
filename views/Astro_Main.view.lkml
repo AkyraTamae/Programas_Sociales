@@ -139,6 +139,7 @@ view: astro_main {
 
   dimension: cantidad_mensajes {
     type: number
+    value_format: "#,##0.00"
     sql: ${TABLE}.CantidadMensajes ;;
   }
 
@@ -147,12 +148,14 @@ view: astro_main {
 
   measure: conteo_distinto_contact_reason {
     type: count_distinct
+    value_format: "#,##0.00"
     sql_distinct_key: ${primary_key} ;;
     sql: ${TABLE}.Primary_Key ;;
   }
 
   measure: conteo_distinto_conversacion_id {
     type: count_distinct
+    value_format: "#,##0.00"
     sql: ${TABLE}.ConversacionID ;;
   }
 
