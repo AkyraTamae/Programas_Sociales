@@ -22,7 +22,7 @@ view: astro_main {
       Left Join
         [Core].[CatIntento] C With (Nolock) On A.IntentoID = C.IntentoID
       Left Join
-        [Core].[TConversacion_Hist] D With (Nolock) On A.ConversacionID = D.ConversacionID
+        [Core].[TConversacion] D With (Nolock) On A.ConversacionID = D.ConversacionID
       Left Join
         [Core].[TCliente] E With (Nolock) On D.ClienteID = E.ClienteID
       Left Join
