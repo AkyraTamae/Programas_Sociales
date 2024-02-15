@@ -26,7 +26,39 @@ view: astro_main {
       Left Join
         [Core].[TCliente] E With (Nolock) On D.ClienteID = E.ClienteID
       Left Join
-        [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID ;;
+        [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID
+      Where
+        YEAR(A.FechaRegistro) >= '2022'
+      Union All
+      --Histórico
+      Select
+        F.DescripcionTipoEnvio,
+        B.DescripcionCanal,
+        C.DescripcionIntento,
+        Case
+        When C.IntentoID In ('2', '10', '20', '21', '23', '28', '30', '31', '35', '38', '39', '40', '41', '49', '51', '55', '76', '79', '93', '100', '101') Then ''
+        When C.IntentoID = '1' Then 'unknow'
+        Else C.DescripcionIntento
+        End As 'Contact_Reason',
+        D.ClienteID,
+        E.TelefonoCelular,
+        CONCAT(A.MensajeID, '_', A.ConversacionID) As 'KeyID',
+        IIF(Case When C.IntentoID In ('2', '10', '20', '21', '23', '28', '30', '31', '35', '38', '39', '40', '41', '49', '51', '55', '76', '79', '93', '100', '101') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End = '', '', CONCAT(Case When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End, '_', A.ConversacionID)) As 'Primary_Key',
+        A.*
+      From
+        [Core].[TMensaje_Hist] A With (Nolock)
+      Left Join
+        [Core].[CatCanal] B With (Nolock) On A.CanalID = B.CanalID
+      Left Join
+        [Core].[CatIntento] C With (Nolock) On A.IntentoID = C.IntentoID
+      Left Join
+        [Core].[TConversacion_Hist] D With (Nolock) On A.ConversacionID = D.ConversacionID
+      Left Join
+        [Core].[TCliente] E With (Nolock) On D.ClienteID = E.ClienteID
+      Left Join
+        [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID
+      Where
+        YEAR(A.FechaRegistro) >= '2022' ;;
   }
 
   measure: count {
