@@ -127,10 +127,10 @@ view: astro_main {
     sql: ${TABLE}.FechaRegistro ;;
   }
 
-  measure: filtro_anio {
+  dimension: filtro_anio {
     label: "Filtro_Año"
     type: number
-    sql: ${fecha_registro_year} >= '2022' ;;
+    sql: YEAR(${TABLE}.FechaRegistro) ;;
   }
 
   dimension: mensaje_proveedor_id {
