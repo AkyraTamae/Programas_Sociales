@@ -124,7 +124,13 @@ view: astro_main {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year, month_name, month_num]
     datatype: datetime
-    sql: ${TABLE}.FechaRegistro) ;;
+    sql: ${TABLE}.FechaRegistro ;;
+  }
+
+  measure: filtro_anio {
+    label: "Filtro_Año"
+    type: number
+    sql: ${fecha_registro_year} >= '2022' ;;
   }
 
   dimension: mensaje_proveedor_id {
