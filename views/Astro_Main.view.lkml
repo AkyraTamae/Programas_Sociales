@@ -124,7 +124,7 @@ view: astro_main {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year, month_name, month_num]
     datatype: datetime
-    sql: ${TABLE}.FechaRegistro ;;
+    sql: YEAR(${TABLE}.FechaRegistro) >= '2022' ;;
   }
 
   dimension: mensaje_proveedor_id {
