@@ -365,7 +365,7 @@ view: hv_03_conciliacion {
     sql: ${TABLE}.Importe_Ventas ;;
   }
 
-  measure: importe_ventas_measure {
+  measure: liquidacion_comercio_measure {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
     sql: ${monto_de_compra}-((1-(${liquidacion_comercio}/${importe_ventas}))*${monto_de_compra}) ;;
