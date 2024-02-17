@@ -373,6 +373,14 @@ view: hv_03_conciliacion {
     sql: iif(${transacciones}>1,cast(${monto_de_compra}-((1-(${liquidacion_comercio}/${importe_ventas}))*${monto_de_compra}) as decimal(20,2)),${liquidacion_comercio}) ;;
   }
 
+  dimension: mes_compra {
+    type: string
+    label: "Mes Compra"
+    sql: ${TABLE}.fecha_compra ;;
+    html: {{ rendered_value | date: "%B %G" }};;
+
+  }
+
   set: detail {
     fields: [
         id_movimiento,
