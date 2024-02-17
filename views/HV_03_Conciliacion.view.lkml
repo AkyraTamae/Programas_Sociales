@@ -370,7 +370,7 @@ view: hv_03_conciliacion {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
     label:"Liquidacion Comercio"
-    sql: ${monto_de_compra}-((1-(${liquidacion_comercio}/${importe_ventas}))*${monto_de_compra}) ;;
+    sql: iif(${transacciones}>1,cast(${monto_de_compra}-((1-(${liquidacion_comercio}/${importe_ventas}))*${monto_de_compra}) as decimal(20,2)),${liquidacion_comercio}) ;;
   }
 
   set: detail {
