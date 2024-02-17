@@ -198,6 +198,7 @@ view: hv_03_conciliacion {
   dimension: liquidacion_comercio {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
+    hidden: yes
     sql: ${TABLE}.Liquidacion_Comercio ;;
   }
 
@@ -368,6 +369,7 @@ view: hv_03_conciliacion {
   dimension: liquidacion_comercio_measure {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
+    label:"Liquidacion Comercio"
     sql: ${monto_de_compra}-((1-(${liquidacion_comercio}/${importe_ventas}))*${monto_de_compra}) ;;
   }
 
