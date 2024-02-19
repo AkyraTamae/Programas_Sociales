@@ -336,7 +336,7 @@ view: programas_sociales_all_v2 {
   dimension_group: fecha_de_alta {
     timeframes: [raw, time, date, week, month, quarter, year, month_name]
     type: time
-    sql: ${TABLE}..Fecha_de_Alta ;;
+    sql: ${TABLE}.Fecha_de_Alta ;;
   }
 
   dimension: puntos_de_venta {
