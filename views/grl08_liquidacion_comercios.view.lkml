@@ -177,6 +177,7 @@ view: grl08_liquidacion_comercios {
   }
   dimension: importe_ventas {
     type: number
+    hidden: yes
     sql: ${TABLE}.importe_ventas ;;
   }
   dimension: iva {
@@ -263,4 +264,11 @@ view: grl08_liquidacion_comercios {
     map_layer_name: mexico_layer
     sql: ${estado_comercial} ;;
   }
+  measure: sum_importe_ventas {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    label: "Importe Ventas"
+    hidden: yes
+    sql: ${TABLE}.importe_ventas ;;
+    }
 }
