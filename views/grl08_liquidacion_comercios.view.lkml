@@ -271,7 +271,7 @@ view: grl08_liquidacion_comercios {
     sql: ${TABLE}.importe_ventas ;;
     }
   dimension: fecha_c {
-    type: string
+    type: date
     order_by_field: fecha_month
     sql: date_trunc(${TABLE}.fecha,month) ;;
     html: {{ rendered_value | date: "%B %Y" }} ;;
