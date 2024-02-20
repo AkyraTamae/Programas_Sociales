@@ -11,6 +11,11 @@ datagroup: broxel_dwh_default_datagroup {
 
 persist_with: broxel_dwh_default_datagroup
 
+map_layer: mexico_layer{
+  #file: "/mapas/map.json"
+  file: "/Mapa/Estados_MX.topojson"
+}
+
 explore: vl_02 {
   join: vl_02_fix {
     sql_on: ${vl_02.folio_de_reembolso} = ${vl_02_fix.folio_de_reembolso}  ;;
@@ -18,3 +23,5 @@ explore: vl_02 {
     type: left_outer # Could be excluded since left_outer is the default
   }
 }
+
+explore: grl08_liquidacion_comercios {}

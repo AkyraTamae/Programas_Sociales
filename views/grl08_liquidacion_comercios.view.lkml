@@ -79,15 +79,15 @@ view: grl08_liquidacion_comercios {
     type: string
     sql:
       Case
-      When ${TABLE}.comercio = '23CBX00958' Then 'Hidalgo'
-      When ${TABLE}.comercio = '23CBX00980' Then 'Jalisco'
+      When comercio = '23CBX00958' Then 'Hidalgo'
+      When Comercio = '23CBX00980' Then 'Jalisco'
       When lower(${TABLE}.estadoComercial) Like '%cdmx%' Or lower(${TABLE}.estadoComercial) Like '%ciudad de m%' Or lower(${TABLE}.estadoComercial) Like '%ciudad de m%' Or lower(${TABLE}.estadoComercial) Like '%federal%' Or lower(${TABLE}.estadoComercial) Like '%d.f.%' Or lower(${TABLE}.estadoComercial) Like '%df%' Or lower(${TABLE}.estadoComercial) Like '%cdmx%' Or lower(${TABLE}.estadoComercial) Like '%dad de m%' Or lower(${TABLE}.estadoComercial) Like '%cmdx%' Then 'Distrito Federal'
-      When lower(${TABLE}.estadoComercial) Like '%xico%' Or lower(${TABLE}.estadoComercial) Like '%edo. méx' Or lower(${TABLE}.estadoComercial) Like '%edo mes%' Or lower(${TABLE}.estadoComercial) In('MEX','MEX.') Or lower(${TABLE}.estadoComercial) Like '%edo. mex.%'  Then 'México'
+      When lower(${TABLE}.estadoComercial) Like '%xico%' Or lower(${TABLE}.estadoComercial) Like '%edo. méx' Or lower(${TABLE}.estadoComercial) Like '%edo mes%' Or lower(${TABLE}.estadoComercial) In ('MEX','MEX.') Or lower(${TABLE}.estadoComercial) Like '%edo. mex.%'  Then 'México'
       When lower(${TABLE}.estadoComercial) Like '%uebl%' Then 'Puebla'
       When lower(${TABLE}.estadoComercial) Like '%guerr%' Then 'Guerrero'
       When lower(${TABLE}.estadoComercial) Like '%quer%' Then 'Querétaro'
-      When lower(${TABLE}.estadoComercial) Like '%nuevo l%' Or lower(${TABLE}.estadoComercial) In('n.l.','monterrey') Or lower(${TABLE}.estadoComercial) Like '%leon%' Then 'Nuevo León'
-      When lower(${TABLE}.estadoComercial) In ('baja california', 'baja california ','baja california norte ','baja california norte') Or ${TABLE}.estadoComercial in('BAJA CALIFORNA ','Baja California') Or lower(${TABLE}.estadoComercial) like '%norte%'  Then 'Baja California'
+      When lower(${TABLE}.estadoComercial) Like '%nuevo l%' Or lower(${TABLE}.estadoComercial) In ('n.l.','monterrey') Or lower(${TABLE}.estadoComercial) Like '%leon%' Then 'Nuevo León'
+      When lower(${TABLE}.estadoComercial) in ('baja california', 'baja california ','baja california norte ','baja california norte') Or ${TABLE}.estadoComercial In ('BAJA CALIFORNA ','Baja California') Or lower(${TABLE}.estadoComercial) like '%norte%'  Then 'Baja California'
       When lower(${TABLE}.estadoComercial) Like '%sur%' Then 'Baja California Sur'
       When lower(${TABLE}.estadoComercial) Like '%campech%' Or lower(${TABLE}.estadoComercial) like '%campe%' Then 'Campeche'
       When lower(${TABLE}.estadoComercial) Like '%chiap%' Then 'Chiapas'
@@ -254,5 +254,13 @@ view: grl08_liquidacion_comercios {
   measure: count {
     type: count
     drill_fields: [id]
+  }
+
+  ########################################
+
+  dimension: mexico_layer {
+    type: string
+    map_layer_name: mexico_layer
+    sql: ${estado_comercial} ;;
   }
 }
