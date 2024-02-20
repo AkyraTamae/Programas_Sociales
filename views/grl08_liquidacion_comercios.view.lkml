@@ -271,29 +271,29 @@ view: grl08_liquidacion_comercios {
     sql: ${TABLE}.importe_ventas ;;
     }
   dimension: fecha_c {
-    type: date
+    type: string
     order_by_field: fecha_month
     sql: date_trunc(${TABLE}.fecha,month) ;;
     html: {{ rendered_value | date: "%B %Y" }} ;;
     }
-  dimension: estatus {
-    type: string
-    label: "Estatus"
-    sql: case when ${TABLE}.comercio is not null then '' else null end ;;
-  }
-  dimension: black_list {
-    type: string
-    label: "Black List"
-    sql: case when ${TABLE}.comercio is not null then '' else null end ;;
-  }
-  dimension: fecha_de_ingreso_a_black_list {
-    type: string
-    label: "Fecha de Ingreso a Black List"
-    sql: case when ${TABLE}.comercio is not null then '' else null end ;;
-  }
-  dimension: fecha_de_salida_de_black_list {
-    type: string
-    label: "Fecha de Salida de Black List"
-    sql: case when ${TABLE}.comercio is not null then '' else null end ;;
-  }
+#  dimension: estatus {
+#    type: string
+#    label: "Estatus"
+#    sql: case when ${TABLE}.comercio is not null then '' else null end ;;
+#  }
+#  dimension: black_list {
+#    type: string
+#    label: "Black List"
+#    sql: case when ${TABLE}.comercio is not null then '' else null end ;;
+#  }
+#  dimension: fecha_de_ingreso_a_black_list {
+#    type: string
+#    label: "Fecha de Ingreso a Black List"
+#    sql: case when ${TABLE}.comercio is not null then '' else null end ;;
+#  }
+#  dimension: fecha_de_salida_de_black_list {
+#    type: string
+#    label: "Fecha de Salida de Black List"
+#    sql: case when ${TABLE}.comercio is not null then '' else null end ;;
+#  }
 }
