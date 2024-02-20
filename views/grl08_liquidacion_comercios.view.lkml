@@ -126,7 +126,6 @@ view: grl08_liquidacion_comercios {
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    hidden: yes
     sql: ${TABLE}.fecha ;;
   }
   dimension_group: fecha_alta {
@@ -271,7 +270,7 @@ view: grl08_liquidacion_comercios {
     label: "Importe Ventas"
     sql: ${TABLE}.importe_ventas ;;
     }
-  dimension: fecha {
+  dimension: fecha_c {
     type: string
     sql: ${TABLE}.fecha ;;
     html: {{ rendered_value | date: "%B %G" }} ;;
