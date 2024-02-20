@@ -268,7 +268,6 @@ view: grl08_liquidacion_comercios {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
     label: "Importe Ventas"
-    hidden: yes
     sql: ${TABLE}.importe_ventas ;;
     }
 }
