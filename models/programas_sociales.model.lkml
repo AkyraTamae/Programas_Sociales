@@ -77,3 +77,5 @@ explore: data_lineage {}
 explore: programas_sociales_all_v2 {}
 
 explore: cierres_credencial_usa_agrupacion {}
+
+explore: comparacion_conciliacion {}
