@@ -24,9 +24,9 @@ view: comparacion_conciliacion {
             fecha,
             comercio
           From
-            [broxelco_rdg].[bp_detalle_diario_comercio] Wirh (Nolock)
+            [broxelco_rdg].[bp_detalle_diario_comercio] With (Nolock)
           Where
-            processor = '2' And importe_ventas <> '0' And idPrograma = '10' And fecha >= '2024-01-01'
+            processor = '2' And importe_ventas <> '0' And idPrograma = '10' And fecha >= '2023-12-01'
           )B On A.C_Folio = B.folio And A.C_Comercio = B.comercio
         Left Join
           (
@@ -36,7 +36,7 @@ view: comparacion_conciliacion {
           From
             [broxelco_rdg].[RecepcionTransferencias] With (Nolock)
           Where
-            FechaOperacion >= '2024-01-01' And CLABE = '646180143121032635'
+            FechaOperacion >= '2023-12-01' And CLABE = '646180143121032635'
           )C On A.C_IdCLienteTransaccion = C.ConceptoPago
         Where
           B.fecha Is Not Null
@@ -44,7 +44,7 @@ view: comparacion_conciliacion {
           B.fecha
         )AA On REPLACE(A.Fecha, '-', '') = AA.KeyId
       Where
-        A.fecha >= '2024-01-01' And A.idPrograma = '10' And C.Comercio Is Null
+        A.fecha >= '2023-12-01' And A.idPrograma = '10' And C.Comercio Is Null
       Group By
         A.Fecha,
         AA.Monto_de_Compra ;;
@@ -71,6 +71,12 @@ view: comparacion_conciliacion {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Importe_Ventas ;;
+  }
+
+  measure: diferencia {
+    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${importe_ventas} - ${monto_de_compra} ;;
   }
 
   set: detail {
