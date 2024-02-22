@@ -252,6 +252,44 @@ view: transacciones_mensual_all {
     sql: ${TABLE}.Monto ;;
   }
 
+  measure: ticket_promedio {
+    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${sum_monto}/${count} ;;
+  }
+
+  ###########################################
+
+  dimension: fecha_txt {
+    type: string
+    sql: datetrunc(month,${TABLE}.Fecha) ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
+  }
+
+  dimension: prueba {
+    type: string
+    sql: ${nombre_de_medidas} ;;
+    html:
+              {% if prueba._value == "Equipa_Tu_Casa" %}
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg" height="170" width="255">
+              {% elsif prueba._value == "New York" %}
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_New_York.svg/1200px-Flag_of_New_York.svg.png" height="170" width="255">
+              {% elsif prueba._value == "Colorado" %}
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Flag_of_Colorado.svg/255px-Flag_of_Colorado.svg.png" height="170" width="255">
+              {% elsif prueba._value == "Illinois"%}
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Flag_of_Illinois.svg/1200px-Flag_of_Illinois.svg.png" height="170" width="255">
+              {%  else %}
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" height="170" width="170">
+              {% endif %} ;;
+  }
+
+  measure: prueba_2 {
+    type: string
+    sql: concat('En el mes de ***** ',' se registró un total de ', format(${count},'G'),' transacciones y un volumen de facturación de ',format(${sum_monto},'C','en-us'),'. Las ventas presentaron un decremento del ***** con relación al mes anterior. El Ticket Promedio global presentó un decremento del ***** con relación al mes anterior.') ;;
+  }
+
+  ###########################################
+
   set: detail {
     fields: [
         id_movimiento,
