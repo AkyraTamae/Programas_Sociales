@@ -59,7 +59,7 @@ view: transacciones_mensual_all {
       Inner Join
         [broxelco_rdg].[Comercio] With (Nolock) On DenMov = Comercio
       Where
-        Producto In ('K303','K281') And CONVERT(Date,fecha) >= '2022-01-01' And AuthorizationCode Is Not Null And Comercio.comercio Not In
+        Producto In ('K303','K281') And CONVERT(Date,fecha) >= '2023-01-01' And AuthorizationCode Is Not Null And Comercio.comercio Not In
         (
         Select *
         From
@@ -123,7 +123,7 @@ view: transacciones_mensual_all {
       Inner Join
         [broxelco_rdg].[Comercio] On DenMov = Comercio
       Where
-        CodPtoCuota = 'K671' and CONVERT(Date,FClear) >= '2022-01-01' And Comercio.comercio Not In
+        CodPtoCuota = 'K671' and CONVERT(Date,FClear) >= '2023-01-01' And Comercio.comercio Not In
         (
         select *
         From
@@ -185,7 +185,7 @@ view: transacciones_mensual_all {
       From
         [dev_originacion].[mejoravit_transacciones] With (Nolock)
       Where
-        CONVERT(Date,Fecha) >= '2022-01-01' ;;
+        CONVERT(Date,Fecha) >= '2023-01-01' ;;
   }
 
   measure: count {
@@ -266,27 +266,17 @@ view: transacciones_mensual_all {
     html: {{ rendered_value | date: "%B %Y" }};;
   }
 
-  dimension: prueba {
-    type: string
-    sql: ${nombre_de_medidas} ;;
-    html:
-              {% if prueba._value == "Equipa_Tu_Casa" %}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg" height="170" width="255">
-              {% elsif prueba._value == "New York" %}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_New_York.svg/1200px-Flag_of_New_York.svg.png" height="170" width="255">
-              {% elsif prueba._value == "Colorado" %}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Flag_of_Colorado.svg/255px-Flag_of_Colorado.svg.png" height="170" width="255">
-              {% elsif prueba._value == "Illinois"%}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Flag_of_Illinois.svg/1200px-Flag_of_Illinois.svg.png" height="170" width="255">
-              {%  else %}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" height="170" width="170">
-              {% endif %} ;;
-  }
-
   measure: prueba_2 {
     type: string
     sql: concat('En el mes de ***** ',' se registró un total de ', format(${count},'G'),' transacciones y un volumen de facturación de ',format(${sum_monto},'C','en-us'),'. Las ventas presentaron un decremento del ***** con relación al mes anterior. El Ticket Promedio global presentó un decremento del ***** con relación al mes anterior.') ;;
   }
+
+  dimension: month_less_1 {
+    type: string
+    sql: datetrunc(month,${TABLE}.Fecha) ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
+    }
+
 
   ###########################################
 
