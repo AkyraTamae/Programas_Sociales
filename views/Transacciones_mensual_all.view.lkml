@@ -254,6 +254,7 @@ view: transacciones_mensual_all {
 
   measure: ticket_promedio {
     type: number
+    order_by_field: sum_monto
     value_format: "$#,##0.00;-$#,##0.00"
     sql: ${sum_monto}/${count} ;;
   }
