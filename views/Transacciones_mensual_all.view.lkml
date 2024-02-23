@@ -267,6 +267,10 @@ view: transacciones_mensual_all {
     html: {{ rendered_value | date: "%B %Y" }};;
   }
 
+  dimension_group: fecha_txt_group {
+    sql: ${fecha_txt} ;;
+  }
+
   measure: prueba_2 {
     type: string
     sql: concat('En el mes de ***** ',' se registró un total de ', format(${count},'G'),' transacciones y un volumen de facturación de ',format(${sum_monto},'C','en-us'),'. Las ventas presentaron un decremento del ***** con relación al mes anterior. El Ticket Promedio global presentó un decremento del ***** con relación al mes anterior.') ;;
