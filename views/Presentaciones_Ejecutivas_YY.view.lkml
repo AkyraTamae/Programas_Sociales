@@ -151,13 +151,13 @@ view: presentaciones_ejecutivas_yy {
   dimension: comportamiento_monto {
     type: number
     value_format: "0.00%"
-    sql: ${TABLE}.ComportamientoMonto ;;
+    sql: abs(${TABLE}.ComportamientoMonto) ;;
   }
 
   dimension: comportamiento_ticket {
     type: number
     value_format: "0.00%"
-    sql: ${TABLE}.ComportamientoTicket ;;
+    sql: abs(${TABLE}.ComportamientoTicket) ;;
   }
 
   dimension: estatus_comportamiento_monto {
@@ -177,6 +177,34 @@ view: presentaciones_ejecutivas_yy {
 
   ####################################
 
+  dimension: month_name {
+    type: string
+    sql:
+    case
+    when month(${fecha_date}) = 1 then 'Enero'
+    when month(${fecha_date}) = 2 then'Febrero'
+    when month(${fecha_date}) = 3 then'Marzo'
+    when month(${fecha_date}) = 4 then'Abril'
+    when month(${fecha_date}) = 5 then 'Mayo'
+    when month(${fecha_date}) = 6 then 'Junio'
+    when month(${fecha_date}) = 7 then 'Julio'
+    when month(${fecha_date}) = 8 then 'Agosto'
+    when month(${fecha_date}) = 9 then 'Septiembre'
+    when month(${fecha_date}) = 10 then 'Octubre'
+    when month(${fecha_date}) = 11 then 'Noviembre'
+    when month(${fecha_date}) = 12 then 'Diciembre'
+    end ;;
+  }
+
+  measure: descriptivo_mensual {
+    type: string
+    sql: concat('En el mes de ', ${month_name},' ',${fecha_year},' se registró un total de ', format(${transacciones}, 'N0', 'en-us'), ' transacciones y un volumen de facturación de ', format(${monto},'C', 'en-us'), '. Las ventas presentaron un ',  ${estatus_comportamiento_monto},' del ', format(${comportamiento_monto}, 'P', 'en-us'), ' con relación al mes anterior. El Ticket Promedio global presentó un ', ${estatus_comportamiento_ticket}, ' del ', format(${comportamiento_ticket}, 'P', 'en-us'), ' con relación al mes anterior.' ) ;;
+  }
+
+  measure: descriptivo_mensual_2{
+    type: string
+    sql: concat('El Ticket Promedio de compra general de todos los comercios del proyecto ', ${nombre_de_medidas}, ' en ', ${month_name},' ',${fecha_year}, ' fue de ', format(${ticket_promedio},'C', 'en-us'), '.') ;;
+  }
 
 
   ####################################
