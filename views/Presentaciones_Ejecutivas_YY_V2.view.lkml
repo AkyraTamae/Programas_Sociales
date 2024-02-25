@@ -11,7 +11,6 @@ view: presentaciones_ejecutivas_yy_v2 {
         Case When A.Producto = 'K303' Then 'Equipa Tu Casa' When A.Producto = 'K281' Then 'Renueva' End As 'NombreDeMedidas',
         B.razon_social As 'RazonSocial',
         B.rfc As 'RFC',
-
         Case
         --Modificación de regla solicitada el 29 de diciembre
         When B.Comercio = '23CBX00958' Then 'Hidalgo'
@@ -52,7 +51,6 @@ view: presentaciones_ejecutivas_yy_v2 {
         When B.estadoComercial Like '%taba%' Then 'Tabasco'
         Else 'México'
         End As 'Estado_Comercial'
-
       From
         [broxelpaymentsws].[PrePayStudioMovements_v] A With (Nolock)
       Inner Join
@@ -63,9 +61,7 @@ view: presentaciones_ejecutivas_yy_v2 {
           DATETRUNC(MONTH, CONVERT(Date, A.Fecha)) As 'Fecha',
           COUNT(1) As 'TransaccionesPrevio',
           SUM(CONVERT(Decimal(20, 2), A.ImpTotal)) As 'MontoPrevio',
-          Case When A.Producto = 'K303' Then 'Equipa Tu Casa' When A.Producto = 'K281' Then 'Renueva' End As 'NombreDeMedidas',
-          B.razon_social As 'RazonSocial',
-          B.rfc As 'RFC'
+          Case When A.Producto = 'K303' Then 'Equipa Tu Casa' When A.Producto = 'K281' Then 'Renueva' End As 'NombreDeMedidas'
         From
           [broxelpaymentsws].[PrePayStudioMovements_v] A With (Nolock)
         Inner Join
@@ -74,10 +70,8 @@ view: presentaciones_ejecutivas_yy_v2 {
           Producto In ('K303','K281') And CONVERT(Date, A.fecha) >= '2023-01-01' And A.AuthorizationCode Is Not Null And B.comercio Not In ( Select * From [broxelco_rdg].[ComercioNoReportar] Wit (Nolock))
         Group By
           DATETRUNC(MONTH, CONVERT(Date, A.Fecha)),
-          A.Producto,
-          B.razon_social,
-          B.rfc
-        )AA On DATETRUNC(MONTH, CONVERT(Date, A.Fecha)) = DATEADD(MONTH,1,AA.Fecha) And Case When A.Producto = 'K303' Then 'Equipa_tu_Casa' When A.Producto = 'K281' Then 'Renueva' End = AA.NombreDeMedidas And B.razon_social = AA.RazonSocial And B.rfc = AA.RFC
+          A.Producto
+        )AA On DATETRUNC(MONTH, CONVERT(Date, A.Fecha)) = DATEADD(MONTH,1,AA.Fecha) And Case When A.Producto = 'K303' Then 'Equipa Tu Casa' When A.Producto = 'K281' Then 'Renueva' End = AA.NombreDeMedidas
       Where
         Producto In ('K303','K281') And CONVERT(Date, A.fecha) >= '2023-01-01' And A.AuthorizationCode Is Not Null And B.comercio Not In ( Select * From [broxelco_rdg].[ComercioNoReportar] Wit (Nolock))
       Group By
@@ -441,15 +435,15 @@ view: presentaciones_ejecutivas_yy_v2 {
 
   measure: transacciones_sum {
     type: sum
-    value_format: "0.00%"
+    value_format: "#,##0"
     sql: ${transacciones} ;;
   }
 
-#  measure: transacciones_previo_avg  {
-#    type: average
-#    value_format: "0.00%"
-#    sql: ${transacciones_previo} ;;
-#  }
+  measure: transacciones_previo_max  {
+    type: max
+    value_format: "#,##0"
+    sql: ${TABLE}.TransaccionesPrevio ;;
+  }
 
   measure: monto_sum {
     type: sum
@@ -457,11 +451,11 @@ view: presentaciones_ejecutivas_yy_v2 {
     sql: ${monto} ;;
   }
 
-#  measure: monto_previo_avg {
-#    type: average
-#    value_format: "$#,##0.00;-$#,##0.00"
-#    sql: ${monto_previo} ;;
-#  }
+  measure: monto_previo_max {
+    type: max
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.MontoPrevio ;;
+  }
 
   measure: ticket_promedio {
     type: number
@@ -469,24 +463,24 @@ view: presentaciones_ejecutivas_yy_v2 {
     sql: sum(${TABLE}.Monto) / sum(${TABLE}.Transacciones) ;;
   }
 
-  dimension: month_over_month_monto {
+  measure: month_over_month_monto {
     type: number
     value_format: "0.00%"
     sql: (sum(${TABLE}.Monto) / avg(${TABLE}.MontoPrevio)) -1 ;;
   }
 
-  dimension: month_over_month_transacciones {
+  measure: month_over_month_transacciones {
     type: number
     value_format: "0.00%"
-    sql: (sum(${TABLE}.Transacciones) / avg(${TABLE}.TransaccionesPrevio)) -1 ;;
+    sql: (${transacciones_sum} / ${transacciones_previo_max}) -1 ;;
   }
 
-  dimension: estatus_mom_monto {
+  measure: estatus_mom_monto {
     type: string
     sql: case when ${month_over_month_monto} < 0 then 'decremento' else 'incremento' end ;;
   }
 
-  dimension: estatus_mom_transacciones {
+  measure: estatus_mom_transacciones {
     type: string
     sql: case when ${month_over_month_transacciones} < 0 then 'decremento' else 'incremento' end ;;
   }
