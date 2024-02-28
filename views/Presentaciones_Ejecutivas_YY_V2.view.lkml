@@ -416,21 +416,22 @@ view: presentaciones_ejecutivas_yy_v2 {
 
   dimension: month_name {
     type: string
+    order_by_field: fecha_date
     sql:
     case
-    when month(${fecha_date}) = 1 then 'Enero'
-    when month(${fecha_date}) = 2 then'Febrero'
-    when month(${fecha_date}) = 3 then'Marzo'
-    when month(${fecha_date}) = 4 then'Abril'
-    when month(${fecha_date}) = 5 then 'Mayo'
-    when month(${fecha_date}) = 6 then 'Junio'
-    when month(${fecha_date}) = 7 then 'Julio'
-    when month(${fecha_date}) = 8 then 'Agosto'
-    when month(${fecha_date}) = 9 then 'Septiembre'
-    when month(${fecha_date}) = 10 then 'Octubre'
-    when month(${fecha_date}) = 11 then 'Noviembre'
-    when month(${fecha_date}) = 12 then 'Diciembre'
-    end ;;
+    when month(${fecha_date}) = 1 then concat('Enero ', ${fecha_year})
+    when month(${fecha_date}) = 2 then concat('Febrero ', ${fecha_year})
+    when month(${fecha_date}) = 3 then concat('Marzo ', ${fecha_year})
+    when month(${fecha_date}) = 4 then concat('Abril ', ${fecha_year})
+    when month(${fecha_date}) = 5 then concat('Mayo ', ${fecha_year})
+    when month(${fecha_date}) = 6 then concat('Junio ', ${fecha_year})
+    when month(${fecha_date}) = 7 then concat('Julio ', ${fecha_year})
+    when month(${fecha_date}) = 8 then concat('Agosto ', ${fecha_year})
+    when month(${fecha_date}) = 9 then concat('Septiembre ', ${fecha_year})
+    when month(${fecha_date}) = 10 then concat('Octubre ', ${fecha_year})
+    when month(${fecha_date}) = 11 then concat('Noviembre ', ${fecha_year})
+    when month(${fecha_date}) = 12 then concat('Diciembre ', ${fecha_year})
+    end  ;;
   }
 
   measure: transacciones_sum {
@@ -463,29 +464,69 @@ view: presentaciones_ejecutivas_yy_v2 {
     sql: sum(${TABLE}.Monto) / sum(${TABLE}.Transacciones) ;;
   }
 
+  measure: ticket_promedio_previo {
+    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: max(${TABLE}.MontoPrevio) / max(${TABLE}.TransaccionesPrevio) ;;
+  }
+
   measure: month_over_month_monto {
     type: number
     value_format: "0.00%"
-    sql: (sum(${TABLE}.Monto) / avg(${TABLE}.MontoPrevio)) -1 ;;
+    sql: (sum(${TABLE}.Monto) / max(${TABLE}.MontoPrevio)) -1 ;;
   }
 
-  measure: month_over_month_transacciones {
+  measure: month_over_month_ticket {
     type: number
     value_format: "0.00%"
-    sql: (${transacciones_sum} / ${transacciones_previo_max}) -1 ;;
+    sql: (${ticket_promedio} / ${ticket_promedio_previo}) -1 ;;
   }
 
   measure: estatus_mom_monto {
-    type: string
-    sql: case when ${month_over_month_monto} < 0 then 'decremento' else 'incremento' end ;;
+    type: string    sql: case when ${month_over_month_monto} < 0 then 'decremento' else 'incremento' end ;;
   }
 
-  measure: estatus_mom_transacciones {
+  measure: estatus_mom_ticket {
     type: string
-    sql: case when ${month_over_month_transacciones} < 0 then 'decremento' else 'incremento' end ;;
+    sql: case when ${month_over_month_ticket} < 0 then 'decremento' else 'incremento' end ;;
+  }
+
+  measure: month_year {
+    type: string
+    sql_distinct_key: ${TABLE}.NombreDeMedida ;;
+    sql:
+    case
+    when min(month(${TABLE}.Fecha)) = 1 then concat('Enero ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 2 then concat('Febrero ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 3 then concat('Marzo ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 4 then concat('Abril ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 5 then concat('Mayo ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 6 then concat('Junio ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 7 then concat('Julio ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 8 then concat('Agosto ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 9 then concat('Septiembre ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 10 then concat('Octubre ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 11 then concat('Noviembre ', min(year(${TABLE}.Fecha)))
+    when min(month(${TABLE}.Fecha)) = 12 then concat('Diciembre ', min(year(${TABLE}.Fecha)))
+    end ;;
+  }
+
+  measure: descriptivo_mensual {
+    type: string
+    sql: concat('En el mes de ', ${month_year}, ' se registró un total de ', format(${transacciones_sum}, 'N0', 'en-us'), ' transacciones y un volumen de facturación de ', format(${monto_sum},'C', 'en-us'), '. Las ventas presentaron un ',  ${estatus_mom_monto},' del ', format(abs(${month_over_month_monto}), 'P', 'en-us'), ' con relación al mes anterior. El Ticket Promedio global presentó un ', ${estatus_mom_ticket}, ' del ', format(abs(${month_over_month_ticket}), 'P', 'en-us'), ' con relación al mes anterior.' ) ;;
+  #${fecha_month_name},' ',${fecha_year}
   }
 
   ####################################
+
+  dimension: top_1 {
+    type: number
+    sql: max(${monto_sum}) ;;
+  }
+
+
+  ####################################
+
 
 
   set: detail {

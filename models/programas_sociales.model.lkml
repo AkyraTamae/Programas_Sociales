@@ -83,3 +83,5 @@ explore: comparacion_conciliacion {}
 explore: presentaciones_ejecutivas_yy {}
 
 explore: presentaciones_ejecutivas_yy_v2 {}
+
+explore: trsnacacciones {}
