@@ -44,7 +44,7 @@ view: trsnacacciones {
 
   dimension: status {
     type: string
-    sql: case when ${TABLE}.IS_AUTHORIZED = '0' then 'Denied' else 'Authorized' end ;;
+    sql: case when ${TABLE}.IS_AUTHORIZED = '0' then 'Rechazado' else 'Aprobado' end ;;
   }
 
   dimension: date_txt {
@@ -68,9 +68,17 @@ view: trsnacacciones {
 
   measure: cancelacion_percentge {
     type: number
+    label: "% Rechazo"
     value_format: "0.00%"
     sql: convert(decimal(20,2),${cancelacion}) / (convert(decimal(20,2),${cancelacion}) + convert(decimal(20,2),${aprobacion}))  ;;
   }
+
+  dimension: descripcion_estatus_filtro {
+    type: string
+    label: "Motivo de Rechazo"
+    sql: case when ${TABLE}.IS_AUTHORIZED = '0' then ${TABLE}.DescripcionEstatus else '' end ;;
+  }
+
 
   ####################################
 
