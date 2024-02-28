@@ -84,6 +84,11 @@ view: trsnacacciones {
     sql: ${TABLE}.IS_AUTHORIZED ;;
   }
 
+  measure: transacciones_sum {
+    type: sum
+    sql: ${TABLE}.Transacciones ;;
+  }
+
   set: detail {
     fields: [
         transacciones,
