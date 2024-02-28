@@ -1,55 +1,6 @@
 
 view: trsnacacciones {
-  derived_table: {
-    sql: Select
-        COUNT(1) As 'Transacciones',
-        DATETRUNC(MONTH, CONVERT(Date, A.LOCAL_DATE)) As 'Fecha',
-        C.[DESCRIPTION] As 'DescripcionEstatus',
-        D.descripcion As 'CategoriaTransaccion',
-        C.IS_AUTHORIZED
-      From
-        [paystudio].[AU_OPEN_TRANSACTION] A With (Nolock)
-      Left Join
-        [paystudio].[AU_RESPONSE_CODE] C With (Nolock) On A.ID_RESPONSE_CODE = C.ID_RESPONSE_CODE
-      Left Join
-        [paystudio].[CatalogoTransacciones] D With (Nolock) On A.TRANSACTION_TYPE = D.Id
-      Where
-        YEAR(CONVERT(Date, A.LOCAL_DATE)) >= '2023'
-      Group By
-        DATETRUNC(MONTH, CONVERT(Date, A.LOCAL_DATE)),
-        C.[DESCRIPTION],
-        D.descripcion,
-        C.IS_AUTHORIZED
-      Union All
-      Select
-        COUNT(1) As 'Transacciones',
-        DATETRUNC(MONTH, A.FClear) As 'Fecha',
-        'AUTHORIZED' As 'DescripcionEstatus',
-        D.CategoriaTransaccion,
-        '1' As 'IS_AUTHORIZED'
-      From
-        [broxelco_rdg].[ind_movimientos] A With (Nolock)
-      Left Join
-        [broxelco_rdg].[CatalogoTipoTransaccion] D With (Nolock) On A.CodTransac = D.CodigoTransaccional
-      Where
-        YEAR(A.FClear) >= '2023'
-      Group By
-        DATETRUNC(MONTH, A.FClear),
-        D.CategoriaTransaccion
-      Union All
-      Select
-        COUNT(1) As 'Transacciones',
-        DATETRUNC(MONTH, Fecha) As 'Fecha',
-        'Unknow' As 'DescripcionEstatus',
-        Null As 'CategoriaTransaccion',
-        '0' As 'IS_AUTHORIZED'
-      From
-        [broxelco_rdg].[ind_rechazos]
-      Where
-        YEAR(Fecha) >= '2023'
-      Group By
-        DATETRUNC(MONTH, Fecha) ;;
-  }
+  sql_table_name: dbo.EstatusTransacciones ;;
 
   measure: count {
     type: count
@@ -100,6 +51,25 @@ view: trsnacacciones {
     type: string
     sql: ${TABLE}.Fecha ;;
     html: {{ rendered_value | date: "%B %Y" }};;
+  }
+
+  measure: cancelacion {
+    type: sum
+    hidden: yes
+    sql: case when ${TABLE}.IS_AUTHORIZED = '0' then ${TABLE}.Transacciones else '0' end  ;;
+  }
+
+  measure: aprobacion {
+    type: sum
+    hidden: yes
+    sql: case when ${TABLE}.IS_AUTHORIZED = '1' then ${TABLE}.Transacciones else '0' end  ;;
+  }
+
+
+  measure: cancelacion_percentge {
+    type: number
+    value_format: "0.00%"
+    sql: convert(decimal(20,2),${cancelacion}) / (convert(decimal(20,2),${cancelacion}) + convert(decimal(20,2),${aprobacion}))  ;;
   }
 
   ####################################
