@@ -84,10 +84,25 @@ view: trsnacacciones {
     sql: ${TABLE}.IS_AUTHORIZED ;;
   }
 
+  ####################################
+
   measure: transacciones_sum {
     type: sum
     sql: ${TABLE}.Transacciones ;;
   }
+
+  dimension: status {
+    type: string
+    sql: case when ${TABLE}.IS_AUTHORIZED = '0' then 'Denied' else 'Authorized' end ;;
+  }
+
+  dimension: date_txt {
+    type: string
+    sql: ${TABLE}.Fecha ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
+  }
+
+  ####################################
 
   set: detail {
     fields: [

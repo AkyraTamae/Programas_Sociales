@@ -358,7 +358,6 @@ view: programas_sociales_all {
     type: string
     sql: ${TABLE}.mes_txt ;;
     html: {{ rendered_value | date: "%B %Y" }};;
-
   }
 
   measure: total_ventas{
