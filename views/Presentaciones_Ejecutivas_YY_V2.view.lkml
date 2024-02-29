@@ -135,39 +135,11 @@ view: presentaciones_ejecutivas_yy_v2 {
     sql: case when ${month_over_month_ticket} < 0 then 'decremento' else 'incremento' end ;;
   }
 
-  measure: month_year {
-    type: string
-    sql_distinct_key: ${TABLE}.NombreDeMedida ;;
-    sql:
-    case
-    when min(month(${TABLE}.Fecha)) = 1 then concat('Enero ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 2 then concat('Febrero ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 3 then concat('Marzo ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 4 then concat('Abril ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 5 then concat('Mayo ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 6 then concat('Junio ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 7 then concat('Julio ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 8 then concat('Agosto ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 9 then concat('Septiembre ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 10 then concat('Octubre ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 11 then concat('Noviembre ', min(year(${TABLE}.Fecha)))
-    when min(month(${TABLE}.Fecha)) = 12 then concat('Diciembre ', min(year(${TABLE}.Fecha)))
-    end ;;
-  }
-
   measure: descriptivo_mensual {
     type: string
-    sql: concat('En el mes de ', ${month_year}, ' se registró un total de ', format(${transacciones_sum}, 'N0', 'en-us'), ' transacciones y un volumen de facturación de ', format(${monto_sum},'C', 'en-us'), '. Las ventas presentaron un ',  ${estatus_mom_monto},' del ', format(abs(${month_over_month_monto}), 'P', 'en-us'), ' con relación al mes anterior. El Ticket Promedio global presentó un ', ${estatus_mom_ticket}, ' del ', format(abs(${month_over_month_ticket}), 'P', 'en-us'), ' con relación al mes anterior.' ) ;;
+    sql: concat('En el mes de ', ${month_name}, ' se registró un total de ', format(${transacciones_sum}, 'N0', 'en-us'), ' transacciones y un volumen de facturación de ', format(${monto_sum},'C', 'en-us'), '. Las ventas presentaron un ',  ${estatus_mom_monto},' del ', format(abs(${month_over_month_monto}), 'P', 'en-us'), ' con relación al mes anterior. El Ticket Promedio global presentó un ', ${estatus_mom_ticket}, ' del ', format(abs(${month_over_month_ticket}), 'P', 'en-us'), ' con relación al mes anterior.' ) ;;
   #${fecha_month_name},' ',${fecha_year}
   }
-
-  ####################################
-
-  dimension: top_1 {
-    type: number
-    sql: max(${monto_sum}) ;;
-  }
-
 
   ####################################
 
