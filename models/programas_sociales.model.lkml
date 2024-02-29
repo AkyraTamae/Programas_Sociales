@@ -80,10 +80,8 @@ explore: cierres_credencial_usa_agrupacion {}
 
 explore: comparacion_conciliacion {}
 
-explore: presentaciones_ejecutivas_yy {}
-
 explore: presentaciones_ejecutivas_yy_v2 {}
 
 explore: trsnacacciones {}
 
-explore: presentaciones_ejecutivas_yy_renueva {}
+explore: presentaciones_ejecutivas_yy_v2_comercios {}
