@@ -137,9 +137,30 @@ view: presentaciones_ejecutivas_yy_v2 {
 
   measure: descriptivo_mensual {
     type: string
-    sql: concat('En el mes de ', ${month_name}, ' se registró un total de ', format(${transacciones_sum}, 'N0', 'en-us'), ' transacciones y un volumen de facturación de ', format(${monto_sum},'C', 'en-us'), '. Las ventas presentaron un ',  ${estatus_mom_monto},' del ', format(abs(${month_over_month_monto}), 'P', 'en-us'), ' con relación al mes anterior. El Ticket Promedio global presentó un ', ${estatus_mom_ticket}, ' del ', format(abs(${month_over_month_ticket}), 'P', 'en-us'), ' con relación al mes anterior.' ) ;;
+    sql: concat('En el mes de ', ${month_year}, ' se registró un total de ', format(${transacciones_sum}, 'N0', 'en-us'), ' transacciones y un volumen de facturación de ', format(${monto_sum},'C', 'en-us'), '. Las ventas presentaron un ',  ${estatus_mom_monto},' del ', format(abs(${month_over_month_monto}), 'P', 'en-us'), ' con relación al mes anterior. El Ticket Promedio global presentó un ', ${estatus_mom_ticket}, ' del ', format(abs(${month_over_month_ticket}), 'P', 'en-us'), ' con relación al mes anterior.' ) ;;
   #${fecha_month_name},' ',${fecha_year}
   }
+#Fecha agrupada en formato MMMM YYYY#
+  dimension: month_year {
+    type: string
+    order_by_field: fecha_date
+    sql:
+    case
+    when month(max(${fecha_date})) = 1 then concat('Enero ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 2 then concat('Febrero ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 3 then concat('Marzo ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 4 then concat('Abril ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 5 then concat('Mayo ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 6 then concat('Junio ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 7 then concat('Julio ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 8 then concat('Agosto ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 9 then concat('Septiembre ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 10 then concat('Octubre ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 11 then concat('Noviembre ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 12 then concat('Diciembre ', max(${fecha_year}))
+    end  ;;
+  }
+
 
   ####################################
 
