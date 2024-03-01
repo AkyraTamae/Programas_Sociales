@@ -26,7 +26,7 @@ view: presentaciones_ejecutivas_yy_v2_comercios {
         SUM(Transacciones) As 'Transacciones',
         SUM(Monto) As 'Monto',
         NombreDeMedidas,
-        Null As 'RazonSocial'
+        'MontoTotalMensual' As 'RazonSocial'
       From
         dbo.PresentacionesEjecutivasYY
       Group By
@@ -112,11 +112,18 @@ view: presentaciones_ejecutivas_yy_v2_comercios {
     sql: case when ${TABLE}.TopId = '11' then ${monto} else null end ;;
   }
 
-  measure: mount_percentage {
+  dimension: merchand_top_1 {
+    type: string
+    string_datatype: unicode
+    sql: case when (case when ${TABLE}.TopId = '1' then ${TABLE}.RazonSocial end) is not null then ${TABLE}.RazonSocial end  ;;
+  }
+
+  measure: amount_percentage {
     type: number
     value_format: "0.00%"
     sql: ${monto_sum_top_10} / ${monto_sum_top_11} ;;
   }
+
 
 
   ####################################
