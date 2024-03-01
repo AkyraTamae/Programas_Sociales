@@ -127,7 +127,8 @@ view: presentaciones_ejecutivas_yy_v2 {
   }
 
   measure: estatus_mom_monto {
-    type: string    sql: case when ${month_over_month_monto} < 0 then 'decremento' else 'incremento' end ;;
+    type: string
+    sql: case when ${month_over_month_monto} < 0 then 'decremento' else 'incremento' end ;;
   }
 
   measure: estatus_mom_ticket {

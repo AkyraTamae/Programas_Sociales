@@ -74,26 +74,49 @@ view: presentaciones_ejecutivas_yy_v2_comercios {
 
   ####################################
 
-  dimension: month_name {
+  dimension: month_year {
     type: string
     order_by_field: fecha_date
     sql:
     case
-    when month(${fecha_date}) = 1 then concat('Enero ', ${fecha_year})
-    when month(${fecha_date}) = 2 then concat('Febrero ', ${fecha_year})
-    when month(${fecha_date}) = 3 then concat('Marzo ', ${fecha_year})
-    when month(${fecha_date}) = 4 then concat('Abril ', ${fecha_year})
-    when month(${fecha_date}) = 5 then concat('Mayo ', ${fecha_year})
-    when month(${fecha_date}) = 6 then concat('Junio ', ${fecha_year})
-    when month(${fecha_date}) = 7 then concat('Julio ', ${fecha_year})
-    when month(${fecha_date}) = 8 then concat('Agosto ', ${fecha_year})
-    when month(${fecha_date}) = 9 then concat('Septiembre ', ${fecha_year})
-    when month(${fecha_date}) = 10 then concat('Octubre ', ${fecha_year})
-    when month(${fecha_date}) = 11 then concat('Noviembre ', ${fecha_year})
-    when month(${fecha_date}) = 12 then concat('Diciembre ', ${fecha_year})
+    when month(max(${fecha_date})) = 1 then concat('Enero ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 2 then concat('Febrero ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 3 then concat('Marzo ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 4 then concat('Abril ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 5 then concat('Mayo ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 6 then concat('Junio ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 7 then concat('Julio ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 8 then concat('Agosto ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 9 then concat('Septiembre ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 10 then concat('Octubre ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 11 then concat('Noviembre ', max(${fecha_year}))
+    when month(max(${fecha_date})) = 12 then concat('Diciembre ', max(${fecha_year}))
     end  ;;
   }
 
+  measure: monto_sum_top_10 {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: case when ${TABLE}.TopId = '11' then null else ${monto} end ;;
+  }
+
+  measure: monto_sum_top_1 {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: case when ${TABLE}.TopId = '1' then ${monto} else null end ;;
+  }
+
+  measure: monto_sum_top_11 {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: case when ${TABLE}.TopId = '11' then ${monto} else null end ;;
+  }
+
+  measure: mount_percentage {
+    type: number
+    value_format: "0.00%"
+    sql: ${monto_sum_top_10} / ${monto_sum_top_11} ;;
+  }
 
 
   ####################################
