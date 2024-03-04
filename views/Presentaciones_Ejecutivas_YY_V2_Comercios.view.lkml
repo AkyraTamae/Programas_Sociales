@@ -140,7 +140,7 @@ view: presentaciones_ejecutivas_yy_v2_comercios {
     sql: case when ${TABLE}.TopId in ('2','3','4','5','6','7','8','9','10','11') then null else '1' end ;;
   }
 
-  measure: merchand_top_1 {
+  dimension: merchand_top_1 {
     type: string
     sql: case when ${merchand_top_id_label} = '1' then ${TABLE}.RazonSocial else '0' end ;;
   }
