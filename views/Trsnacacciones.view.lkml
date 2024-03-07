@@ -12,6 +12,11 @@ view: trsnacacciones {
     sql: ${TABLE}.Transacciones ;;
   }
 
+  dimension: importe {
+    type: number
+    sql: ${TABLE}.Importe ;;
+  }
+
   dimension_group: fecha {
     type: time
     timeframes: [raw, date, week, month, month_name, quarter, year]
@@ -21,7 +26,7 @@ view: trsnacacciones {
   }
 
   dimension: hora {
-    type: string
+    type: number
     sql: ${TABLE}.Hora ;;
   }
 
@@ -69,7 +74,14 @@ view: trsnacacciones {
 
   dimension: date_txt {
     type: string
+    order_by_field: fecha_date
     sql: ${TABLE}.Fecha ;;
+    html: {{ rendered_value | date: "%B %e %Y" }};;
+  }
+
+  dimension: month_txt {
+    type: date
+    sql: DATETRUNC(MONTH, ${TABLE}.Fecha) ;;
     html: {{ rendered_value | date: "%B %Y" }};;
   }
 
@@ -83,6 +95,12 @@ view: trsnacacciones {
     type: sum
     hidden: yes
     sql: case when ${TABLE}.IS_AUTHORIZED = '1' then ${TABLE}.Transacciones else '0' end  ;;
+  }
+
+  measure: importe_sum {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.Importe ;;
   }
 
 
@@ -105,6 +123,7 @@ view: trsnacacciones {
   set: detail {
     fields: [
         transacciones,
+  importe,
   hora,
   producto,
   descripcion_estatus,
