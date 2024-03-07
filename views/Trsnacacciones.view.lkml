@@ -20,9 +20,24 @@ view: trsnacacciones {
     sql: ${TABLE}.Fecha ;;
   }
 
+  dimension: hora {
+    type: string
+    sql: ${TABLE}.Hora ;;
+  }
+
+  dimension: producto {
+    type: string
+    sql: ${TABLE}.Producto ;;
+  }
+
   dimension: descripcion_estatus {
     type: string
     sql: ${TABLE}.DescripcionEstatus ;;
+  }
+
+  dimension: comercio {
+    type: string
+    sql: ${TABLE}.Comercio ;;
   }
 
   dimension: categoria_transaccion {
@@ -33,6 +48,11 @@ view: trsnacacciones {
   dimension: is_authorized {
     type: number
     sql: ${TABLE}.IS_AUTHORIZED ;;
+  }
+
+  dimension: procesador {
+    type: string
+    sql: ${TABLE}.Procesador ;;
   }
 
   ####################################
@@ -85,9 +105,13 @@ view: trsnacacciones {
   set: detail {
     fields: [
         transacciones,
+  hora,
+  producto,
   descripcion_estatus,
+  comercio,
   categoria_transaccion,
-  is_authorized
+  is_authorized,
+  procesador
     ]
   }
 }
