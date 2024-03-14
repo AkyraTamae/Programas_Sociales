@@ -55,7 +55,7 @@ view: daily_tracking {
     drill_fields: [id]
   }
 
-  ##############################################
+  #################################################
 
   dimension: estatus_de_carga {
     type: string
@@ -67,6 +67,10 @@ view: daily_tracking {
     else 'Cantidad de registros inconsistentes'
     end ;;
   }
+
+  #################################################
+
+  #################### Filtros ####################
 
   measure: sum_correcto{
     type: sum
@@ -96,6 +100,10 @@ view: daily_tracking {
     sql: case when ${estatus_de_carga} = 'New Table' then 1 else 0 End  ;;
   }
 
+  #################### Filtros ####################
+
+  #################################################
+
   measure: aproach_percentage {
     type: number
     value_format: "0.00%"
@@ -108,8 +116,7 @@ view: daily_tracking {
     sql: left(${TABLE}.DataSet,strpos(${TABLE}.DataSet,'_') -1) ;;
   }
 
-
-  ##############################################
+    ################################################
 
 
 }
