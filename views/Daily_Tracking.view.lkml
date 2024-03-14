@@ -59,7 +59,9 @@ view: daily_tracking {
 
   dimension: estatus_de_carga {
     type: string
-    sql: case
+    sql:
+    case
+    when date_add(${TABLE}.FechaCorte, interval -1 day) = cast(${TABLE}.FechaCreacionTabla as date) then 'New Table'
     when ${TABLE}.TotalRegistros > ${TABLE}.TotalRegistrosPrevio then 'Correcto'
     when ${TABLE}.TotalRegistros = ${TABLE}.TotalRegistrosPrevio then 'Verificar carga, datos similares'
     else 'Cantidad de registros inconsistentes'
