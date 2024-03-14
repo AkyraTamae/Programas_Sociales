@@ -70,28 +70,28 @@ view: daily_tracking {
 
   measure: sum_correcto{
     type: sum
-    filters: [fecha_corte_date: "after 2024-03-13", tipo: "Contar"]
+    filters: [fecha_corte_date: "after 2024-03-13", fecha_corte_date: "today", tipo: "Contar"]
     label: "Total Correctos"
     sql: case when ${estatus_de_carga} = 'Correcto' then 1 else 0 End  ;;
   }
 
   measure: sum_verificar_carga_datos_similares {
     type: sum
-    filters: [fecha_corte_date: "after 2024-03-13", tipo: "Contar"]
+    filters: [fecha_corte_date: "after 2024-03-13", fecha_corte_date: "today", tipo: "Contar"]
     label: "Total Similares"
     sql: case when ${estatus_de_carga} = 'Verificar carga, datos similares' then 1 else 0 End  ;;
   }
 
   measure: sum_verificar_cantidad_de_registros_inconsistentes {
     type: sum
-    filters: [fecha_corte_date: "after 2024-03-13", tipo: "Contar"]
+    filters: [fecha_corte_date: "after 2024-03-13", fecha_corte_date: "today", tipo: "Contar"]
     label: "Total Inconsistentes"
     sql: case when ${estatus_de_carga} = 'Cantidad de registros inconsistentes' then 1 else 0 End  ;;
   }
 
   measure: sum_new_tables {
     type: sum
-    filters: [fecha_corte_date: "after 2024-03-13", tipo: "Contar"]
+    filters: [fecha_corte_date: "after 2024-03-13",fecha_corte_date: "today", tipo: "Contar"]
     label: "Total New Tables"
     sql: case when ${estatus_de_carga} = 'New Table' then 1 else 0 End  ;;
   }
