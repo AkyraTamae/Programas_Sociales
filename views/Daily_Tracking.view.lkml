@@ -79,7 +79,7 @@ view: daily_tracking {
     sql: ${count_done} / ${count}  ;;
   }
 
-  dimension: schema {
+  dimension: tipo_de_carga {
     type: string
     sql: left(${TABLE}.DataSet,strpos(${TABLE}.DataSet,'_') -1) ;;
   }
