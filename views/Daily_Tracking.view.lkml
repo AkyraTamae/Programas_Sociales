@@ -66,17 +66,33 @@ view: daily_tracking {
     end ;;
   }
 
-  measure: count_done {
+  measure: sum_correcto{
     type: sum
-    hidden: yes
-    sql: case when ${estatus_de_carga} = 'Correcto' then 1 else 0 end ;;
+    filters: [estatus_de_carga: "Correcto", fecha_corte_date: "after 2024-03-12", tipo: "Contar"]
+    label: "Total Correctos"
+    sql: case when ${estatus_de_carga} = 'Correcto' then 1 else 0 End  ;;
+  }
+
+  measure: sum_verificar_carga_datos_similares {
+    type: sum
+    filters: [estatus_de_carga: "Verificar carga, datos similares", fecha_corte_date: "after 2024-03-12", tipo: "Contar"]
+    label: "Total Similares"
+    sql: case when ${estatus_de_carga} = 'Verificar carga, datos similares' then 1 else 0 End  ;;
+  }
+
+
+  measure: sum_verificar_cantidad_de_registros_inconsistentes {
+    type: sum
+    filters: [estatus_de_carga: "Cantidad de registros inconsistentes", fecha_corte_date: "after 2024-03-12", tipo: "Contar"]
+    label: "Total Inconsistentes"
+    sql: case when ${estatus_de_carga} = 'Cantidad de registros inconsistentes' then 1 else 0 End  ;;
   }
 
   measure: aproach_percentage {
     type: number
     value_format: "0.00%"
     label: "%Cumplimiento"
-    sql: ${count_done} / ${count}  ;;
+    sql: ${sum_correcto}} / ${count}  ;;
   }
 
   dimension: tipo_de_carga {
