@@ -54,4 +54,38 @@ view: daily_tracking {
     type: count
     drill_fields: [id]
   }
+
+  ##############################################
+
+  dimension: estatus_de_carga {
+    type: string
+    sql: case
+    when ${TABLE}.TotalRegistros > ${TABLE}.TotalRegistrosPrevio then 'Correcto'
+    when ${TABLE}.TotalRegistros = ${TABLE}.TotalRegistrosPrevio then 'Verificar carga, datos similares'
+    else 'Cantidad de registros inconsistentes'
+    end ;;
+  }
+
+  measure: count_done {
+    type: sum
+    hidden: yes
+    sql: case when ${estatus_de_carga} = 'Correcto' then 1 else 0 end ;;
+  }
+
+  measure: aproach_percentage {
+    type: number
+    value_format: "0.00%"
+    label: "%Cumplimiento"
+    sql: ${count_done} / ${count}  ;;
+  }
+
+  dimension: schema {
+    type: string
+    sql: left(${TABLE}.DataSet,strpos(${TABLE}.DataSet,'_') -1) ;;
+  }
+
+
+  ##############################################
+
+
 }
