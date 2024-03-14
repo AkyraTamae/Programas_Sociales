@@ -82,12 +82,18 @@ view: daily_tracking {
     sql: case when ${estatus_de_carga} = 'Verificar carga, datos similares' then 1 else 0 End  ;;
   }
 
-
   measure: sum_verificar_cantidad_de_registros_inconsistentes {
     type: sum
     filters: [fecha_corte_date: "after 2024-03-13", tipo: "Contar"]
     label: "Total Inconsistentes"
     sql: case when ${estatus_de_carga} = 'Cantidad de registros inconsistentes' then 1 else 0 End  ;;
+  }
+
+  measure: sum_new_tables {
+    type: sum
+    filters: [fecha_corte_date: "after 2024-03-13", tipo: "Contar"]
+    label: "Total New Tables"
+    sql: case when ${estatus_de_carga} = 'New Table' then 1 else 0 End  ;;
   }
 
   measure: aproach_percentage {
