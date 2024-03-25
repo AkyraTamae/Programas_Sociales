@@ -22,3 +22,4 @@ map_layer: edo_mex_layer {
 }
 
 explore: broxel_usa {}
+explore: cierres_credencial_usa_agrupacion {}
