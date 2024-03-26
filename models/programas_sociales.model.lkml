@@ -46,8 +46,6 @@ explore: comercios_cnbv {}
 
 explore: datos_generales_dispositivos_2443 {}
 
-explore: PV04_monitoreo_B2B {}
-
 explore: credito_yo_construyo {}
 
 explore: filtros_grl12 {}

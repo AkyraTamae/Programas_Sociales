@@ -22,3 +22,4 @@ map_layer: edo_mex_layer {
 }
 
 explore: broxel_usa {}
+explore: PV04_monitoreo_B2B {}

@@ -2,21 +2,21 @@ view: PV04_monitoreo_B2B {
 
   derived_table: {
     sql: Select
-        COUNT(1) As 'Cuentas',
+        COUNT(1) As Cuentas,
         A.clave_cliente,
         A.producto,
         A.estado_operativo,
         AA.Productos
       From
-        [broxelco_rdg].[maquila] A With (Nolock)
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.maquila` A
       Left Join
         (
         Select
           ClaveCliente,
           RazonSocialCliente,
-          STRING_AGG(CodigoProducto, ';') As 'Productos'
+          STRING_AGG(CodigoProducto, ';') As Productos
         From
-          recursos.CatalogoClientesProductos with(nolock)
+          `mgcp-10078073-bxl-dwh-prod.bi_recursos.CatalogoClientesProductos`
         Where
           ClaveCliente like '%BRC%'
         Group By
@@ -31,7 +31,7 @@ view: PV04_monitoreo_B2B {
         A.estado_operativo,
         AA.ClaveCliente,
         AA.RazonSocialCliente,
-        AA.Productos ;;
+        AA.Productos  ;;
   }
 
   measure: count {
