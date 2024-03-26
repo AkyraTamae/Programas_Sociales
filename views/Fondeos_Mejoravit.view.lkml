@@ -3,7 +3,7 @@ view: fondeos_mejoravit {
     sql: Select
         A.id,
         A.credito,
-        A.numeroCarrier As 'Cuenta',
+        A.numeroCarrier As Cuenta,
         A.claveEntidadFinanciera,
         A.nombre_tarjetahabiente,
         A.folioDispersion,
@@ -13,17 +13,17 @@ view: fondeos_mejoravit {
         B.fechaCreacion,
         A.montoCredito,
         A.montoTotalCredito,
-        Right (D.[nro-tarjeta],4) As 'Tarjeta'
+        Right (D.nro_tarjeta, 4) As Tarjeta
       From
-        broxelco_rdg.ind_Originacion A With (Nolock)
+        `mgcp-10078073-bxl-dwh-prod.cdc_broxelco_rdg.ind_Originacion` A
       Inner Join
-        broxelco_rdg.dispersionesSolicitudes B With (Nolock) On A.folioDispersion = B.folio
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.dispersionesSolicitudes` B On A.folioDispersion = B.folio
       Left Join
-        broxelco_rdg.dispersionesInternas C With (Nolock) On B.folio = C.idSolicitud
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.dispersionesInternas` C On B.folio = C.idSolicitud
       Left Join
-        broxelco_rdg.maquila D with(nolock) on A.numerocarrier = D.num_cuenta
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.maquila` D On A.numerocarrier = D.num_cuenta
       Where
-        [nro-tarjeta] Is Not NUll Or [nro-tarjeta] <> ''
+        D.nro_tarjeta Is Not NUll Or D.nro_tarjeta <> ''
       Group By
         A.id,
         A.credito,
@@ -37,7 +37,7 @@ view: fondeos_mejoravit {
         A.montoCredito,
         A.montoTotalCredito,
         A.numeroCarrier,
-        Right (D.[nro-tarjeta],4) ;;
+        Right (D.nro_tarjeta, 4) ;;
   }
 
   measure: count {
