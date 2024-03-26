@@ -6,20 +6,20 @@ view: clientes {
         A.claveCliente,
         A.razonSocial,
         A.rfc,
-        A.curpRepLegal As 'CURP',
-        A.FechaCreacion As 'Fecha_Alta',
-        Case When A.claveCliente like '%Onbo%' Then A.claveCliente Else SUBSTRING(A.claveCliente,PATINDEX('%[A-Z]%',A.claveCliente),3) End As 'Tipo_Cliente',
-        Case When A.claveCliente like '%Onbo%' Then A.claveCliente Else Left(A.claveCliente,2) End As 'Prefijo_Clave_Cliente',
+        A.curpRepLegal As CURP,
+        A.FechaCreacion As Fecha_Alta,
+        Case When A.claveCliente Like '%Onbo%' Then A.claveCliente Else REGEXP_EXTRACT(A.claveCliente, '[A-Z]{3}') End As Tipo_Cliente,
+        Case When A.claveCliente Like '%Onbo%' Then A.claveCliente Else Left(A.claveCliente, 2) End As Prefijo_Clave_Cliente,
         B.Productos
       From
-        [broxelco_rdg].[ClientesBroxel] A
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.clientesBroxel` A
       Left Join
         (
         Select
           clave_cliente,
-          COUNT(Distinct producto) As 'Productos'
+          COUNT(Distinct producto) As Productos
         From
-          [broxelco_rdg].[maquila]
+          `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.maquila`
         Where
           producto Not Like 'K4%'
         Group By
@@ -28,12 +28,12 @@ view: clientes {
       Where
         A.claveCliente In
         (
-          Select
-            Distinct clave_cliente
-          From
-            [broxelco_rdg].[maquila]
-          Where
-            producto Not Like 'K4%'
+        Select
+          Distinct clave_cliente
+        From
+          `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.maquila`
+        Where
+          producto Not Like 'K4%'
         ) ;;
   }
 

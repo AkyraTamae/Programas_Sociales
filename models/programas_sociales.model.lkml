@@ -30,8 +30,6 @@ explore: programas_sociales_all {}
 
 explore: cierres_credencial_usa {}
 
-explore: clientes {}
-
 explore: inactividad_de_cuentas {}
 
 explore: fondeos_mejoravit {}
