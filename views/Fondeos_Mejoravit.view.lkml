@@ -112,6 +112,17 @@ view: fondeos_mejoravit {
     sql: ${TABLE}.Tarjeta ;;
   }
 
+  ###########################################
+
+  dimension: mes_txt {
+    type: string
+    order_by_field: fecha_proceso_date
+    sql: date_trunc(cast(${TABLE}.fechaProceso as date), month) ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
+  }
+
+  ###########################################
+
   set: detail {
     fields: [
       id,
