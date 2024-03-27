@@ -30,8 +30,6 @@ explore: programas_sociales_all {}
 
 explore: cierres_credencial_usa {}
 
-explore: inactividad_de_cuentas {}
-
 explore: matv09_auditorias {}
 
 explore: edo_mex_pruebas {}

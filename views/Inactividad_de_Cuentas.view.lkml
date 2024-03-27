@@ -7,7 +7,7 @@ view: inactividad_de_cuentas {
         disponible,
         fecha_ultimo_movimiento
       From
-        [broxelco_rdg].[maquila] With (Nolock)
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.maquila`
       Where
         fecha_ultimo_movimiento >= '2021-06-30' And (estado_operativo <> 'Baja' Or estado_operativo Is Null) And disponible Is Not Null ;;
   }
@@ -40,10 +40,17 @@ view: inactividad_de_cuentas {
 
   dimension: fecha_ultimo_movimiento {
     type: date
+    datatype: date
     sql: ${TABLE}.fecha_ultimo_movimiento ;;
   }
 
   set: detail {
-    fields: [clave_cliente, producto, num_cuenta, disponible, fecha_ultimo_movimiento]
+    fields: [
+        clave_cliente,
+  producto,
+  num_cuenta,
+  disponible,
+  fecha_ultimo_movimiento
+    ]
   }
 }
