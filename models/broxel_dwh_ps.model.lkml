@@ -27,3 +27,4 @@ explore: clientes {}
 explore: fondeos_mejoravit {}
 explore: inactividad_de_cuentas {}
 explore: hv_03_no_enrolados {}
+explore: hv_03_errores {}

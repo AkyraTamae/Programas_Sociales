@@ -1,5 +1,5 @@
 view: hv_03_errores {
-  sql_table_name: dbo.HvDocumentLogByLine ;;
+  sql_table_name: `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCommon.HvDocumentLogByLine` ;;
   drill_fields: [id]
 
   dimension: id {
