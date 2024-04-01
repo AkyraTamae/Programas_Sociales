@@ -1,5 +1,5 @@
 view: hv_03_no_enrolados {
-  sql_table_name: dbo.IndOriginacionHipotecaVerde ;;
+  sql_table_name: `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCommon.IndOriginacionHipotecaVerde` ;;
   drill_fields: [id]
 
   dimension: id {

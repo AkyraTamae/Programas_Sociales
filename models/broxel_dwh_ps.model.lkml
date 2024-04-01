@@ -26,3 +26,4 @@ explore: PV04_monitoreo_B2B {}
 explore: clientes {}
 explore: fondeos_mejoravit {}
 explore: inactividad_de_cuentas {}
+explore: hv_03_no_enrolados {}
