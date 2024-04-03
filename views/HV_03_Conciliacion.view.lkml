@@ -357,7 +357,7 @@ view: hv_03_conciliacion {
   measure: ticket_promedio {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${monto_de_compra_sum} / ${transacciones_sum} ;;
+    sql: ${monto_de_compra_sum} / ${count} ;;
   }
 
   measure: importe_ventas_sum {
