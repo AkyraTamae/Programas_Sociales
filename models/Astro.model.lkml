@@ -8,6 +8,9 @@ datagroup: multicanales_default_datagroup {
   max_cache_age: "20 hour"
 }
 
+
+
+
 persist_with: multicanales_default_datagroup
 
 map_layer: mexico_layer{
