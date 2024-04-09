@@ -13,61 +13,61 @@ view: hv_06_sms {
         When 106 Then 'Bienvenida'
         When 107 Then 'Bienvenida'
         When 108 Then 'Bienvenida'
-        End As 'Campaña',
+        End As Campana,
         P.Celular,
-        DCE.Estatus As 'EstatusDetalleCampañaSMS',
-        Credito.Valor As 'Credito',
-        Cuenta.Valor As 'Cuenta',
+        DCE.Estatus As EstatusDetalleCampanaSMS,
+        Credito.Valor As Credito,
+        Cuenta.Valor As Cuenta,
         P.Correo,
         EC.FechaEnvio,
-        EC.Id As 'IdMensaje',
+        EC.Id As IdMensaje,
         Conteo.N_Envio,
-        DCE.Mensaje As 'MensajeDetalleENvioCampana',
+        DCE.Mensaje As MensajeDetalleENvioCampana,
         P.Nombres,
-        EC.Estatus As 'EstatusEnvioCampana',
+        EC.Estatus As EstatusEnvioCampana,
         C.Descripcion
       From
-        dbo.Campana C With (Nolock)
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.Campana` C
       Inner Join
-        dbo.EnvioCampana EC With (Nolock) On C.Id = EC.IdCampana
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.EnvioCampana` EC On C.Id = EC.IdCampana
       Inner Join
-        dbo.DetalleCampanaSms DCE With (Nolock) On C.Id = DCE.IdCampana And EC.IdDetCam = DCE.Id
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.DetalleCampanaSms` DCE On C.Id = DCE.IdCampana And EC.IdDetCam = DCE.Id
       Inner Join
         (
         Select
           EC.IdProspecto,
           EC.Id,
-          ROW_NUMBER() OVER (PARTITION By EC.IdProspecto Order By EC.IdProspecto,EC.Id ) As 'N_Envio'
+          ROW_NUMBER() OVER (PARTITION By EC.IdProspecto Order By EC.IdProspecto,EC.Id ) As N_Envio
         From
-          dbo.EnvioCampana EC With (Nolock)
+          `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.EnvioCampana` EC
         Inner Join
-          dbo.DetalleCampanaSms DC With (Nolock) On EC.IdCampana = DC.IdCampana And EC.IdDetCam=DC.Id
+          `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.DetalleCampanaSms` DC On EC.IdCampana = DC.IdCampana And EC.IdDetCam=DC.Id
         ) Conteo On EC.Id = Conteo.Id
       Inner Join
-        dbo.Prospecto P With (Nolock) On EC.IdProspecto = P.Id
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.Prospecto` P On EC.IdProspecto = P.Id
       Inner Join
         (
         Select
-          [IdProspectoProducto],
-          [IdCampo],
-          [Valor]
+          IdProspectoProducto,
+          IdCampo,
+          Valor
         From
-          dbo.CamposValor With (Nolock)
+          `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.CamposValor`
         Where IdCampo = 3
         ) Credito On P.Id = Credito.IdProspectoProducto
       Inner Join
         (
         Select
-          [IdProspectoProducto],
-          [IdCampo],
-          [Valor]
+          IdProspectoProducto,
+          IdCampo,
+          Valor
         From
-          dbo.CamposValor With (Nolock)
+          `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.CamposValor`
         Where
           IdCampo = 25
         ) Cuenta On P.Id = Cuenta.IdProspectoProducto
       Where
-        C.Producto = 'K171' And EC.FechaEnvio >= getdate()- 180 ;;
+        C.Producto = 'K171' And EC.FechaEnvio >= CURRENT_DATE() - 180 ;;
   }
 
   measure: count {
@@ -85,7 +85,7 @@ view: hv_06_sms {
     sql: ${TABLE}.Celular ;;
   }
 
-  dimension: estatus_detalle_campaa_sms {
+  dimension: estatus_detalle_campana_sms {
     type: number
     sql: ${TABLE}."EstatusDetalleCampañaSMS" ;;
   }
@@ -144,7 +144,7 @@ view: hv_06_sms {
     fields: [
         campaa,
   celular,
-  estatus_detalle_campaa_sms,
+  estatus_detalle_campana_sms,
   credito,
   cuenta,
   correo,

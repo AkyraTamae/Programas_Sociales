@@ -28,3 +28,6 @@ explore: fondeos_mejoravit {}
 explore: inactividad_de_cuentas {}
 explore: hv_03_no_enrolados {}
 explore: hv_03_errores {}
+explore: hv_06_campanas_email {}
+explore: hv_06_in_app {}
+explore: hv_06_sms {}

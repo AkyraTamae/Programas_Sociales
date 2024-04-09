@@ -2,50 +2,49 @@
 view: hv_06_in_app {
   derived_table: {
     sql: Select
-        Credito.Valor As 'Credito',
-        Cuenta.Valor As 'Cuenta',
-        P.Correo As 'EmailOrigen',
+        Credito.Valor As Credito,
+        Cuenta.Valor As Cuenta,
+        P.Correo As EmailOrigen,
         P.Correo,
-        EC.Id As 'IdEnvioCampana',
-        EC.Mensaje As 'Msg',
+        EC.Id As IdEnvioCampana,
+        EC.Mensaje As Msg,
         DCE.Mensaje,
-        'In_App' As 'Canal',
+        'In_App' As Canal,
         C.Identificador,
         EC.FechaEnvio,
-        EC.Estatus As 'EstatusEnvioCampana'
+        EC.Estatus As EstatusEnvioCampana
       From
-        dbo.Campana C With (Nolock)
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.Campana` C
       Inner Join
-        dbo.EnvioCampana EC With (Nolock) on C.Id = EC.IdCampana
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.EnvioCampana` EC On  C.Id = EC.IdCampana
       Inner Join
-        dbo.DetalleCampanaPush DCE With (Nolock) on C.Id = DCE.IdCampana and EC.IdDetCam = DCE.Id
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.DetalleCampanaPush` DCE On C.Id = DCE.IdCampana And  EC.IdDetCam = DCE.Id
       Inner Join
-        dbo.Prospecto P with(nolock) on EC.IdProspecto = P.Id
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.Prospecto` P On EC.IdProspecto = P.Id
       Inner Join
         (
         Select
-          [IdProspectoProducto],
-          [IdCampo],
-          [Valor]
-        From
-          dbo.CamposValor With (Nolock)
+          IdProspectoProducto,
+          IdCampo,
+          Valor
+      From
+          `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.CamposValor`
         Where
           IdCampo = 3
-         ) Credito on P.Id = Credito.IdProspectoProducto
+        ) Credito on P.Id = Credito.IdProspectoProducto
       Inner Join
         (
         Select
-          [IdProspectoProducto],
-          [IdCampo],
-          [Valor]
+          IdProspectoProducto,
+          IdCampo,
+          Valor
         From
-          dbo.CamposValor With (Nolock)
+          `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCampanas.CamposValor`
         Where
           IdCampo = 25
         ) Cuenta On P.Id = Cuenta.IdProspectoProducto
       Where
-        C.Producto = 'K171'
-      and EC.FechaEnvio >= getdate()- 180 ;;
+        C.Producto = 'K171' And  EC.FechaEnvio >= CURRENT_DATE() - 180 ;;
   }
 
   measure: count {
