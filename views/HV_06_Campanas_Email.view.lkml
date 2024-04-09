@@ -115,9 +115,9 @@ view: hv_06_campanas_email {
     sql: ${TABLE}.Canal ;;
   }
 
-  dimension: campaa {
+  dimension: campana {
     type: string
-    sql: ${TABLE}."Campaña" ;;
+    sql: ${TABLE}.Campana ;;
   }
 
   dimension_group: fecha_envio {
@@ -147,7 +147,7 @@ view: hv_06_campanas_email {
   msg,
   mensaje,
   canal,
-  campaa,
+  campana,
   fecha_envio_time,
   estatus_envio_campana,
   html

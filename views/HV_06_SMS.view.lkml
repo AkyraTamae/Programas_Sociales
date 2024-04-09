@@ -75,9 +75,9 @@ view: hv_06_sms {
     drill_fields: [detail*]
   }
 
-  dimension: campaa {
+  dimension: campana {
     type: string
-    sql: ${TABLE}."Campaña" ;;
+    sql: ${TABLE}.Campana ;;
   }
 
   dimension: celular {
@@ -87,7 +87,7 @@ view: hv_06_sms {
 
   dimension: estatus_detalle_campana_sms {
     type: number
-    sql: ${TABLE}."EstatusDetalleCampañaSMS" ;;
+    sql: ${TABLE}.EstatusDetalleCampanaSMS ;;
   }
 
   dimension: credito {
@@ -142,7 +142,7 @@ view: hv_06_sms {
 
   set: detail {
     fields: [
-        campaa,
+        campana,
   celular,
   estatus_detalle_campana_sms,
   credito,
