@@ -31,3 +31,4 @@ explore: hv_03_errores {}
 explore: hv_06_campanas_email {}
 explore: hv_06_in_app {}
 explore: hv_06_sms {}
+explore: transacciones_mensual_all {}

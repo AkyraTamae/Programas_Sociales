@@ -1,191 +1,98 @@
-
 view: transacciones_mensual_all {
   derived_table: {
-    sql: --Transacciones Equipa, Renueva
-      Select
-        IdTransferencia As 'Id_Movimiento',
-        NumCuenta As 'Cuenta',
-        DenMov As 'Comercio',
-        Comercio.razon_social As 'Razon_Social',
-        Comercio.rfc As 'RFC',
-        Case
-        --Modificación de regla solicitada el 29 de diciembre
-        When Comercio = '23CBX00958' Then 'Hidalgo'
-        When Comercio = '23CBX00980' Then 'Jalisco'
-        --
-        When estadoComercial Like '%cdmx%' Or estadoComercial Like '%ciudad de m%' Or estadoComercial Like '%CIUDAD DE M%' Or estadoComercial Like '%FEDERAL%' Or estadoComercial Like '%D.F.%' Or estadoComercial Like '%DF%' Or estadoComercial Like '%CMDX%' Then 'Distrito Federal'
-        When estadoComercial Like '%xico%' Or estadoComercial Like '%Edo. Méx' Or estadoComercial Like '%EDO MEX%' Or estadoComercial = 'MEX' Or estadoComercial = 'MEX.' Or estadoComercial Like '%Edo. Mex.%'  Then 'México'
-        When estadoComercial Like '%uebl%' Then 'Puebla'
-        When estadoComercial Like '%guerr%' Then 'Guerrero'
-        When estadoComercial Like '%quer%' Then 'Querétaro'
-        When estadoComercial Like '%nuevo le%' Or estadoComercial Like '%nuevo le%' Or estadoComercial Like '%NUENO LEON%' Then 'Nuevo León'
-        When estadoComercial = 'Baja California' Or estadoComercial = 'Baja California ' Or estadoComercial = 'BAJA CALIFORNA ' Or estadoComercial = 'Baja California Norte ' Or estadoComercial = 'BAJA CALIFORNIA NORTE' Then 'Baja California'
-        When estadoComercial Like '%sur%' Then 'Baja California Sur'
-        When estadoComercial Like '%campech%' Then 'Campeche'
-        When estadoComercial Like '%chiap%' Then 'Chiapas'
-        When estadoComercial Like '%aulipa%' Then 'Tamaulipas'
-        When estadoComercial Like '%jalis%' Then 'Jalisco'
-        When estadoComercial Like '%sonor%' Then 'Sonora'
-        When estadoComercial Like '%naya%' Then 'Nayarit'
-        When estadoComercial Like '%micho%' Then 'Michoacán de Ocampo'
-        When estadoComercial Like '%potos%' Then 'San Luis Potosí'
-        When estadoComercial Like '%oahu%' Then 'Coahuila de Zaragoza'
-        When estadoComercial Like '%vera%' Then 'Veracruz de Ignacio de la Llave'
-        When estadoComercial Like '%yuca%' Then 'Yucatán'
-        When estadoComercial Like '%more%' Then 'Morelos'
-        When estadoComercial Like '%chih%' Then 'Chihuahua'
-        When estadoComercial Like '%zaca%' Then 'Zacatecas'
-        When estadoComercial Like '%guana%' Then 'Guanajuato'
-        When estadoComercial Like '%roo%' Then 'Quintana Roo'
-        When estadoComercial Like '%coli%' Then 'Colima'
-        When estadoComercial Like '%aguas%' Then 'Aguascalientes'
-        When estadoComercial Like '%oax%' Then 'Oaxaca'
-        When estadoComercial Like '%sina%' Then 'Sinaloa'
-        When estadoComercial Like '%chia%' Then 'Chiapas'
-        When estadoComercial Like '%dura%' Then 'Durango'
-        When estadoComercial Like '%hidal%' Then 'Hidalgo'
-        When estadoComercial Like '%tlax%' Then 'Tlaxcala'
-        When estadoComercial Like '%taba%' Then 'Tabasco'
-        Else 'México'
-        End As 'Estado_Comercial',
-        CONVERT(Date, Fecha) As 'Fecha',
-        ImpTotal As 'Monto',
-        Case
-        When Producto = 'K303' Then 'Equipa_tu_Casa'
-        When Producto = 'K281' Then 'Renueva'
-        End As 'Nombre_de_Medidas'
-      From
-        [broxelpaymentsws].[PrePayStudioMovements_v] With (Nolock)
-      Inner Join
-        [broxelco_rdg].[Comercio] With (Nolock) On DenMov = Comercio
-      Where
-        Producto In ('K303','K281') And CONVERT(Date,fecha) >= '2023-01-01' And AuthorizationCode Is Not Null And Comercio.comercio Not In
-        (
-        Select *
-        From
-          [broxelco_rdg].[ComercioNoReportar] With (Nolock)
-        )
+    sql: Select
+    AA.IdMovimiento,
+    AA.Cuenta,
+    AA.Comercio,
+    AA.RazonSocial,
+    AA.RFC,
+    Case
+    --Modificación de regla solicitada el 29 de diciembre
+    When AA.Comercio = '23CBX00958' Then 'Hidalgo'
+    When AA.Comercio = '23CBX00980' Then 'Jalisco'
+    --
+    When Lower(AA.estadoComercial) Like 'cdmx' Or Lower(AA.estadoComercial) Like 'ciudad de m%' Or Lower(AA.estadoComercial) Like 'ciudad de m%' Or Lower(AA.estadoComercial) Like '%federal%' Or Lower(AA.estadoComercial) Like 'd.f.' Or Lower(AA.estadoComercial) Like 'df' Then 'Distrito Federal'
+    When Lower(AA.estadoComercial) Like '%xico%' Or Lower(AA.estadoComercial) Like 'edo. méx' Or Lower(AA.estadoComercial) Like 'edo mex%' Or Lower(AA.estadoComercial) = 'mex' Or Lower(AA.estadoComercial) = 'mex.' Or Lower(AA.estadoComercial) Like 'edo. mex.%'  Then 'México'
+    When Lower(AA.estadoComercial) Like '%uebl%' Then 'Puebla'
+    When Lower(AA.estadoComercial) Like 'guerr%' Then 'Guerrero'
+    When Lower(AA.estadoComercial) Like 'quer%' Then 'Querétaro'
+    When Lower(AA.estadoComercial) Like 'nuevo le%' Or Lower(AA.estadoComercial) Like 'NUENO LEON' Then 'Nuevo León'
+    When Lower(AA.estadoComercial) = 'baja california' Or Lower(AA.estadoComercial) = 'baja california ' Or Lower(AA.estadoComercial) = 'baja california ' Or Lower(AA.estadoComercial) = 'baja california norte ' Then 'Baja California'
+    When Lower(AA.estadoComercial) Like '%sur%' Then 'Baja California Sur'
+    When Lower(AA.estadoComercial) Like 'campech%' Then 'Campeche'
+    When Lower(AA.estadoComercial) Like 'chiap%' Then 'Chiapas'
+    When Lower(AA.estadoComercial) Like '%aulipa%' Then 'Tamaulipas'
+    When Lower(AA.estadoComercial) Like 'jalis%' Then 'Jalisco'
+    When Lower(AA.estadoComercial) Like 'sonor%' Then 'Sonora'
+    When Lower(AA.estadoComercial) Like 'naya%' Then 'Nayarit'
+    When Lower(AA.estadoComercial) Like 'micho%' Then 'Michoacán de Ocampo'
+    When Lower(AA.estadoComercial) Like '%potos%' Then 'San Luis Potosí'
+    When Lower(AA.estadoComercial) Like '%oahu%' Then 'Coahuila de Zaragoza'
+    When Lower(AA.estadoComercial) Like 'vera%' Then 'Veracruz de Ignacio de la Llave'
+    When Lower(AA.estadoComercial) Like '%ucat%' Then 'Yucatán'
+    When Lower(AA.estadoComercial) Like 'more%' Then 'Morelos'
+    When Lower(AA.estadoComercial) Like 'chih%' Then 'Chihuahua'
+    When Lower(AA.estadoComercial) Like 'zaca%' Then 'Zacatecas'
+    When Lower(AA.estadoComercial) Like 'guana%' Then 'Guanajuato'
+    When Lower(AA.estadoComercial) Like '%roo%' Then 'Quintana Roo'
+    When Lower(AA.estadoComercial) Like 'coli%' Then 'Colima'
+    When Lower(AA.estadoComercial) Like 'aguas%' Then 'Aguascalientes'
+    When Lower(AA.estadoComercial) Like 'oax%' Then 'Oaxaca'
+    When Lower(AA.estadoComercial) Like 'sina%' Then 'Sinaloa'
+    When Lower(AA.estadoComercial) Like 'chia%' Then 'Chiapas'
+    When Lower(AA.estadoComercial) Like 'dura%' Then 'Durango'
+    When Lower(AA.estadoComercial) Like 'hidal%' Then 'Hidalgo'
+    When Lower(AA.estadoComercial) Like 'tlax%' Then 'Tlaxcala'
+    When Lower(AA.estadoComercial) Like 'taba%' Then 'Tabasco'
+    Else 'México'
+    End As EstadoComercial,
+    AA.Fecha,
+    AA.Monto,
+    AA.NombreDeMedidas
+    From
+    (
+    --Transacciones Mejoravit,Equipa, Renueva
+    Select
+    A.IdTransferencia As IdMovimiento,
+    A.NumCuenta As Cuenta,
+    A.DenMov As Comercio,
+    B.razon_social As RazonSocial,
+    B.rfc As RFC,
+    B.estadoComercial,
+    CAST(A.Fecha As Date) As Fecha,
+    CAST(A.ImpTotal As Numeric) As Monto, --string
+    Case
+    When A.Producto = 'K182' Then 'Mejoravit'
+    When A.Producto = 'K303' Then 'Equipa tu Casa'
+    When A.Producto = 'K281' Then 'Renueva'
+    End As NombreDeMedidas
+    From
+    `mgcp-10078073-bxl-dwh-prod.stg_BroxelPaymentsWS.PrePayStudioMovements` A
+    Inner Join
+    `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio` B On DenMov = Comercio
+    Where
+    A.Producto In ('K303','K281','K182') And CAST(A.Fecha As Date) >= CURRENT_DATE() - 180 And A.AuthorizationCode Is Not Null And B.comercio Not In (Select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`)
 
-      Union All
+    Union All
 
-      --Transacciones Repara
-      Select
-        id As 'Id_Movimiento',
-        NroRuc As 'Cuenta',
-        DenMov As 'Comercio',
-        Comercio.razon_social As 'Razon_Social',
-        Comercio.rfc As 'RFC',
-        Case
-        --Modificación de regla solicitada el 29 de diciembre
-        When Comercio = '23CBX00958' Then 'Hidalgo'
-        When Comercio = '23CBX00980' Then 'Jalisco'
-        --
-        When estadoComercial Like '%cdmx%' Or estadoComercial Like '%ciudad de m%' Or estadoComercial Like '%CIUDAD DE M%' Or estadoComercial Like '%FEDERAL%' Or estadoComercial Like '%D.F.%' Or estadoComercial Like '%DF%' Or estadoComercial Like '%CMDX%' Then 'Distrito Federal'
-        When estadoComercial Like '%xico%' Or estadoComercial Like '%Edo. Méx' Or estadoComercial Like '%EDO MEX%' Or estadoComercial = 'MEX' Or estadoComercial = 'MEX.' Or estadoComercial Like '%Edo. Mex.%'  Then 'México'
-        When estadoComercial Like '%uebl%' Then 'Puebla'
-        When estadoComercial Like '%guerr%' Then 'Guerrero'
-        When estadoComercial Like '%quer%' Then 'Querétaro'
-        When estadoComercial Like '%nuevo le%' Or estadoComercial Like '%nuevo le%' Or estadoComercial Like '%NUENO LEON%' Then 'Nuevo León'
-        When estadoComercial = 'Baja California' Or estadoComercial = 'Baja California ' Or estadoComercial = 'BAJA CALIFORNA ' Or estadoComercial = 'Baja California Norte ' Or estadoComercial = 'BAJA CALIFORNIA NORTE' Then 'Baja California'
-        When estadoComercial Like '%sur%' Then 'Baja California Sur'
-        When estadoComercial Like '%campech%' Then 'Campeche'
-        When estadoComercial Like '%chiap%' Then 'Chiapas'
-        When estadoComercial Like '%aulipa%' Then 'Tamaulipas'
-        When estadoComercial Like '%jalis%' Then 'Jalisco'
-        When estadoComercial Like '%sonor%' Then 'Sonora'
-        When estadoComercial Like '%naya%' Then 'Nayarit'
-        When estadoComercial Like '%micho%' Then 'Michoacán de Ocampo'
-        When estadoComercial Like '%potos%' Then 'San Luis Potosí'
-        When estadoComercial Like '%oahu%' Then 'Coahuila de Zaragoza'
-        When estadoComercial Like '%vera%' Then 'Veracruz de Ignacio de la Llave'
-        When estadoComercial Like '%yuca%' Then 'Yucatán'
-        When estadoComercial Like '%more%' Then 'Morelos'
-        When estadoComercial Like '%chih%' Then 'Chihuahua'
-        When estadoComercial Like '%zaca%' Then 'Zacatecas'
-        When estadoComercial Like '%guana%' Then 'Guanajuato'
-        When estadoComercial Like '%roo%' Then 'Quintana Roo'
-        When estadoComercial Like '%coli%' Then 'Colima'
-        When estadoComercial Like '%aguas%' Then 'Aguascalientes'
-        When estadoComercial Like '%oax%' Then 'Oaxaca'
-        When estadoComercial Like '%sina%' Then 'Sinaloa'
-        When estadoComercial Like '%chia%' Then 'Chiapas'
-        When estadoComercial Like '%dura%' Then 'Durango'
-        When estadoComercial Like '%hidal%' Then 'Hidalgo'
-        When estadoComercial Like '%tlax%' Then 'Tlaxcala'
-        When estadoComercial Like '%taba%' Then 'Tabasco'
-        Else 'México'
-        End As 'Estado_Comercial',
-        FClear As 'Fecha',
-        ImpTotal As 'Monto',
-        'Repara' As 'Nombre_de_Medidas'
-      From
-        [broxelco_rdg].[ind_movimientos] With (Nolock)
-      Inner Join
-        [broxelco_rdg].[Comercio] On DenMov = Comercio
-      Where
-        CodPtoCuota = 'K671' and CONVERT(Date,FClear) >= '2023-01-01' And Comercio.comercio Not In
-        (
-        select *
-        From
-          [broxelco_rdg].[ComercioNoReportar] With (Nolock)
-        )
-
-      Union All
-
-      --Transacciones Mejoravit
-      Select
-        IdMovimiento As 'Id_Movimiento',
-        Cuenta,
-        Comercio,
-        RazonSocial As 'Razon_Social',
-        RFC,
-        Case
-        --Modificación de regla solicitada el 29 de diciembre
-        When Comercio = '23CBX00958' Then 'Hidalgo'
-        When Comercio = '23CBX00980' Then 'Jalisco'
-        --
-        When estadoComercial Like '%cdmx%' Or estadoComercial Like '%ciudad de m%' Or estadoComercial Like '%CIUDAD DE M%' Or estadoComercial Like '%FEDERAL%' Or estadoComercial Like '%D.F.%' Or estadoComercial Like '%DF%' Or estadoComercial Like '%CMDX%' Then 'Distrito Federal'
-        When estadoComercial Like '%xico%' Or estadoComercial Like '%Edo. Méx' Or estadoComercial Like '%EDO MEX%' Or estadoComercial = 'MEX' Or estadoComercial = 'MEX.' Or estadoComercial Like '%Edo. Mex.%'  Then 'México'
-        When estadoComercial Like '%uebl%' Then 'Puebla'
-        When estadoComercial Like '%guerr%' Then 'Guerrero'
-        When estadoComercial Like '%quer%' Then 'Querétaro'
-        When estadoComercial Like '%nuevo le%' Or estadoComercial Like '%nuevo le%' Or estadoComercial Like '%NUENO LEON%' Then 'Nuevo León'
-        When estadoComercial = 'Baja California' Or estadoComercial = 'Baja California ' Or estadoComercial = 'BAJA CALIFORNA ' Or estadoComercial = 'Baja California Norte ' Or estadoComercial = 'BAJA CALIFORNIA NORTE' Then 'Baja California'
-        When estadoComercial Like '%sur%' Then 'Baja California Sur'
-        When estadoComercial Like '%campech%' Then 'Campeche'
-        When estadoComercial Like '%chiap%' Then 'Chiapas'
-        When estadoComercial Like '%aulipa%' Then 'Tamaulipas'
-        When estadoComercial Like '%jalis%' Then 'Jalisco'
-        When estadoComercial Like '%sonor%' Then 'Sonora'
-        When estadoComercial Like '%naya%' Then 'Nayarit'
-        When estadoComercial Like '%micho%' Then 'Michoacán de Ocampo'
-        When estadoComercial Like '%potos%' Then 'San Luis Potosí'
-        When estadoComercial Like '%oahu%' Then 'Coahuila de Zaragoza'
-        When estadoComercial Like '%vera%' Then 'Veracruz de Ignacio de la Llave'
-        When estadoComercial Like '%yuca%' Then 'Yucatán'
-        When estadoComercial Like '%more%' Then 'Morelos'
-        When estadoComercial Like '%chih%' Then 'Chihuahua'
-        When estadoComercial Like '%zaca%' Then 'Zacatecas'
-        When estadoComercial Like '%guana%' Then 'Guanajuato'
-        When estadoComercial Like '%roo%' Then 'Quintana Roo'
-        When estadoComercial Like '%coli%' Then 'Colima'
-        When estadoComercial Like '%aguas%' Then 'Aguascalientes'
-        When estadoComercial Like '%oax%' Then 'Oaxaca'
-        When estadoComercial Like '%sina%' Then 'Sinaloa'
-        When estadoComercial Like '%chia%' Then 'Chiapas'
-        When estadoComercial Like '%dura%' Then 'Durango'
-        When estadoComercial Like '%hidal%' Then 'Hidalgo'
-        When estadoComercial Like '%tlax%' Then 'Tlaxcala'
-        When estadoComercial Like '%taba%' Then 'Tabasco'
-        Else 'México'
-        End As 'Estado_Comercial',
-        CONVERT(Date,Fecha) As 'Fecha',
-        Monto,
-        'Mejoravit' As 'Nombre_de_Medidas'
-      From
-        [dev_originacion].[mejoravit_transacciones] With (Nolock)
-      Where
-        CONVERT(Date,Fecha) >= '2023-01-01' ;;
+    --Transacciones Repara
+    Select
+    A.id As IdMovimiento,
+    A.NroRuc As Cuenta,
+    A.DenMov As Comercio,
+    B.razon_social As RazonSocial,
+    B.rfc As RFC,
+    B.estadoComercial,
+    A.FClear As Fecha,
+    A.ImpTotal As Monto,
+    'Repara' As NombreDeMedidas
+    From
+    `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ind_movimientos` A
+    Inner Join
+    `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio` B On A.DenMov = B.Comercio
+    Where
+    A.CodPtoCuota = 'K671' And CAST(A.FClear As Date) >= CURRENT_DATE() - 180 And B.comercio Not In (select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`)
+    )AA;;
   }
 
   measure: count {
@@ -195,7 +102,7 @@ view: transacciones_mensual_all {
 
   dimension: id_movimiento {
     type: string
-    sql: ${TABLE}.Id_Movimiento ;;
+    sql: ${TABLE}.IdMovimiento ;;
   }
 
   dimension: cuenta {
@@ -210,7 +117,7 @@ view: transacciones_mensual_all {
 
   dimension: razon_social {
     type: string
-    sql: ${TABLE}.Razon_Social ;;
+    sql: ${TABLE}.RazonSocial ;;
   }
 
   dimension: rfc {
@@ -220,7 +127,7 @@ view: transacciones_mensual_all {
 
   dimension: estado_comercial {
     type: string
-    sql: ${TABLE}.Estado_Comercial ;;
+    sql: ${TABLE}.EstadoComercial ;;
   }
 
   dimension_group: fecha {
@@ -237,13 +144,13 @@ view: transacciones_mensual_all {
 
   dimension: nombre_de_medidas {
     type: string
-    sql: ${TABLE}.Nombre_de_Medidas ;;
+    sql: ${TABLE}.NombreDeMedidas ;;
   }
 
   dimension:  mexico_layer {
     type: string
     map_layer_name:  mexico_layer
-    sql: ${TABLE}.Estado_Comercial ;;
+    sql: ${TABLE}.EstadoComercial ;;
   }
 
   measure: sum_monto {
