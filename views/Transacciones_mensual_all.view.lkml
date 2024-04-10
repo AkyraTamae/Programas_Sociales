@@ -7,7 +7,7 @@ view: transacciones_mensual_all {
     AA.RazonSocial,
     AA.RFC,
     Case
-    --Modificación de regla solicitada el 29 de diciembre
+    --Modificación de regla solicitada el 29 de dicie-180bre
     When AA.Comercio = '23CBX00958' Then 'Hidalgo'
     When AA.Comercio = '23CBX00980' Then 'Jalisco'
     --
@@ -46,7 +46,7 @@ view: transacciones_mensual_all {
     When Lower(AA.estadoComercial) Like 'taba%' Then 'Tabasco'
     Else 'México'
     End As EstadoComercial,
-    AA.Fecha,
+    CAST(AA.Fecha As TimeStamp) As Fecha,
     AA.Monto,
     AA.NombreDeMedidas
     From
@@ -71,7 +71,7 @@ view: transacciones_mensual_all {
     Inner Join
     `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio` B On DenMov = Comercio
     Where
-    A.Producto In ('K303','K281','K182') And CAST(A.Fecha As Date) >= CURRENT_DATE() - 180 And A.AuthorizationCode Is Not Null And B.comercio Not In (Select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`)
+    A.Producto In ('K303','K281','K182') And CAST(A.Fecha As Date) > CURRENT_DATE() -180 And A.AuthorizationCode Is Not Null And B.comercio Not In (Select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`)
 
     Union All
 
@@ -83,7 +83,7 @@ view: transacciones_mensual_all {
     B.razon_social As RazonSocial,
     B.rfc As RFC,
     B.estadoComercial,
-    A.FClear As Fecha,
+    CAST(A.FClear As Date) As Fecha,
     A.ImpTotal As Monto,
     'Repara' As NombreDeMedidas
     From
@@ -91,7 +91,7 @@ view: transacciones_mensual_all {
     Inner Join
     `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio` B On A.DenMov = B.Comercio
     Where
-    A.CodPtoCuota = 'K671' And CAST(A.FClear As Date) >= CURRENT_DATE() - 180 And B.comercio Not In (select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`)
+    A.CodPtoCuota = 'K671' And CAST(A.FClear As Date) > CURRENT_DATE() -180 And B.comercio Not In (select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`)
     )AA;;
   }
 
