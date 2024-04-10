@@ -92,7 +92,7 @@ view: transacciones_mensual_all {
     `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio` B On A.DenMov = B.Comercio
     Where
     A.CodPtoCuota = 'K671' And CAST(A.FClear As Date) > CURRENT_DATE() -180 And B.comercio Not In (select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`)
-    )AA;;
+    )AA ;;
   }
 
   measure: count {
