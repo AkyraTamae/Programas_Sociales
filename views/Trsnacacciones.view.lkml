@@ -8,7 +8,7 @@ view: trsnacacciones {
           Fecha,
           CAST(EXTRACT(Hour From Hora) As Int) As Hora,
           Producto,
-          DescCodigoRechazo As DESCRIPTION_RESPONSE_CODE,
+          DescCodigoRechazo As DescripcionEstatus,
           Case When REGEXP_EXTRACT(NombreComercio, r'([^ ]+ +[^ ]+)') Is Null Then NombreComercio Else SUBSTR(NombreComercio, 1, STRPOS(NombreComercio, '  ')) End As Comercio,
           'Unknow' As CategoriaTransaccion,
           0 As IS_AUTHORIZED,
@@ -32,7 +32,7 @@ view: trsnacacciones {
           A.FClear As Fecha,
           Case When Left(A.Hora, 2) = '' Then 0 Else CAST(Left(A.Hora, 2) As Int) End As Hora,
           A.CodPtoCuota As Producto,
-          'AUTHORIZED' As DESCRIPTION_RESPONSE_CODE,
+          'AUTHORIZED' As DescripcionEstatus,
           Case When B.Razon_Social Is Null Then (Case When A.DenMov Is Null Then A.Comercio_Pais Else A.DenMov End) Else B.Razon_Social End As Comercio,
           D.CategoriaTransaccion,
           1 As IS_AUTHORIZED,
@@ -59,7 +59,7 @@ view: trsnacacciones {
           CAST(A.TRANSACTION_DATE As Date) As Fecha,
           EXTRACT(Hour From A.TRANSACTION_DATE) As Hora,
           C.Producto,
-          D.DESCRIPTION As DESCRIPTION_RESPONSE_CODE,
+          D.DESCRIPTION As DescripcionEstatus,
           Case When E.Razon_Social Is Null Then (Case When A.CARD_ACCEPTOR_NAME Is Null Then A.ID_MESSAGE_CHANNEL Else A.CARD_ACCEPTOR_NAME End) Else E.Razon_Social End As Comercio,
           F.descripcion As DESCRIPTION_TRANSACTION_TYPE,
           D.IS_AUTHORIZED,
@@ -168,19 +168,20 @@ view: trsnacacciones {
 
   dimension: month_txt {
     type: string
+    order_by_field: fecha_month
     sql: date_trunc(${TABLE}.Fecha, month) ;;
     html: {{ rendered_value | date: "%B %Y" }};;
   }
 
   measure: cancelacion {
     type: sum
-    hidden: yes
+    ##hidden: yes
     sql: case when ${TABLE}.IS_AUTHORIZED = 0 then ${TABLE}.Transacciones else 0 end  ;;
   }
 
   measure: aprobacion {
     type: sum
-    hidden: yes
+    ##hidden: yes
     sql: case when ${TABLE}.IS_AUTHORIZED = 1 then ${TABLE}.Transacciones else 0 end  ;;
   }
 
