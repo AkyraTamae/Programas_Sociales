@@ -70,8 +70,6 @@ explore: comparacion_conciliacion {}
 
 explore: presentaciones_ejecutivas_yy_v2 {}
 
-explore: trsnacacciones {}
-
 explore: presentaciones_ejecutivas_yy_v2_comercios {}
 
 explore: estatus_transacciones_detalle_diario {}
