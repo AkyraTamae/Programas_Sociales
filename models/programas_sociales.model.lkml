@@ -24,8 +24,6 @@ map_layer: edo_mex_layer {
 
 explore: remesas{}
 
-explore: transacciones_pruebas {}
-
 explore: programas_sociales_all {}
 
 explore: cierres_credencial_usa {}
