@@ -30,8 +30,6 @@ explore: cierres_credencial_usa {}
 
 explore: matv09_auditorias {}
 
-explore: edo_mex_pruebas {}
-
 explore: distribucion_y_prediccion_de_las_vueltas {}
 
 explore: comercios_cnbv {}
@@ -59,8 +57,6 @@ explore: rep_mujeres_con_bienestar {}
 explore: hv_02_venta_por_comercio {}
 
 explore: datos_financieros_1525 {}
-
-explore: data_lineage {}
 
 explore: programas_sociales_all_v2 {}
 
