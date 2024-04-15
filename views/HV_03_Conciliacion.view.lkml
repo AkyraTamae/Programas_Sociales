@@ -2,129 +2,170 @@
 view: hv_03_conciliacion {
   derived_table: {
     sql: Select
-        A.C_idMovimiento As 'Id_Movimiento',
-        AA.Comercio,
-        AA.razon_social As 'Razon_Social',
-        A.C_Folio As 'Folio',
-        A.C_NumCuenta As 'Num_Cuenta',
-        AB.fecha As 'Fecha_Compra',
-        AC.Monto As 'Monto_de_Compra',
-        AC.idSTP,
-        AC.Fecha As 'Fecha_SPEI',
-        AC.Monto As 'Monto_SPEI',
-        AB.fechaPago As 'Fecha_Liquidacion',
-        DATEDIFF(DAY,AC.Fecha,AB.fechaPago) As 'Tiempo_Para_Liquidacion',
-        AB.liquidacion_comercio As 'Liquidacion_Comercio',
-        AB.importe_ventas As 'Importe_Ventas',
-        A.C_IdClienteTransaccion As 'Id_Cliente_Transaccion',
-        A.C_FechaCreacion As 'Fecha_Creacion',
-        A.P_ConciliacionesEcoWebID As 'Conciliaciones_Eco_Web_ID',
-        A.P_EstadosConciliacionEcoWebID As 'Estados_Conciliacion_Eco_Web_ID',
-        A.P_Estado As 'Estado_Conciliacion',
-        A.P_Descripcion As 'Descripcion',
-        A.C_IdEstado As 'Id_Estado',
-        AA.Comercio As 'Comercio_C',
-        A.C_Comercio As 'Comercio_P',
-        AC.ConceptoPago As 'Concepto_Pago',
-        Case
-          When A.C_IdEstado = 3 Then 'Cancelada'
-          When A.C_IdEstado = 2 Then 'Lista Para Pagar'
-          When A.C_IdEstado = 1 Then 'Cargo Realizado'
-        End As 'Estado',
-        AB.folio As 'Folio_C',
-        A.C_idMovimiento  As 'Id_Movimiento_C',
-        A.C_IdTransaccionStp As 'Id_Transaccion_STP',
-        ROUND(AC.Monto, -3, -2) As 'Monto_Compra_Agrupado',
-        A.P_NoCredito As 'No_Credito',
-        '1' As 'Número de registros',
-        AA.rfc As 'RFC',
-        A.C_Tarjeta As 'Tarjeta',
-        AB.transacciones As 'Transacciones',
-        AD.Estado_Comercial
-
+      BTT.C_idMovimiento As IdMovimiento,
+      AA.Comercio,
+      AA.razon_social As RazonSocial,
+      BTT.C_Folio As Folio,
+      BTT.C_NumCuenta As NumCuenta,
+      CAST(AB.fecha As TimeStamp) As FechaCompra,
+      AC.Monto As MontoDeCompra,
+      AC.IdSTP,
+      CAST(AC.Fecha As TimeStamp) As FechaSPEI,
+      AC.Monto As MontoSPEI,
+      CAST(AB.fechaPago As TimeStamp) As FechaLiquidacion,
+      DATE_DIFF(CAST(AB.fechaPago As Date), CAST(AC.Fecha As Date), DAY) As TiempoParaLiquidacion,
+      AB.liquidacion_comercio As LiquidacionComercio,
+      AB.importe_ventas As ImporteVentas,
+      BTT.C_IdClienteTransaccion As IdClienteTransaccion,
+      CAST(BTT.C_FechaCreacion As TimeStamp) As FechaCreacion,
+      BTT.P_ConciliacionesEcoWebID As ConciliacionesEcoWebID,
+      BTT.P_EstadosConciliacionEcoWebID As EstadosConciliacionEcoWebID,
+      BTT.P_Estado As EstadoConciliacion,
+      BTT.P_Descripcion As Descripcion,
+      BTT.C_IdEstado As IdEstado,
+      AA.Comercio As ComercioC,
+      BTT.C_Comercio As ComercioP,
+      AC.ConceptoPago As ConceptoPago,
+      Case
+      When BTT.C_IdEstado = 3 Then 'Cancelada'
+      When BTT.C_IdEstado = 2 Then 'Lista Para Pagar'
+      When BTT.C_IdEstado = 1 Then 'Cargo Realizado'
+      End As Estado,
+      AB.folio As FolioC,
+      BTT.C_idMovimiento  As IdMovimientoC,
+      BTT.C_IdTransaccionStp As IdTransaccionSTP,
+      ROUND(AC.Monto / 1000 , 0) * 1000 As MontoCompraAgrupado,
+      BTT.P_NoCredito As NoCredito,
+      '1' As NumeroDeRregistros,
+      AA.rfc As RFC,
+      BTT.C_Tarjeta As Tarjeta,
+      AB.transacciones As Transacciones,
+      AD.EstadoComercial
+    From
+      (
+      --BitacoraTransacciones
+      Select Distinct
+        A.IdClienteTransaccion As C_IdClienteTransaccion,
+        C.idMovimiento As C_idMovimiento,
+        C.Monto As C_Monto,
+        A.FechaCreacion As C_FechaCreacion,
+        A.IdEstado As C_IdEstado,
+        A.IdTransaccionStp As C_IdTransaccionStp,
+        B.Comercio As C_Comercio,
+        B.Folio As C_Folio,
+        C.Tarjeta As C_Tarjeta,
+        C.NumCuenta As C_NumCuenta,
+        AA.NoCredito As P_NoCredito,
+        AA.ConciliacionesEcoWebID As P_ConciliacionesEcoWebID,
+        AA.EstadosConciliacionEcoWebID As P_EstadosConciliacionEcoWebID,
+        AA.Estado As P_Estado,
+        AA.Descripcion As P_Descripcion
       From
-        [dbo].[BitacoraTransacciones] A With (Nolock)
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelPaymentsWS.BitacoraTransaccionesExternas` A
       Left Join
-        (
-        Select Distinct
-          comercio,
-          razon_social,
-          rfc
-        From
-          [broxelco_rdg].[Comercio] With (Nolock)
-        )AA On A.C_Comercio = AA.Comercio
-      Left Join
-        (
-        Select Distinct
-          folio,
-          liquidacion_comercio,
-          fecha,
-          fechaPago,
-          comercio,
-          importe_ventas,
-          transacciones
-        From
-          [broxelco_rdg].[bp_detalle_diario_comercio] Wirh (Nolock)
-        Where
-          processor = '2' And importe_ventas <> '0' And idPrograma = '10' And fecha>'2018-04-10'
-        )AB On A.C_Folio = AB.folio And C_Comercio = Ab.comercio
-      Left Join
-        (
-        Select Distinct
-          Monto,
-          idSTP,
-          ConceptoPago,
-          Fecha
-        From
-          [broxelco_rdg].[RecepcionTransferencias] With (Nolock)
-        Where
-          FechaOperacion > '2018-04-05' And CLABE = '646180143121032635'
-        )AC On C_IdCLienteTransaccion = AC.ConceptoPago
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelPaymentsWS.BitacoraTransaccionesExternasLiquidaciones` B On A.IdMovimiento = B.IdMovimiento
+      Join
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelPaymentsWS.Movimiento` C On B.IdMovimiento = C.idMovimiento
       Left Join
         (
         Select
-          comercio,
-          Case
-          When comercio = '23CBX00958' Then 'Hidalgo'
-          When Comercio = '23CBX00980' Then 'Jalisco'
-          When estadoComercial Like '%cdmx%' Or estadoComercial Like '%ciudad de m%' Or estadoComercial Like '%CIUDAD DE M%' Or estadoComercial Like '%FEDERAL%' Or estadoComercial Like '%D.F.%' Or estadoComercial Like '%DF%' Or estadoComercial Like '%CMDX%' Then 'Distrito Federal'
-          When estadoComercial Like '%xico%' Or estadoComercial Like '%Edo. Méx' Or estadoComercial Like '%EDO MEX%' Or estadoComercial = 'MEX' Or estadoComercial = 'MEX.' Or estadoComercial Like '%Edo. Mex.%'  Then 'México'
-          When estadoComercial Like '%uebl%' Then 'Puebla'
-          When estadoComercial Like '%guerr%' Then 'Guerrero'
-          When estadoComercial Like '%quer%' Then 'Querétaro'
-          When estadoComercial Like '%nuevo le%' Or estadoComercial Like '%nuevo le%' Or estadoComercial Like '%NUENO LEON%' Then 'Nuevo León'
-          When estadoComercial = 'Baja California' Or estadoComercial = 'Baja California ' Or estadoComercial = 'BAJA CALIFORNA ' Or estadoComercial = 'Baja California Norte ' Or estadoComercial = 'BAJA CALIFORNIA NORTE' Then 'Baja California'
-          When estadoComercial Like '%sur%' Then 'Baja California Sur'
-          When estadoComercial Like '%campech%' Then 'Campeche'
-          When estadoComercial Like '%chiap%' Then 'Chiapas'
-          When estadoComercial Like '%aulipa%' Then 'Tamaulipas'
-          When estadoComercial Like '%jalis%' Then 'Jalisco'
-          When estadoComercial Like '%sonor%' Then 'Sonora'
-          When estadoComercial Like '%naya%' Then 'Nayarit'
-          When estadoComercial Like '%micho%' Then 'Michoacán de Ocampo'
-          When estadoComercial Like '%potos%' Then 'San Luis Potosí'
-          When estadoComercial Like '%oahu%' Then 'Coahuila de Zaragoza'
-          When estadoComercial Like '%vera%' Then 'Veracruz de Ignacio de la Llave'
-          When estadoComercial Like '%yuca%' Then 'Yucatán'
-          When estadoComercial Like '%more%' Then 'Morelos'
-          When estadoComercial Like '%chih%' Then 'Chihuahua'
-          When estadoComercial Like '%zaca%' Then 'Zacatecas'
-          When estadoComercial Like '%guana%' Then 'Guanajuato'
-          When estadoComercial Like '%roo%' Then 'Quintana Roo'
-          When estadoComercial Like '%coli%' Then 'Colima'
-          When estadoComercial Like '%aguas%' Then 'Aguascalientes'
-          When estadoComercial Like '%oax%' Then 'Oaxaca'
-          When estadoComercial Like '%sina%' Then 'Sinaloa'
-          When estadoComercial Like '%chia%' Then 'Chiapas'
-          When estadoComercial Like '%dura%' Then 'Durango'
-          When estadoComercial Like '%hidal%' Then 'Hidalgo'
-          When estadoComercial Like '%tlax%' Then 'Tlaxcala'
-          When estadoComercial Like '%taba%' Then 'Tabasco'
-          Else 'México'
-          End As 'Estado_Comercial'
+          IdMovimiento,
+          NoCredito,
+          ConciliacionesEcoWebID,
+          A.EstadosConciliacionEcoWebID,
+          Estado,
+          Descripcion
         From
-          broxelco_rdg.Comercio With (Nolock)
-        )AD On A.C_Comercio = AD.Comercio ;;
+          `mgcp-10078073-bxl-dwh-prod.cdc_BroxelPaymentsWS.ConciliacionesEcoWeb` A
+        Inner Join
+          `mgcp-10078073-bxl-dwh-prod.cdc_BroxelPaymentsWS.CatEstadosConciliacionEcoWeb` B On A.EstadosConciliacionEcoWebID = B.EstadosConciliacionEcoWebID
+        )AA On C.idMovimiento = AA.IdMovimiento
+      Where
+        C.idMovimiento > 15000000
+      ) BTT
+    Left Join
+      (
+      Select Distinct
+        comercio,
+        razon_social,
+        rfc
+      From
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio`
+      )AA On BTT.C_Comercio = AA.Comercio
+    Left Join
+      (
+      Select Distinct
+      folio,
+      liquidacion_comercio,
+      fecha,
+      fechaPago,
+      comercio,
+      importe_ventas,
+      transacciones
+    From
+      `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.bp_detalle_diario_comercio`
+    Where
+      processor = 2 And importe_ventas <> 0 And idPrograma = 10 And fecha > '2018-04-10'
+      )AB On BTT.C_Folio = AB.folio And C_Comercio = Ab.comercio
+    Left Join
+      (
+      Select Distinct
+        Monto,
+        idSTP,
+        ConceptoPago,
+        Fecha
+      From
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.RecepcionTransferencias`
+      Where
+        FechaOperacion > '2018-04-05' And CLABE = '646180143121032635'
+      )AC On C_IdCLienteTransaccion = AC.ConceptoPago
+    Left Join
+      (
+      Select
+        comercio,
+        Case
+        --Modificación de regla solicitada el 29 de dicie-180bre
+        When Comercio = '23CBX00958' Then 'Hidalgo'
+        When Comercio = '23CBX00980' Then 'Jalisco'
+        --
+        When Lower(estadoComercial) Like 'cdmx' Or Lower(estadoComercial) Like 'ciudad de m%' Or Lower(estadoComercial) Like 'ciudad de m%' Or Lower(estadoComercial) Like '%federal%' Or Lower(estadoComercial) Like 'd.f.' Or Lower(estadoComercial) Like 'df' Then 'Distrito Federal'
+        When Lower(estadoComercial) Like '%xico%' Or Lower(estadoComercial) Like 'edo. méx' Or Lower(estadoComercial) Like 'edo mex%' Or Lower(estadoComercial) = 'mex' Or Lower(estadoComercial) = 'mex.' Or Lower(estadoComercial) Like 'edo. mex.%'  Then 'México'
+        When Lower(estadoComercial) Like '%uebl%' Then 'Puebla'
+        When Lower(estadoComercial) Like 'guerr%' Then 'Guerrero'
+        When Lower(estadoComercial) Like 'quer%' Then 'Querétaro'
+        When Lower(estadoComercial) Like 'nuevo le%' Or Lower(estadoComercial) Like 'NUENO LEON' Then 'Nuevo León'
+        When Lower(estadoComercial) = 'baja california' Or Lower(estadoComercial) = 'baja california ' Or Lower(estadoComercial) = 'baja california ' Or Lower(estadoComercial) = 'baja california norte ' Then 'Baja California'
+        When Lower(estadoComercial) Like '%sur%' Then 'Baja California Sur'
+        When Lower(estadoComercial) Like 'campech%' Then 'Campeche'
+        When Lower(estadoComercial) Like 'chiap%' Then 'Chiapas'
+        When Lower(estadoComercial) Like '%aulipa%' Then 'Tamaulipas'
+        When Lower(estadoComercial) Like 'jalis%' Then 'Jalisco'
+        When Lower(estadoComercial) Like 'sonor%' Then 'Sonora'
+        When Lower(estadoComercial) Like 'naya%' Then 'Nayarit'
+        When Lower(estadoComercial) Like 'micho%' Then 'Michoacán de Ocampo'
+        When Lower(estadoComercial) Like '%potos%' Then 'San Luis Potosí'
+        When Lower(estadoComercial) Like '%oahu%' Then 'Coahuila de Zaragoza'
+        When Lower(estadoComercial) Like 'vera%' Then 'Veracruz de Ignacio de la Llave'
+        When Lower(estadoComercial) Like '%ucat%' Then 'Yucatán'
+        When Lower(estadoComercial) Like 'more%' Then 'Morelos'
+        When Lower(estadoComercial) Like 'chih%' Then 'Chihuahua'
+        When Lower(estadoComercial) Like 'zaca%' Then 'Zacatecas'
+        When Lower(estadoComercial) Like 'guana%' Then 'Guanajuato'
+        When Lower(estadoComercial) Like '%roo%' Then 'Quintana Roo'
+        When Lower(estadoComercial) Like 'coli%' Then 'Colima'
+        When Lower(estadoComercial) Like 'aguas%' Then 'Aguascalientes'
+        When Lower(estadoComercial) Like 'oax%' Then 'Oaxaca'
+        When Lower(estadoComercial) Like 'sina%' Then 'Sinaloa'
+        When Lower(estadoComercial) Like 'chia%' Then 'Chiapas'
+        When Lower(estadoComercial) Like 'dura%' Then 'Durango'
+        When Lower(estadoComercial) Like 'hidal%' Then 'Hidalgo'
+        When Lower(estadoComercial) Like 'tlax%' Then 'Tlaxcala'
+        When Lower(estadoComercial) Like 'taba%' Then 'Tabasco'
+        Else 'México'
+        End As EstadoComercial
+      From
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio`
+      )AD On BTT.C_Comercio = AD.Comercio ;;
   }
 
   measure: count {
@@ -134,7 +175,7 @@ view: hv_03_conciliacion {
 
   dimension: id_movimiento {
     type: string
-    sql: ${TABLE}.Id_Movimiento ;;
+    sql: ${TABLE}.IdMovimiento ;;
   }
 
   dimension: comercio {
@@ -144,7 +185,7 @@ view: hv_03_conciliacion {
 
   dimension: razon_social {
     type: string
-    sql: ${TABLE}.Razon_Social ;;
+    sql: ${TABLE}.RazonSocial ;;
   }
 
   dimension: folio {
@@ -154,83 +195,83 @@ view: hv_03_conciliacion {
 
   dimension: num_cuenta {
     type: string
-    sql: ${TABLE}.Num_Cuenta ;;
+    sql: ${TABLE}.NumCuenta ;;
   }
 
   dimension_group: fecha_compra {
     timeframes: [raw, time, date, week, month, quarter, year, month_name]
     type: time
-    sql: ${TABLE}.fecha_compra ;;
+    sql: ${TABLE}.FechaCompra ;;
   }
 
   dimension: monto_de_compra {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.Monto_de_Compra ;;
+    sql: ${TABLE}.MontoDeCompra ;;
   }
 
   dimension: id_stp {
     type: string
-    sql: ${TABLE}.idSTP ;;
+    sql: ${TABLE}.IdSTP ;;
   }
 
   dimension_group: fecha_spei {
     type: time
-    sql: ${TABLE}.Fecha_SPEI ;;
+    sql: ${TABLE}.FechaSPEI ;;
   }
 
   dimension: monto_spei {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.Monto_SPEI ;;
+    sql: ${TABLE}.MontoSPEI ;;
   }
 
   dimension: fecha_liquidacion {
     type: date
-    sql: ${TABLE}.Fecha_Liquidacion ;;
+    sql: ${TABLE}.FechaLiquidacion ;;
   }
 
   dimension: tiempo_para_liquidacion {
     type: number
-    sql: ${TABLE}.Tiempo_Para_Liquidacion ;;
+    sql: ${TABLE}.TiempoParaLiquidacion ;;
   }
 
   dimension: liquidacion_comercio {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
     hidden: yes
-    sql: ${TABLE}.Liquidacion_Comercio ;;
+    sql: ${TABLE}.LiquidacionComercio ;;
   }
 
   dimension: importe_ventas {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.Importe_Ventas ;;
+    sql: ${TABLE}.ImporteVentas ;;
   }
 
   dimension: id_cliente_transaccion {
     type: string
-    sql: ${TABLE}.Id_Cliente_Transaccion ;;
+    sql: ${TABLE}.IdClienteTransaccion ;;
   }
 
   dimension_group: fecha_creacion {
     type: time
-    sql: ${TABLE}.Fecha_Creacion ;;
+    sql: ${TABLE}.FechaCreacion ;;
   }
 
   dimension: conciliaciones_eco_web_id {
     type: string
-    sql: ${TABLE}.Conciliaciones_Eco_Web_ID ;;
+    sql: ${TABLE}.ConciliacionesEcoWebID ;;
   }
 
   dimension: estados_conciliacion_eco_web_id {
     type: string
-    sql: ${TABLE}.Estados_Conciliacion_Eco_Web_ID ;;
+    sql: ${TABLE}.EstadosConciliacionEcoWebID ;;
   }
 
   dimension: estado_conciliacion {
     type: string
-    sql: ${TABLE}.Estado_Conciliacion ;;
+    sql: ${TABLE}.EstadoConciliacion ;;
   }
 
   dimension: descripcion {
@@ -240,22 +281,22 @@ view: hv_03_conciliacion {
 
   dimension: id_estado {
     type: string
-    sql: ${TABLE}.Id_Estado ;;
+    sql: ${TABLE}.IdEstado ;;
   }
 
   dimension: comercio_c {
     type: string
-    sql: ${TABLE}.Comercio_C ;;
+    sql: ${TABLE}.ComercioC ;;
   }
 
   dimension: comercio_p {
     type: string
-    sql: ${TABLE}.Comercio_P ;;
+    sql: ${TABLE}.ComercioP ;;
   }
 
   dimension: concepto_pago {
     type: string
-    sql: ${TABLE}.Concepto_Pago ;;
+    sql: ${TABLE}.ConceptoPago ;;
   }
 
   measure: diferencia {
@@ -267,25 +308,25 @@ view: hv_03_conciliacion {
   measure: diferencia_avg {
     type: number
     hidden: yes
-    sql: AVG(${TABLE}.importe_ventas) ;;
+    sql: AVG(${TABLE}.ImporteVentas) ;;
   }
 
   measure: diferencia_sum {
     type: number
     hidden: yes
-    sql: SUM(${TABLE}.monto_de_compra) ;;
+    sql: SUM(${TABLE}.MontoDeCompra) ;;
   }
 
   measure: monto_de_compra_sum {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.monto_de_compra ;;
+    sql: ${TABLE}.MontoDeCompra ;;
   }
 
   measure: importe_ventas_avg {
     type: average
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.importe_ventas ;;
+    sql: ${TABLE}.ImporteVentas ;;
   }
 
   dimension: estado {
@@ -295,28 +336,28 @@ view: hv_03_conciliacion {
 
   dimension: folio_c {
     type: string
-    sql: ${TABLE}.Folio_C ;;
+    sql: ${TABLE}.FolioC ;;
   }
 
   dimension: id_movimiento_c {
     type: string
-    sql: ${TABLE}.Id_Movimiento_C ;;
+    sql: ${TABLE}.IdMovimientoC ;;
   }
 
   dimension: id_transaccion_stp {
     type: string
-    sql: ${TABLE}.Id_Transaccion_STP ;;
+    sql: ${TABLE}.IdTransaccionSTP ;;
   }
 
   dimension: monto_compra_agrupado {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.Monto_Compra_Agrupado ;;
+    sql: ${TABLE}.MontoCompraAgrupado ;;
   }
 
   dimension: no_credito {
     type: string
-    sql: ${TABLE}.No_Credito ;;
+    sql: ${TABLE}.NoCredito ;;
   }
 
   dimension: nmero_de_registros {
@@ -345,7 +386,7 @@ view: hv_03_conciliacion {
   dimension: mexico_layer {
     type: string
     map_layer_name: mexico_layer
-    sql: ${TABLE}.Estado_Comercial ;;
+    sql: ${TABLE}.EstadoComercial ;;
   }
 
   measure: transacciones_sum {
@@ -357,26 +398,26 @@ view: hv_03_conciliacion {
   measure: ticket_promedio {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${monto_de_compra_sum} / ${count} ;;
+    sql: ${monto_de_compra_sum} / ${transacciones_sum} ;;
   }
 
   measure: importe_ventas_sum {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.Importe_Ventas ;;
+    sql: ${TABLE}.ImporteVentas ;;
   }
 
   dimension: liquidacion_comercio_measure {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
     label:"Liquidacion Comercio"
-    sql: iif(${transacciones}>1,cast(${monto_de_compra}-((1-(${liquidacion_comercio}/${importe_ventas}))*${monto_de_compra}) as decimal(20,2)),${liquidacion_comercio}) ;;
+    sql: if(${transacciones} > 1, cast(${monto_de_compra} - (( 1 - (${liquidacion_comercio} / ${importe_ventas})) * ${monto_de_compra}) as numeric), ${liquidacion_comercio}) ;;
   }
 
   dimension: mes_compra {
     type: string
     label: "Mes Compra"
-    sql: ${TABLE}.fecha_compra ;;
+    sql: ${TABLE}.FechaCompra ;;
     html: {{ rendered_value | date: "%B %G" }};;
 
   }
