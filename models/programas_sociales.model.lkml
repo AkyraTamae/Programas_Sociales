@@ -58,8 +58,6 @@ explore: datos_financieros_1525 {}
 
 explore: programas_sociales_all_v2 {}
 
-explore: comparacion_conciliacion {}
-
 explore: presentaciones_ejecutivas_yy_v2 {}
 
 explore: presentaciones_ejecutivas_yy_v2_comercios {}
