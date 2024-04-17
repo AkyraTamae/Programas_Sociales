@@ -6,27 +6,24 @@ view: astro_main {
         B.DescripcionCanal,
         C.DescripcionIntento,
         Case
-        When C.IntentoID In ('2', '10', '20', '21', '23', '28', '30', '31', '35', '38', '39', '40', '41', '49', '51', '55', '76', '79', '93', '100', '101') Then ''
-        When C.IntentoID = '1' Then 'unknow'
-        Else C.DescripcionIntento
-        End As 'Contact_Reason',
+        When C.IntentoID In (2, 10, 20, 21, 23, 28, 30, 31, 35, 38, 39, 40, 41, 49, 51, 55, 76, 79, 93, 100, 101) Then ''  When C.IntentoID = 1 Then 'unknow' Else C.DescripcionIntento End As ContactReason,
         D.ClienteID,
         E.TelefonoCelular,
-        CONCAT(A.MensajeID, '_', A.ConversacionID) As 'KeyID',
-        IIF(Case When C.IntentoID In ('2', '10', '20', '21', '23', '28', '30', '31', '35', '38', '39', '40', '41', '49', '51', '55', '76', '79', '93', '100', '101') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End = '', '', CONCAT(Case When C.IntentoID In ('2', '10', '38', '39', '40', '51') Then '' When C.IntentoID = '1' Then 'unknow' Else C.DescripcionIntento End, '_', A.ConversacionID)) As 'Primary_Key',
+        CONCAT(A.MensajeID, '_', A.ConversacionID) As KeyID,
+        IF(Case When C.IntentoID In (2, 10, 20, 21, 23, 28, 30, 31, 35, 38, 39, 40, 41, 49, 51, 55, 76, 79, 93, 100, 101) Then '' When C.IntentoID = 1 Then 'unknow' Else C.DescripcionIntento End = '', '', CONCAT(Case When C.IntentoID In (2, 10, 38, 39, 40, 51) Then '' When C.IntentoID = 1 Then 'unknow' Else C.DescripcionIntento End, '_', A.ConversacionID)) As PrimaryKey,
         A.*
       From
-        [Core].[TMensaje] A With (Nolock)
+        `mgcp-10078073-bxl-dwh-prod.stg_BrxMulticanales.TMensaje` A
       Left Join
-        [Core].[CatCanal] B With (Nolock) On A.CanalID = B.CanalID
+        `mgcp-10078073-bxl-dwh-prod.stg_BrxMulticanales.CatCanal` B On A.CanalID = B.CanalID
       Left Join
-        [Core].[CatIntento] C With (Nolock) On A.IntentoID = C.IntentoID
+        `mgcp-10078073-bxl-dwh-prod.stg_BrxMulticanales.CatIntento` C On A.IntentoID = C.IntentoID
       Left Join
-        [Core].[TConversacion] D With (Nolock) On A.ConversacionID = D.ConversacionID
+        `mgcp-10078073-bxl-dwh-prod.stg_BrxMulticanales.TConversacion` D On A.ConversacionID = D.ConversacionID
       Left Join
-        [Core].[TCliente] E With (Nolock) On D.ClienteID = E.ClienteID
+        `mgcp-10078073-bxl-dwh-prod.stg_BrxMulticanales.TCliente` E On D.ClienteID = E.ClienteID
       Left Join
-        [Core].[CatTipoEnvio] F With (Nolock) On A.TipoEnvioID = F.TipoEnvioID ;;
+        `mgcp-10078073-bxl-dwh-prod.stg_BrxMulticanales.CatTipoEnvio` F On A.TipoEnvioID = F.TipoEnvioID ;;
   }
 
   measure: count {
@@ -51,7 +48,7 @@ view: astro_main {
 
   dimension: contact_reason {
     type: string
-    sql: ${TABLE}.Contact_Reason ;;
+    sql: ${TABLE}.ContactReason ;;
   }
 
   dimension: cliente_id {
@@ -72,7 +69,7 @@ view: astro_main {
   dimension: primary_key {
     type: string
     hidden: yes
-    sql: ${TABLE}.Primary_Key ;;
+    sql: ${TABLE}.PrimaryKey ;;
   }
 
   dimension: mensaje_id {
@@ -130,7 +127,7 @@ view: astro_main {
   dimension: filtro_anio {
     label: "Filtro_Año"
     type: number
-    sql: YEAR(${TABLE}.FechaRegistro) ;;
+    sql: extract(year from ${TABLE}.FechaRegistro) ;;
   }
 
   dimension: mensaje_proveedor_id {
@@ -156,7 +153,7 @@ view: astro_main {
     type: count_distinct
     value_format: "#,##0"
     sql_distinct_key: ${primary_key} ;;
-    sql: ${TABLE}.Primary_Key ;;
+    sql: ${TABLE}.PrimaryKey ;;
   }
 
   measure: conteo_distinto_conversacion_id {
