@@ -72,7 +72,7 @@ view: cnbv_dispositivos {
     type: date
     label: "Date"
     order_by_field: fecha_month
-    sql: date_trunc(${TABLE}.FechaSituacion, month) ;;
+    sql: ${TABLE}.Fecha ;;
     html: {{ rendered_value | date: "%B %Y" }};;
   }
 

@@ -34,16 +34,22 @@ view: cnbv_dispositivos_transaccion {
 
   ######################################
 
+  measure: sum_dispositivos_transaccion_no_acumulado {
+    type: sum
+    label: "Total Dispositivos Transaccion No Acumulado"
+    sql: ${TABLE}.TotalDispositivosTransaccionNoAcumulado ;;
+  }
+
   measure: total_dispositivos_transaccion_acumulado {
     type: running_total
-    sql: ${TABLE}.TotalDispositivos ;;
+    sql: ${sum_dispositivos_transaccion_no_acumulado} ;;
   }
 
   dimension: mes_test {
     type: date
-    label: "Mes Compra"
+    label: "Date"
     order_by_field: fecha_month
-    sql: date_trunc(${TABLE}.FechaSituacion, month) ;;
+    sql: date_trunc(${TABLE}.Fecha, month) ;;
     html: {{ rendered_value | date: "%B %Y" }};;
   }
 

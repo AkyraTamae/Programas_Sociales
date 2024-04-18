@@ -38,3 +38,4 @@ explore: comparacion_conciliacion {}
 explore: astro_main {}
 
 explore: cnbv_dispositivos {}
+explore: cnbv_dispositivos_transaccion {}
