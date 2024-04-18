@@ -32,12 +32,13 @@ view: cnbv_comercios {
 
   measure: sum_comercios_no_acumulado {
     type: sum
-    label: "Total Comercios No Acumulado"
+    label: "Comercios No Acumulado"
     sql: ${TABLE}.TotalComercios ;;
   }
 
   measure: total_comercios_acumulado {
     type: running_total
+    label: "Comercios Acumulado"
     sql: ${sum_comercios_no_acumulado} ;;
   }
 

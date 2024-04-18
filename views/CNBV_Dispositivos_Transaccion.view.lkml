@@ -36,12 +36,13 @@ view: cnbv_dispositivos_transaccion {
 
   measure: sum_dispositivos_transaccion_no_acumulado {
     type: sum
-    label: "Total Dispositivos Transaccion No Acumulado"
+    label: "Dispositivos Transaccion No Acumulado"
     sql: ${TABLE}.TotalDispositivosTransaccionNoAcumulado ;;
   }
 
   measure: total_dispositivos_transaccion_acumulado {
     type: running_total
+    label: "Dispositivos Transaccion Acumulado"
     sql: ${sum_dispositivos_transaccion_no_acumulado} ;;
   }
 

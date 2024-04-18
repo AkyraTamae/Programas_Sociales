@@ -60,11 +60,13 @@ view: cnbv_dispositivos {
   measure: total_dispositivos_no_acumulado {
     type: count_distinct
     filters: [position: "=1", numero_serie: "-L "]
+    label: "Dispositivos No Acumulado"
     sql: ${TABLE}.NumeroSerie ;;
   }
 
   measure: total_dispositivos_acumulado {
     type: running_total
+    label: "Dispositivos Acumulado"
     sql: ${total_dispositivos_no_acumulado} ;;
   }
 
