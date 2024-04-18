@@ -36,3 +36,5 @@ explore: trsnacacciones {}
 explore: hv_03_conciliacion {}
 explore: comparacion_conciliacion {}
 explore: astro_main {}
+
+explore: cnbv_dispositivos {}
