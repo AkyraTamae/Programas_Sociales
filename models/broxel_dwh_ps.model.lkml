@@ -39,3 +39,5 @@ explore: astro_main {}
 
 explore: cnbv_dispositivos {}
 explore: cnbv_dispositivos_transaccion {}
+explore: cnbv_comercios {}
+explore: cnbv_comercios_transaccion {}
