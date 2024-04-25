@@ -54,8 +54,6 @@ explore: rep_mujeres_con_bienestar {}
 
 explore: hv_02_venta_por_comercio {}
 
-explore: datos_financieros_1525 {}
-
 explore: programas_sociales_all_v2 {}
 
 explore: presentaciones_ejecutivas_yy_v2 {}
