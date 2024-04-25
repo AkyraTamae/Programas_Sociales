@@ -650,59 +650,87 @@ view: rep_datos_financieros1525 {
     sql: ${TABLE}.monto ;;
   }
 
+  #####################Detalle General#####################
 
+  measure: calculos_usuarios_unicos_pagos_general {
+    type: count_distinct
+    filters: [movement_type_id: "1"]
+    label: "Usuarios Unicos"
+    sql: ${TABLE}.Origen ;;
+  }
 
+  measure: calculos_totales_credito_general {
+    type: count
+    filters: [tipo: "MovimientosCredito", movement_type_id: "1, 2, 5"]
+    label: "Operaciones Crédito"
+  }
 
+  measure: calculos_totales_debito_general {
+    type: count
+    filters: [tipo: "MovimientosDebito", movement_type_id: "1, 2, 5"]
+    label: "Operaciones Débito"
+  }
 
+  measure: calculos_totales_nacional_general {
+    type: count
+    filters: [origen: "-530072%, -517805%, -414720%, -517312%, -455110%, -427082%, -526777%, -427082%, -371775%, -435603%, -455866%, -480078%, -510198%", codigo_iso: "-NULL"]
+    label: "Tarjetas Nacionales"
+  }
 
+  measure: calculos_totales_internacional_general {
+    type: count
+    filters: [origen: "530072%, 517805%, 414720%, 517312%, 455110%, 427082%, 526777%, 427082%, 371775%, 435603%, 455866%, 480078%, 510198%",  codigo_iso: "-NULL"]
+    label: "Tarjetas Internacionales"
+  }
 
+  measure: calculos_totales_pagos_general  {
+    type: count
+    filters: [movement_type_id: "1"]
+    label: "Pagos"
+  }
 
+  measure: calculos_totales_devoluciones_general {
+    type: count
+    filters: [movement_type_id: "2, 5", codigo_iso: "-NULL"]
+    label: "Devoluciones"
+  }
 
+  measure: calculos_totales_devoluciones_general_monto {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    filters: [movement_type_id: "2, 5", codigo_iso: "-NULL"]
+    label: "Monto Devoluciones"
+    sql: abs(${TABLE}.monto) ;;
+  }
 
+  measure: calculos_totales_aprobadas_general {
+    type: count
+    filters: [codigo_iso: "00"]
+    label: "Transacciones Aprobadas"
+  }
 
+  measure: calculos_totales_aprobadas_general_monto {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    filters: [codigo_iso: "00"]
+    label: "Monto Aprobado"
+    sql: ${TABLE}.monto ;;
+  }
 
+  measure: calculos_totales_rechazadas  {
+    type: count
+    filters: [codigo_iso: "-NULL, -00"]
+    label: "Transacciones Rechazadas"
+  }
 
+  measure: calculos_totales_rechazadas_monto {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    filters: [codigo_iso: "-NULL, -00"]
+    label: "Monto Rechazado"
+    sql: abs(${TABLE}.monto) ;;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  #########################################################
 
 }
