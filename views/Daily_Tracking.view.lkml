@@ -72,9 +72,17 @@ view: daily_tracking {
 
   #################### Filtros ####################
 
-  measure: sum_correcto{
+  measure: sum_correcto {
     type: sum
     filters: [fecha_corte_date: "after 2024-03-13", fecha_corte_date: "today", tipo: "Contar"]
+    label: "Total Correctos"
+    sql: case when ${estatus_de_carga} = 'Correcto' then 1 else 0 End  ;;
+  }
+
+  measure: sum_correcto_2 {
+    type: sum
+    hidden: yes
+    filters: [fecha_corte_date: "after 2024-03-13", tipo: "Contar"]
     label: "Total Correctos"
     sql: case when ${estatus_de_carga} = 'Correcto' then 1 else 0 End  ;;
   }
@@ -108,7 +116,7 @@ view: daily_tracking {
     type: number
     value_format: "0.00%"
     label: "%Cumplimiento"
-    sql: ${sum_correcto} / ${count}  ;;
+    sql: ${sum_correcto_2} / ${count}  ;;
   }
 
   dimension: tipo_de_carga {
