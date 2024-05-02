@@ -64,7 +64,7 @@ view: daily_tracking {
     when date_add(${TABLE}.FechaCorte, interval -1 day) = cast(${TABLE}.FechaCreacionTabla as date) then 'New Table'
     when ${TABLE}.TotalRegistros > ${TABLE}.TotalRegistrosPrevio then 'Correcto'
     when ${TABLE}.TotalRegistros = ${TABLE}.TotalRegistrosPrevio then 'Verificar carga, datos similares'
-    else 'Cantidad de registros inconsistentes'
+    when ${TABLE}.TotalRegistros < ${TABLE}.TotalRegistrosPrevio then 'Cantidad de registros inconsistentes'
     end ;;
   }
 
