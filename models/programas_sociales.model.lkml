@@ -29,10 +29,10 @@ explore: programas_sociales_all {}
 
 explore: cierres_credencial_usa {
   label: "GRL12: Cierres Financieros USA"
-  join: cierres_credencial_usa_agrupacion {
+  join: cierres_credencial_usa_claveagrupacion {
     type: left_outer
     relationship: one_to_one
-    sql_on: ${cierres_credencial_usa_agrupacion.clave_grupo_cliente} = ${cierres_credencial_usa.clave_grupo_cliente} ;;
+    sql_on: ${cierres_credencial_usa_claveagrupacion.clave_grupo_cliente} = ${cierres_credencial_usa.clave_grupo_cliente} ;;
   }
 }
 

@@ -1,8 +1,8 @@
 
-view: cierres_credencial_usa_agrupacion {
+view: cierres_credencial_usa_claveagrupacion {
   derived_table: {
     sql: SELECT  ClaveGrupoCliente, 
-                    Case when COUNT(DISTINCT Clave_Cliente) > 1 then concat(ClaveGrupoCliente, ' - ', NombreGrupoCliente)
+                    Case when COUNT(DISTINCT clave_cliente) > 1 then concat(ClaveGrupoCliente, ' - ', NombreGrupoCliente)
                     else '1700BXL00000 - Mercado abierto' 
                     END as agrupacion_cliente1
             FROM broxelco_rdg.FiltrosGRL12USA  group by ClaveGrupoCliente, NombreGrupoCliente ;;
