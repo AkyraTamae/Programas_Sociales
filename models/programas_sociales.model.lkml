@@ -26,7 +26,15 @@ explore: remesas{}
 
 explore: programas_sociales_all {}
 
-explore: cierres_credencial_usa {}
+
+explore: cierres_credencial_usa {
+  label: "GRL12: Cierres Financieros USA"
+  join: cierres_credencial_usa_agrupacion {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${cierres_credencial_usa_agrupacion.clave_grupo_cliente} = ${cierres_credencial_usa.clave_grupo_cliente} ;;
+  }
+}
 
 explore: matv09_auditorias {}
 
@@ -61,5 +69,3 @@ explore: presentaciones_ejecutivas_yy_v2 {}
 explore: presentaciones_ejecutivas_yy_v2_comercios {}
 
 explore: estatus_transacciones_detalle_diario {}
-
-explore: cierres_credencial_usa_agrupacion {}
