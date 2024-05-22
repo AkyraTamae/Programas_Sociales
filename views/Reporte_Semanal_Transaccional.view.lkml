@@ -1,5 +1,5 @@
 view: reporte_semanal_transaccional {
-  sql_table_name: dbo.ReporteSemanalTransaccional ;;
+  sql_table_name: `mgcp-10078073-bxl-bi-snd.BIOro.ReporteSemanalTransaccional` ;;
 
   dimension: comercio {
     type: string
@@ -11,7 +11,6 @@ view: reporte_semanal_transaccional {
   }
   dimension: devoluciones {
     type: number
-    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.devoluciones ;;
   }
   dimension: email_contacto {
@@ -35,29 +34,19 @@ view: reporte_semanal_transaccional {
   }
   dimension: importe_descuento {
     type: number
-    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.importe_descuento ;;
   }
   dimension: importe_ventas {
     type: number
-    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.importe_ventas ;;
   }
   dimension: iva {
     type: number
-    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.iva ;;
   }
-  dimension_group: mes_txt {
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    convert_tz: no
-    datatype: date
+  dimension: mes_txt {
+    type: date
     sql: ${TABLE}.Mes_txt ;;
-  }
-  dimension: month {
-    type: string
-    sql: ${TABLE}.Month ;;
   }
   dimension: municipio_comercial {
     type: string
@@ -85,27 +74,23 @@ view: reporte_semanal_transaccional {
   }
   dimension: ventas {
     type: number
-    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.ventas ;;
   }
-
-
-  measure: puntosdeventa {
-    type: count_distinct
-    sql: ${TABLE}.comercio ;;
+  measure: count {
+    type: count
   }
 
   dimension: mes_txt2 {
     type: string
-    sql: ${TABLE}.mes_txt ;;
+    label: "Mes"
+    sql: ${TABLE}.Mes_txt ;;
     html: {{ rendered_value | date: "%B %Y" }};;
-
   }
 
   measure: total_ventas{
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.ventas ;;
+    sql: ${TABLE}.importe_ventas ;;
   }
 
   measure: total_transacciones {
@@ -114,14 +99,18 @@ view: reporte_semanal_transaccional {
     sql: ${TABLE}.transacciones ;;
   }
 
+  measure: puntos_de_venta {
+    type: count_distinct
+    label: "Punto De Venta"
+    sql: ${TABLE}.Comercio ;;
+  }
+
+
   dimension: mexico_layer {
     type: string
     map_layer_name: mexico_layer
-    sql: ${TABLE}.Estado_Comercial ;;
+    sql: ${TABLE}.estado_comercial ;;
   }
 
 
-  measure: count {
-    type: count
-  }
 }

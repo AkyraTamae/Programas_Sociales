@@ -29,3 +29,4 @@ explore: grl08_liquidacion_comercios {}
 explore: daily_tracking {}
 explore: rep_datos_financieros1525 {}
 explore: programas_sociales_all {}
+explore: reporte_semanal_transaccional {}
