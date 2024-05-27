@@ -7,17 +7,17 @@ view: hv_03_conciliacion {
       AA.razon_social As RazonSocial,
       BTT.C_Folio As Folio,
       BTT.C_NumCuenta As NumCuenta,
-      CAST(AB.fecha As TimeStamp) As FechaCompra,
+      CAST(AB.fecha As Date) As FechaCompra,
       AC.Monto As MontoDeCompra,
       AC.IdSTP,
       CAST(AC.Fecha As TimeStamp) As FechaSPEI,
       AC.Monto As MontoSPEI,
-      CAST(AB.fechaPago As TimeStamp) As FechaLiquidacion,
+      CAST(AB.fechaPago As Date) As FechaLiquidacion,
       DATE_DIFF(CAST(AB.fechaPago As Date), CAST(AC.Fecha As Date), DAY) As TiempoParaLiquidacion,
       AB.liquidacion_comercio As LiquidacionComercio,
       AB.importe_ventas As ImporteVentas,
       BTT.C_IdClienteTransaccion As IdClienteTransaccion,
-      CAST(BTT.C_FechaCreacion As TimeStamp) As FechaCreacion,
+      CAST(BTT.C_FechaCreacion As Date) As FechaCreacion,
       BTT.P_ConciliacionesEcoWebID As ConciliacionesEcoWebID,
       BTT.P_EstadosConciliacionEcoWebID As EstadosConciliacionEcoWebID,
       BTT.P_Estado As EstadoConciliacion,
@@ -199,10 +199,13 @@ view: hv_03_conciliacion {
   }
 
   dimension_group: fecha_compra {
-    timeframes: [raw, time, date, week, month, quarter, year, month_name]
     type: time
+    timeframes: [raw, date, week, month, month_name, quarter, year]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}.FechaCompra ;;
   }
+
 
   dimension: monto_de_compra {
     type: number
