@@ -45,7 +45,6 @@ view: transacciones_mensual_all {
     When Lower(estadoComercial) Like 'tlax%' Then 'Tlaxcala'
     When Lower(estadoComercial) Like 'taba%' Then 'Tabasco'
     Else 'México'
-    End As 'Estado_Comercial'
     End As EstadoComercial,
     CAST(AA.Fecha As TimeStamp) As Fecha,
     AA.Monto,
