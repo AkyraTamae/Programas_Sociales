@@ -183,7 +183,7 @@ view: transacciones_mensual_all {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
     label: "Monto a Liquidar"
-    sql: =(${TABLE}.Monto * 0.035) + (( ${TABLE}.Monto * 0.035) * 0.16) ;;
+    sql: (${TABLE}.Monto * 0.035) + (( ${TABLE}.Monto * 0.035) * 0.16) ;;
   }
 
   ###########################################
