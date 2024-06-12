@@ -179,8 +179,12 @@ view: transacciones_mensual_all {
     sql: concat('En el mes de ***** ',' se registró un total de ', format(${count},'G'),' transacciones y un volumen de facturación de ',format(${sum_monto},'C','en-us'),'. Las ventas presentaron un decremento del ***** con relación al mes anterior. El Ticket Promedio global presentó un decremento del ***** con relación al mes anterior.') ;;
   }
 
-
-
+  measure: monto_liquidacion {
+    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
+    label: "Monto a Liquidar"
+    sql: =(${TABLE}.Monto * 0.035) + (( ${TABLE}.Monto * 0.035) * 0.16) ;;
+  }
 
   ###########################################
 
