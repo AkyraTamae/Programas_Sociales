@@ -30,3 +30,4 @@ explore: daily_tracking {}
 explore: rep_datos_financieros1525 {}
 explore: programas_sociales_all {}
 explore: reporte_semanal_transaccional {}
+explore: alertas_programas_transacciones_por_dia {}
