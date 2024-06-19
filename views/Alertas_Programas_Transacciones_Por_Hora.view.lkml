@@ -14,7 +14,8 @@ view: alertas_programas_transacciones_por_hora {
   }
   dimension: hora {
     type: number
-    sql: ${TABLE}.Hora ;;
+    value_format: "HH:MM"
+    sql: ${TABLE}.Hora / 24 ;;
   }
   dimension: monto_hora {
     type: number
