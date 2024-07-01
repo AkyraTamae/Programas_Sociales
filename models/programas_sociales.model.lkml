@@ -22,6 +22,12 @@ map_layer: edo_mex_layer {
   property_key: "mun_name"
 }
 
+map_layer: united_states_layer{
+  #file: "/mapas/map.json"
+  file: "/Mapa/Estados_USA.topojson"
+  property_key: "name"
+}
+
 explore: remesas{}
 
 explore: programas_sociales_all {}
@@ -54,3 +60,4 @@ explore: presentaciones_ejecutivas_yy_v2 {}
 explore: presentaciones_ejecutivas_yy_v2_comercios {}
 explore: estatus_transacciones_detalle_diario {}
 explore: conteo_registro_tablas {}
+explore: remittance_pathward {}
