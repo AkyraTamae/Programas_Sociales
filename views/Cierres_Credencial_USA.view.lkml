@@ -1,5 +1,5 @@
 view: cierres_credencial_usa {
-  sql_table_name: `mgcp-10078073-bxl-dwh-prod.bi_recursos.CierreTransaccionesUSA` ;;
+  sql_table_name: `mgcp-10078073-bxl-dwh-prod.bi_broxelco_rdg.FiltrosGRL12USA` ;;
 
   dimension_group: fecha {
     type: time
