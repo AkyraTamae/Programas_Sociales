@@ -3,12 +3,12 @@ view: cierres_credencial_usa_agrupacion {
   derived_table: {
     sql: Select
             A.*,
-            CONCAT(A.Producto, ' - ', C.descripcion) As 'Productos',
-            CONCAT(A.Clave_Cliente, ' - ', B.NombreCorto) As 'Clientes',
-            CONVERT(VARCHAR(19), DATEADD(HOUR, -5, GETDATE()), 120) As 'FechaH',
+            CONCAT(A.Producto, ' - ', C.descripcion) As Productos,
+            CONCAT(A.Clave_Cliente, ' - ', B.NombreCorto) As Clientes,
+            FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 5 HOUR)) AS FechaH,
             ClasificacionCtesBroxel,
-            B.GrupoCliente As 'ClaveGrupoCliente',
-            D.NombreCorto As 'NombreGrupoCliente'
+            B.GrupoCliente As ClaveGrupoCliente,
+            D.NombreCorto As NombreGrupoCliente
           From
             `mgcp-10078073-bxl-dwh-prod.bi_recursos.CierreTransaccionesUSA` A
           Left Join

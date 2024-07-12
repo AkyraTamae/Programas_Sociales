@@ -27,7 +27,7 @@ view: cierres_credencial_usa {
 
   dimension: nomenclatura {
     type: string
-    sql: regexp_extract(substring(${TABLE}.Clave_Cliente,r'[A-Z]{3}') ;;
+    sql: regexp_extract(${TABLE}.Clave_Cliente,r'[A-Z]{3}') ;;
   }
 
   measure: clientes_unicos{

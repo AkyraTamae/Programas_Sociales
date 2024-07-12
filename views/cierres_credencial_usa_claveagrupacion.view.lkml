@@ -1,11 +1,11 @@
 
 view: cierres_credencial_usa_claveagrupacion {
   derived_table: {
-    sql: SELECT  ClaveGrupoCliente, 
+    sql: SELECT  ClaveGrupoCliente,
                     Case when COUNT(DISTINCT clave_cliente) > 1 then concat(ClaveGrupoCliente, ' - ', NombreGrupoCliente)
-                    else '1700BXL00000 - Mercado abierto' 
+                    else '1700BXL00000 - Mercado abierto'
                     END as agrupacion_cliente1
-            FROM broxelco_rdg.FiltrosGRL12USA  group by ClaveGrupoCliente, NombreGrupoCliente ;;
+            FROM `mgcp-10078073-bxl-dwh-prod.bi_broxelco_rdg.FiltrosGRL12USA`  group by ClaveGrupoCliente, NombreGrupoCliente ;;
   }
 
   measure: count {
@@ -26,7 +26,7 @@ view: cierres_credencial_usa_claveagrupacion {
   set: detail {
     fields: [
         clave_grupo_cliente,
-	agrupacion_cliente1
+  agrupacion_cliente1
     ]
   }
 }
