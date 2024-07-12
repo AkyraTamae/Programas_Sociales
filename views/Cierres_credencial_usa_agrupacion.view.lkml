@@ -10,13 +10,13 @@ view: cierres_credencial_usa_agrupacion {
             B.GrupoCliente As 'ClaveGrupoCliente',
             D.NombreCorto As 'NombreGrupoCliente'
           From
-            CierreTransaccionesUSA A With (Nolock)
+            `mgcp-10078073-bxl-dwh-prod.bi_recursos.CierreTransaccionesUSA` A
           Left Join
-            broxelco_rdg.ClientesBroxel B With (Nolock) On A.Clave_Cliente = B.claveCliente
+            `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.clientesBroxel` B On A.Clave_Cliente = B.claveCliente
           Left Join
-            broxelco_rdg.productos_broxel C With (Nolock) On A.Producto = C.codigo
+            `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.productos_broxel` C On A.Producto = C.codigo
           Left Join
-            broxelco_rdg.AgrupacionClientes D With (Nolock) On B.GrupoCliente = D.ClaveAgrupacion ;;
+            `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.AgrupacionClientes` D On B.GrupoCliente = D.ClaveAgrupacion ;;
   }
 
   dimension_group: fecha{
@@ -43,7 +43,7 @@ view: cierres_credencial_usa_agrupacion {
 
   dimension: nomenclatura {
     type: string
-    sql: substring(${TABLE}.Clave_Cliente,patindex('%[A-Z]%', ${TABLE}.Clave_Cliente),3) ;;
+    sql: regexp_extract(substring(${TABLE}.Clave_Cliente,r'[A-Z]{3}') ;;
   }
 
   measure: clientes_unicos{

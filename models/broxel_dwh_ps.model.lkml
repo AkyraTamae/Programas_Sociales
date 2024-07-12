@@ -41,3 +41,12 @@ explore: cnbv_dispositivos {}
 explore: cnbv_dispositivos_transaccion {}
 explore: cnbv_comercios {}
 explore: cnbv_comercios_transaccion {}
+
+explore: cierres_credencial_usa {
+  label: "GRL12: Cierres Financieros USA"
+  join: cierres_credencial_usa_claveagrupacion {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${cierres_credencial_usa_claveagrupacion.clave_grupo_cliente} = ${cierres_credencial_usa.clave_grupo_cliente} ;;
+  }
+}

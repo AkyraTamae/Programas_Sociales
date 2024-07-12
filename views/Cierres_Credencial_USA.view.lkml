@@ -1,12 +1,14 @@
 view: cierres_credencial_usa {
-  sql_table_name: broxelco_rdg.FiltrosGRL12USA ;;
+  sql_table_name: `mgcp-10078073-bxl-dwh-prod.bi_recursos.CierreTransaccionesUSA` ;;
 
-  dimension_group: fecha{
+  dimension_group: fecha {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year, month_name]
-    datatype: datetime
+    timeframes: [raw, date, week, month, month_name, quarter, year]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}.Fecha ;;
   }
+
 
   dimension: date_month {
     type: date_month_name
@@ -25,7 +27,7 @@ view: cierres_credencial_usa {
 
   dimension: nomenclatura {
     type: string
-    sql: substring(${TABLE}.Clave_Cliente,patindex('%[A-Z]%', ${TABLE}.Clave_Cliente),3) ;;
+    sql: regexp_extract(substring(${TABLE}.Clave_Cliente,r'[A-Z]{3}') ;;
   }
 
   measure: clientes_unicos{

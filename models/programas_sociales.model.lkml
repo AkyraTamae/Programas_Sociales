@@ -29,19 +29,7 @@ map_layer: united_states_layer{
 }
 
 explore: remesas{}
-
 explore: programas_sociales_all {}
-
-
-explore: cierres_credencial_usa {
-  label: "GRL12: Cierres Financieros USA"
-  join: cierres_credencial_usa_claveagrupacion {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${cierres_credencial_usa_claveagrupacion.clave_grupo_cliente} = ${cierres_credencial_usa.clave_grupo_cliente} ;;
-  }
-}
-
 explore: matv09_auditorias {}
 explore: distribucion_y_prediccion_de_las_vueltas {}
 explore: comercios_cnbv {}
