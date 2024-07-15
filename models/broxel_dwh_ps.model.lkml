@@ -36,12 +36,10 @@ explore: trsnacacciones {}
 explore: hv_03_conciliacion {}
 explore: comparacion_conciliacion {}
 explore: astro_main {}
-
 explore: cnbv_dispositivos {}
 explore: cnbv_dispositivos_transaccion {}
 explore: cnbv_comercios {}
 explore: cnbv_comercios_transaccion {}
-
 explore: cierres_credencial_usa {
   label: "GRL12: Cierres Financieros USA"
   join: cierres_credencial_usa_claveagrupacion {
