@@ -18,8 +18,11 @@ view: daily_tracking_v2_az {
     drill_fields: [detail*]
   }
 
-  dimension: az_fecha_corte {
-    type: date
+  dimension_group: az_fecha_corte {
+    type: time
+    timeframes: [raw, date, week, month, month_name, quarter, year]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}.AZ_FechaCorte ;;
   }
 
@@ -45,11 +48,10 @@ view: daily_tracking_v2_az {
 
   set: detail {
     fields: [
-        az_fecha_corte,
-	az_registros_actual,
-	az_registros_previo,
-	az_nombre,
-	az_data_set
+  az_registros_actual,
+  az_registros_previo,
+  az_nombre,
+  az_data_set
     ]
   }
 }

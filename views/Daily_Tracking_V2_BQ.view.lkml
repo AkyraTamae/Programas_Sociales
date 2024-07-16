@@ -24,8 +24,10 @@ view: daily_tracking_v2_bq {
     sql: ${TABLE}.BQ_DataSet ;;
   }
 
-  dimension: bq_fecha_corte {
-    type: date
+  dimension_group: bq_fecha_corte {
+    type: time
+    timeframes: [raw, date, week, month, month_name, quarter, year]
+    convert_tz: no
     datatype: date
     sql: ${TABLE}.BQ_FechaCorte ;;
   }
@@ -64,7 +66,6 @@ view: daily_tracking_v2_bq {
   set: detail {
     fields: [
         bq_data_set,
-  bq_fecha_corte,
   bq_nombre,
   bq_registros_actual,
   bq_registros_previo,
