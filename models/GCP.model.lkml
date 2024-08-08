@@ -34,3 +34,4 @@ explore: alertas_programas_transacciones_por_dia {}
 explore: alertas_programas_transacciones_por_hora {}
 explore: programas_transacciones_rechazadas_por_hora {}
 explore: daily_tracking_v2_bq {}
+explore: reporte_audios {}
