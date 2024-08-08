@@ -4,8 +4,8 @@ view: reporte_audios {
     sql: SELECT
         A.Id,
         GENERATE_UUID() AS RegistroLlamada,
-        B.Fecha AS FechaInicio,
-        DATE_ADD(B.Fecha, INTERVAL 12 MINUTE) AS FechaFin,
+        CAST(B.Fecha AS DATETIME ) AS FechaInicio,
+        CAST(DATE_ADD(B.Fecha, INTERVAL 12 MINUTE) AS DATETIME ) AS FechaFin,
         D.NombreTitular,
         A.NumeroCuenta,
         C.credito,
@@ -56,7 +56,7 @@ view: reporte_audios {
   }
 
   dimension: id {
-    type: number
+    type: string
     sql: ${TABLE}.Id ;;
   }
 
@@ -69,16 +69,16 @@ view: reporte_audios {
     type: time
     timeframes: [raw, date, week, month, month_name, quarter, year]
     convert_tz: no
-    datatype: datetime
-    sql: ${TABLE}.FechaInicio ;;
+    datatype: date
+    sql: cast(${TABLE}.FechaInicio as date) ;;
   }
 
   dimension_group: fecha_fin {
     type: time
     timeframes: [raw, date, week, month, month_name, quarter, year]
     convert_tz: no
-    datatype: datetime
-    sql: ${TABLE}.FechaFin ;;
+    datatype: date
+    sql: cast(${TABLE}.FechaFin as date) ;;
   }
 
   dimension: nombre_titular {
@@ -156,6 +156,24 @@ view: reporte_audios {
     type: string
     sql: ${TABLE}.Programa ;;
   }
+
+  ###########################################
+
+  dimension: fecha_inicio_txt {
+    type: string
+    label: "Fecha Inicio"
+    sql: ${TABLE}.FechaInicio ;;
+    html: {{ rendered_value | date: "%F %T" }};;
+  }
+
+  dimension: fecha_fin_txt {
+    type: string
+    label: "Fecha Fin"
+    sql: ${TABLE}.FechaFin ;;
+    html: {{ rendered_value | date: "%F %T" }};;
+  }
+
+  ###########################################
 
   set: detail {
     fields: [
