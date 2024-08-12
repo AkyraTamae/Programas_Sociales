@@ -48,3 +48,4 @@ explore: cierres_credencial_usa {
     sql_on: ${cierres_credencial_usa_claveagrupacion.clave_grupo_cliente} = ${cierres_credencial_usa.clave_grupo_cliente} ;;
   }
 }
+explore: estatus_creditos_construyo {}

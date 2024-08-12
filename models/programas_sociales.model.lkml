@@ -36,7 +36,6 @@ explore: comercios_cnbv {}
 explore: datos_generales_dispositivos_2443 {}
 explore: credito_yo_construyo {}
 explore: filtros_grl12 {}
-explore: estatus_creditos_construyo {}
 explore: hv_03_comercios {}
 explore: hv_03_liquidacion {}
 explore: hv_03_spei {}
