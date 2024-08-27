@@ -176,6 +176,11 @@ view: cierres_credencial_usa {
     sql: ${operaciones_dim} ;;
   }
 
+  dimension: banco {
+    type: string
+    sql: ${TABLE}.Banco ;;
+  }
+
 #############################Filtros#############################
 
   parameter: field_variable {
