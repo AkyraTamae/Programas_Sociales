@@ -45,7 +45,7 @@ view: estatus_creditos_construyo {
       LEFT JOIN
         `mgcp-10078073-bxl-dwh-prod.cdc_YoConstruyo.LayoutGenerado` G ON a.Id = g.IdCreditoConstruyo
       LEFT JOIN
-        `mgcp-10078073-bxl-dwh-prod.cdc_broxelco_rdg.dispersionesSolicitudes` H ON F.FolioAsignacionLinea = H.folio ;;
+        `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.dispersionesSolicitudes` H ON F.FolioAsignacionLinea = H.folio ;;
 }
 
 measure: count {
