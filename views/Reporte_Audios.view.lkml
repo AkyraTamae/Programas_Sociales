@@ -41,9 +41,9 @@ view: reporte_audios {
       JOIN
         `mgcp-10078073-bxl-dwh-prod.cdc_BroxelTPV.ControlCuentasLlamadas` D ON D.credito = C.credito
       JOIN
-        `mgcp-10078073-bxl-bi-snd.BIPlata.CategoriasServiceNow` E ON E.id = A.IdCategoria
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCommon.CategoriasServiceNow` E ON E.id = A.IdCategoria
       JOIN
-        `mgcp-10078073-bxl-bi-snd.BIPlata.CategoriasServiceNow` F ON F.Id = A.IdSubcategoria
+        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCommon.CategoriasServiceNow` F ON F.Id = A.IdSubcategoria
       WHERE
         A.Producto IN ('K182', 'K281', 'K303', 'K671') AND B.NombreArchivo LIKE '%London%'
       ORDER BY
