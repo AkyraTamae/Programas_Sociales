@@ -66,6 +66,11 @@ view: alertas_tableros {
     sql: ${TABLE}.updated_at ;;
   }
 
+  measure: days_without_updating {
+   type: number
+  sql: date_diff(current_date(), ${TABLE}.updated_at, day) ;;
+  }
+
   set: detail {
     fields: [
       project_id,
