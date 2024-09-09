@@ -67,11 +67,14 @@ view: alertas_tableros {
     sql: ${TABLE}.full_table_name ;;
   }
 
-  dimension: updated_at {
-    type: date
-    datatype: date
+  dimension_group: updated_at {
+    type: time
+    timeframes: [raw, date, week, month, month_name, quarter, year]
+    convert_tz: no
+    datatype: datetime
     sql: ${TABLE}.updated_at ;;
-  }
+    }
+
 
   dimension: total_rows {
     type: number
@@ -105,7 +108,6 @@ view: alertas_tableros {
       table_name,
       table_schema_key,
       full_table_name,
-      updated_at,
       total_rows,
       total_registros_previo,
       az_registros_actual,
