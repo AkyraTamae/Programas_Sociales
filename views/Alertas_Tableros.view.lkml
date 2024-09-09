@@ -32,9 +32,9 @@ view: alertas_tableros {
       LEFT JOIN
         `mgcp-10078073-bxl-bi-snd.BIOro.Datos_Productivos` B ON B.Az_Data_Set = RIGHT(table_schema, LENGTH(A.table_schema) - STRPOS(A.table_schema, '_')) AND B.Az_Nombre = A.table_name AND B.Az_Fecha_Corte = CAST(CURRENT_DATE() AS DATE)
       LEFT JOIN
-        `mgcp-10078073-bxl-bi-snd.BIPlata.Daily_Tracking` C ON CAST(DATE_ADD(C.FechaCorte, INTERVAL 1 DAY) AS DATE) = CAST(CURRENT_DATETIME() AS DATE) AND C.Proyecto = 'mgcp-10078073-bxl-dwh-prod'AND  RIGHT(C.DataSet, LENGTH(C.DataSet) - STRPOS(C.DataSet, '_')) = RIGHT(table_schema, LENGTH(A.table_schema) - STRPOS(A.table_schema, '_')) AND C.Nombre = A.table_name
-      --WHERE
-        --CONCAT('mgcp-10078073-bxl-dwh-prod', ".", A.table_schema, ".", A.table_name) IN ('mgcp-10078073-bxl-dwh-prod.stg_BrxMulticanales.TMensaje') ;;
+        `mgcp-10078073-bxl-bi-snd.BIPlata.Daily_Tracking` C ON CAST(DATE_ADD(C.FechaCorte, INTERVAL 1 DAY) AS DATE) = CAST(CURRENT_DATETIME() AS DATE) AND C.Proyecto = 'mgcp-10078073-bxl-dwh-prod'AND  RIGHT(C.DataSet, LENGTH(C.DataSet) - STRPOS(C.DataSet, '_')) = RIGHT(table_schema, LENGTH(A.table_schema) - STRPOS(A.table_schema, '_')) AND C.Nombre = A.table_name ;;
+      # WHERE
+        # CONCAT('mgcp-10078073-bxl-dwh-prod', ".", A.table_schema, ".", A.table_name) IN ('mgcp-10078073-bxl-dwh-prod.stg_BrxMulticanales.TMensaje') ;;
   }
 
   measure: count {
