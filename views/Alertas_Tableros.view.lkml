@@ -16,7 +16,8 @@ view: alertas_tableros {
         WHEN AA.total_rows >= C.TotalRegistrosPrevio AND AA.total_rows >= B.Az_Registros_Actual OR B.Az_Registros_Actual > AA.total_rows AND AA.total_rows - B.Az_Registros_Actual >= -100 THEN 'Correcto'
         WHEN AA.total_rows < B.Az_Registros_Actual OR B.Az_Registros_Actual > AA.total_rows AND AA.total_rows - B.Az_Registros_Actual < -100 OR AA.total_rows > C.TotalRegistrosPrevio AND B.Az_Registros_Actual IS NULL THEN 'Verificar'
         WHEN AA.total_rows = C.TotalRegistrosPrevio AND B.Az_Registros_Actual > AA.total_rows OR AA.total_rows = C.TotalRegistrosPrevio AND B.Az_Registros_Actual IS NULL OR C.TotalRegistrosPrevio > AA.total_rows THEN 'Error'
-        END AS Alerta
+        END AS Alerta,
+        B.Az_Fecha_Corte
       FROM
         `mgcp-10078073-bxl-dwh-prod.region-us.INFORMATION_SCHEMA.TABLES` A
       LEFT JOIN
@@ -73,8 +74,7 @@ view: alertas_tableros {
     convert_tz: no
     datatype: datetime
     sql: ${TABLE}.updated_at ;;
-    }
-
+  }
 
   dimension: total_rows {
     type: number
@@ -99,6 +99,21 @@ view: alertas_tableros {
   dimension: alerta {
     type: string
     sql: ${TABLE}.Alerta ;;
+  }
+
+  dimension_group: fecha_corte {
+    type: time
+    timeframes: [raw, date, week, month, month_name, quarter, year]
+    convert_tz: no
+    datatype: datetime
+    sql: ${TABLE}.Az_Fecha_Corte ;;
+  }
+
+  dimension: fecha_corte_txt {
+    type: string
+    order_by_field: fecha_corte_month
+    sql: ${TABLE}.FechaCorte ;;
+    html: {{ rendered_value | date: "%B %Y" }};;
   }
 
   set: detail {
