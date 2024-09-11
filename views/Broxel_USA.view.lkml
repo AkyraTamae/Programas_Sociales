@@ -111,6 +111,15 @@ view: broxel_usa {
     type: string
     sql: ${TABLE}.tel ;;
   }
+  dimension: Link {
+    label: "Ver en Ops"
+    type: string
+    sql: "Para más detalle de la cuenta consulta Ops";;
+    link: {
+      label: "Ver en Ops"
+      url: "https://ops.broxel.com/CuentasTarjetas?NUMERO DE CUENTA = ${num_cuenta}"  # Reemplaza con una cuenta de prueba
+    }
+  }
 
   set: detail {
     fields: [
@@ -124,7 +133,8 @@ view: broxel_usa {
       celular_tarjeta_activada,
       correo_contacto,
       pais_tel,
-      tel
+      tel,
+      Link
     ]
   }
 }
