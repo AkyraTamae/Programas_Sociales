@@ -57,15 +57,7 @@ view: datos_generales_dispositivos_2443 {
     type: string
     sql: ${TABLE}.NumeroCalle ;;
   }
-  dimension: Link {
-    label: "Ver en Ops"
-    type: string
-    sql: "Para más detalle de la cuenta consulta Ops";;
-    link: {
-      label: "Ver en Ops"
-      url: "https://ops.broxel.com/CuentasTarjetas"  # Reemplaza con una cuenta de prueba
-    }
-  }
+
   dimension: numero_serie {
     type: string
     sql: ${TABLE}.NumeroSerie ;;
