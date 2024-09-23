@@ -66,6 +66,7 @@ view: alertas_tableros {
   }
 
   dimension: full_table_name {
+    order_by_field: updated_at_date
     type: string
     sql: ${TABLE}.full_table_name ;;
   }
