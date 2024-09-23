@@ -114,11 +114,11 @@ view: broxel_usa {
   dimension: Link {
     label: "Ver en Ops"
     type: string
-    sql: "Para más detalle de la cuenta consulta Ops";;
     link: {
-      label: "Ver en Ops"
-      url: "https://ops.broxel.com/CuentasTarjetas?NUMERO DE CUENTA = ${num_cuenta}"  # Reemplaza con una cuenta de prueba
+      url: "https://ops.broxel.com/Cuentas/Detalle/{{value}}"
     }
+    html: "<a href='https://ops.broxel.com/Cuentas/Detalle/{{value}}' target='_blank'>Link Ops</a>" ;;
+    sql: ${num_cuenta} ;;
   }
 
   set: detail {
