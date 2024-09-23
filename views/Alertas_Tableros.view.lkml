@@ -71,6 +71,7 @@ view: alertas_tableros {
   }
 
   dimension_group: updated_at {
+    order_by_field: updated_at_date
     type: time
     timeframes: [raw, date, week, month, month_name, quarter, year]
     convert_tz: no
