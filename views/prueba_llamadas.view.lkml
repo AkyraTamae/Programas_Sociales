@@ -3,7 +3,7 @@ view: prueba_llamadas {
   derived_table: {
     sql: SELECT
         '+525514486653' AS Numero
-      UNION ALL
+      /*UNION ALL
       SELECT
         '+525519518327'
       UNION ALL
@@ -26,7 +26,7 @@ view: prueba_llamadas {
         '+525533224970'
       UNION ALL
       SELECT
-        '+525569056515' ;;
+        '+525569056515'*/ ;;
   }
 
   #Mensaje de prueba para campaña SMS
