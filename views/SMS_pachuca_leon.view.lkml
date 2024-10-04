@@ -41,7 +41,7 @@ view: SMS_pachuca_leon {
     sql: ${TABLE}.Producto ;;
   }
 
-  dimension: numero_tag {
+  dimension: celular_tag {
     type: string
     tags: ["phone","undefined"]
     sql: ${TABLE}.Celular ;;
