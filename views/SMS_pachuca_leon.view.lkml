@@ -13,7 +13,55 @@ view: SMS_pachuca_leon {
       INNER JOIN
         `mgcp-10078073-bxl-dwh-prod.cdc_broxelco_rdg.clientesBroxel` C on A.clave_cliente = C.claveCliente
       WHERE
-        producto IN ('K268','K269') ;;
+        producto IN ('K268','K269')
+      UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+525514486653' AS celular,
+        'Pachuca' AS Producto
+      UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+525514486653' AS celular,
+        'Leon' AS Producto
+      UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+527772233498' AS celular,
+        'Pachuca' AS Producto
+      UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+527772233498' AS celular,
+        'Leon' AS Producto
+      UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+525514732593' AS celular,
+        'Pachuca' AS Producto
+      UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+525514732593' AS celular,
+        'Leon' AS Producto
+      UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+525543572580' AS celular,
+        'Pachuca' AS Producto
+      UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+525543572580' AS celular,
+        'Leon' AS Producto ;;
   }
 
   measure: count {
