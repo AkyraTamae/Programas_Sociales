@@ -1,55 +1,76 @@
 
 view: prueba_llamadas {
-  derived_table: {
-    sql: SELECT
-        '+525514486653' AS Numero
-      /*UNION ALL
-      SELECT
-        '+525519518327'
+derived_table: {
+  sql: SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+525514486653' AS celular,
+        'Pachuca' AS Producto
       UNION ALL
       SELECT
-        '+527772233498'
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+525514486653' AS celular,
+        'Leon' AS Producto
       UNION ALL
       SELECT
-        '+525514732593'
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+527772233498' AS celular,
+        'Pachuca' AS Producto
       UNION ALL
       SELECT
-        '+525543572580'
-      UNION ALL
-      SELECT
-        '+527772572237'
-      UNION ALL
-      SELECT
-        '+527227010721'
-      UNION ALL
-      SELECT
-        '+525533224970'
-      UNION ALL
-      SELECT
-        '+525569056515'*/ ;;
-  }
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+527772233498' AS celular,
+        'Leon' AS Producto ;;
+}
 
-  #Mensaje de prueba para campaña SMS
+measure: count {
+  type: count
+  drill_fields: [detail*]
+}
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
+dimension: clave_cliente {
+  type: string
+  sql: ${TABLE}.clave_cliente ;;
+}
 
-  dimension: numero {
-    type: string
-    sql: ${TABLE}.Numero ;;
-  }
+dimension: num_cuenta {
+  type: string
+  sql: ${TABLE}.num_cuenta ;;
+}
 
-  dimension: numero_label {
-    type: string
-    tags: ["phone","undefined"]
-    sql: ${TABLE}.Numero ;;
-  }
+dimension: celular {
+  type: string
+  sql: ${TABLE}.Celular ;;
+}
 
-  set: detail {
-    fields: [
-        numero
-    ]
-  }
+dimension: producto {
+  type: string
+  sql: ${TABLE}.Producto ;;
+}
+
+dimension: celular_tag {
+  type: string
+  tags: ["phone","undefined"]
+  sql: ${TABLE}.Celular ;;
+}
+
+dimension_group: fecha {
+  type: time
+  timeframes: [raw, date, week, month, month_name, quarter, year]
+  convert_tz: no
+  datatype: datetime
+  sql: cast(datetime_add(current_datetime, interval -6 hour) as date) ;;
+}
+
+set: detail {
+  fields: [
+    clave_cliente,
+    num_cuenta,
+    celular,
+    producto
+  ]
+}
 }
