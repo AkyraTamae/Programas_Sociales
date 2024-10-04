@@ -95,6 +95,14 @@ view: SMS_pachuca_leon {
     sql: ${TABLE}.Celular ;;
   }
 
+  dimension_group: fecha {
+    type: time
+    timeframes: [raw, date, week, month, month_name, quarter, year]
+    convert_tz: no
+    datatype: datetime
+    sql: cast(datetime_add(current_datetime, interval -6 hour) as date) ;;
+  }
+
   set: detail {
     fields: [
         clave_cliente,
