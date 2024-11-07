@@ -71,6 +71,26 @@ From
     `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar` C On A.comercio = C.Comercio
   Where
     A.fecha >= '2023-09-01' And A.idPrograma In (5, 10, 219, 220, 223) And C.Comercio Is Null
+
+  UNION ALL
+
+  SELECT
+    Comercio,
+    Fecha_Date,
+    Mes,
+    Nombre_Medidas,
+    Email_Contacto,
+    Usuario,
+    Ventas,
+    Devoluciones,
+    Iva,
+    Importe_Ventas,
+    Importe_Descuento,
+    Transacciones,
+    Estado_Fiscal,
+    Municipio_Comercial
+  FROM
+    `mgcp-10078073-bxl-dwh-prod.bi_recursos.bp_reembolsos_extemporaneos`
   ) D
 Left Join
   (
