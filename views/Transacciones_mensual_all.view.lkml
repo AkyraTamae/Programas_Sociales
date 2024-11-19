@@ -65,13 +65,14 @@ view: transacciones_mensual_all {
     When A.Producto = 'K182' Then 'Mejoravit'
     When A.Producto = 'K303' Then 'Equipa tu Casa'
     When A.Producto = 'K281' Then 'Renueva'
+    When A.Producto = 'K672' Then 'Repara'
     End As NombreDeMedidas
     From
     `mgcp-10078073-bxl-dwh-prod.stg_BroxelPaymentsWS.PrePayStudioMovements` A
     Inner Join
     `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio` B On DenMov = Comercio
     Where
-    A.Producto In ('K303','K281','K182') And CAST(A.Fecha As Date) > CURRENT_DATE() -180 And A.AuthorizationCode Is Not Null And B.comercio Not In (Select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`) And B.comercio Not In ('19CBX00947')
+    A.Producto In ('K303','K281','K182','K672') And CAST(A.Fecha As Date) > CURRENT_DATE() -180 And A.AuthorizationCode Is Not Null And B.comercio Not In (Select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`) And B.comercio Not In ('19CBX00947')
 
     Union All
 
