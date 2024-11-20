@@ -19,7 +19,8 @@ view: programas_sociales_all {
   D.EstadoFiscal,
   E.Estado_Comercial,
   D.Municipio_Comercial,
-  F.Fecha_de_Alta
+  F.Fecha_de_Alta,
+  D.KeyId
 From
   (
   Select
@@ -36,7 +37,8 @@ From
     CAST(importe_descuento As Numeric) As importe_descuento,
     CAST(transacciones As Numeric) As transacciones,
     EstadoFiscal,
-    MunicipioComercial As Municipio_Comercial
+    MunicipioComercial As Municipio_Comercial,
+    NULL AS KeyId
   From
     `mgcp-10078073-bxl-bi-snd.BIOro.ConsolidadoV6`
 
@@ -62,7 +64,8 @@ From
     A.importe_descuento,
     A.transacciones,
     B.estado As Estado_Fiscal,
-    B.delegacionComercial As Municipio_Comercial
+    B.delegacionComercial As Municipio_Comercial,
+    NULL AS KeyId
   From
     `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.bp_detalle_diario_comercio` A
   Left Join
@@ -88,7 +91,8 @@ From
     Importe_Descuento,
     Transacciones,
     Estado_Fiscal,
-    Municipio_Comercial
+    Municipio_Comercial,
+    KeyId
   FROM
     `mgcp-10078073-bxl-dwh-prod.bi_recursos.bp_reembolsos_extemporaneos`
   ) D
@@ -259,12 +263,6 @@ Left join
     sql: ${TABLE}.Comercio ;;
   }
 
-  dimension: keyid {
-    type: string
-    hidden: yes
-    sql: ${TABLE}.KeyId ;;
-  }
-
   dimension_group: fecha_de_alta{
     timeframes: [raw, time, date, week, month, quarter, year, month_name]
     type: time
@@ -308,6 +306,11 @@ Left join
     type: string
     map_layer_name: mexico_layer
     sql: ${TABLE}.estado_comercial ;;
+  }
+
+  dimension: keyid {
+    type: string
+    sql: ${TABLE}.keyid ;;
   }
 
   set: detail {
