@@ -104,12 +104,16 @@ view: reporte_semanal_transaccional {
     sql: ${TABLE}.transacciones ;;
   }
 
+  dimension: lob {
+    type: string
+    sql: ${TABLE}.LOB ;;
+  }
+
   measure: puntos_de_venta {
     type: count_distinct
     label: "Punto De Venta"
     sql: ${TABLE}.Comercio ;;
   }
-
 
   dimension: mexico_layer {
     type: string
