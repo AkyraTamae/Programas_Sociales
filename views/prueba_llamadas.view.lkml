@@ -17,7 +17,13 @@ derived_table: {
         '-' AS clave_cliente,
         '-' AS num_cuenta,
         '+525569056515' AS celular,
-        'Pachuca' AS Producto;;
+        'Pachuca' AS Producto
+        UNION ALL
+      SELECT
+        '-' AS clave_cliente,
+        '-' AS num_cuenta,
+        '+527772572237' AS celular,
+        'Leon' AS Producto;;
 }
 
 measure: count {
