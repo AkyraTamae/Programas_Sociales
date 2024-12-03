@@ -31,6 +31,7 @@ view: reporte_audios {
         WHEN A.Producto = 'K281' THEN 'Renueva'
         WHEN A.Producto = 'K303' THEN 'Equip Tu Casa'
         WHEN A.Producto = 'K671' THEN 'Repara'
+        WHEN A.Producto = 'K672' THEN 'Repara'
         END AS Programa
       FROM
         `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCommon.LlamadasCallCenter` A
@@ -45,7 +46,7 @@ view: reporte_audios {
       JOIN
         `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCommon.CategoriasServiceNow` F ON F.Id = A.IdSubcategoria
       WHERE
-        A.Producto IN ('K182', 'K281', 'K303', 'K671') AND B.NombreArchivo LIKE '%London%'
+        A.Producto IN ('K182', 'K281', 'K303', 'K671', 'K672') AND B.NombreArchivo LIKE '%London%'
       ORDER BY
         B.Fecha ;;
   }
