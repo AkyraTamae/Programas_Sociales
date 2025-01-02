@@ -221,8 +221,8 @@ view: rep_mujeres_con_bienestar_bq {
   }
 
   dimension: vin  {
-    type: string
+    type: number
     label: "VIN"
-    sql: case when ${TABLE}.Cuenta is not null then 0  else '' end ;;
+    sql: case when ${TABLE}.Cuenta is not null then 0 else null end ;;
   }
 }
