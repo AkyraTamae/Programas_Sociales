@@ -1,9 +1,21 @@
 view: rep_mujeres_con_bienestar_bq {
-  sql_table_name: `mgcp-10078073-bxl-bi-snd.BIOro.RepMujeresConBienestar` ;;
+  derived_table: {
+    sql: SELECT
+        B.Cuenta as Cuenta2,
+        A.*
+      FROM
+        `mgcp-10078073-bxl-bi-snd.BIOro.RepMujeresConBienestar` A
+      LEFT JOIN
+        `mgcp-10078073-bxl-bi-snd.BIPlata.RepCuentasReportadasMujeresConBienestar` B ON A.Cuenta = B.Cuenta ;;
+  }
 
   dimension: cuenta {
     type: string
     sql: ${TABLE}.Cuenta ;;
+  }
+  dimension: cuenta_2 {
+    type: string
+    sql: ${TABLE}.Cuenta2 ;;
   }
   dimension: curp {
     type: string
@@ -28,6 +40,13 @@ view: rep_mujeres_con_bienestar_bq {
     sql: ${TABLE}.FechaInicioVigencia ;;
   }
   dimension_group: fecha_inicio_insercion {
+    type: time
+    timeframes: [raw, date, week, month, quarter, year]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.FechaInsercion ;;
+  }
+  dimension_group: fecha_insercion {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
@@ -235,5 +254,23 @@ view: rep_mujeres_con_bienestar_bq {
     type: number
     label: "VIN"
     sql: case when ${TABLE}.Cuenta is not null then 0 else null end ;;
+  }
+  set: detail {
+    fields: [
+      repetido,
+      cuenta,
+      cuenta_2,
+      curp,
+      rfc,
+      nombre,
+      paternal_last_name,
+      maternal_last_name,
+      telefono,
+      telefono2,
+      direccion,
+      id_cuenta,
+      id_plan,
+      oficio
+    ]
   }
 }
