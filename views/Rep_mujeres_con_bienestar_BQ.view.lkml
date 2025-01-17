@@ -39,13 +39,6 @@ view: rep_mujeres_con_bienestar_bq {
     datatype: date
     sql: ${TABLE}.FechaInicioVigencia ;;
   }
-  dimension_group: fecha_inicio_insercion {
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}.FechaInsercion ;;
-  }
   dimension_group: fecha_insercion {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
