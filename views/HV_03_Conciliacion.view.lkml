@@ -85,7 +85,7 @@ view: hv_03_conciliacion {
 
 UNION ALL
 
-      Select Distinct
+      Select Distinct,
         A.IdClienteTransaccion As C_IdClienteTransaccion,
         C.idMovimiento As C_idMovimiento,
         C.Monto As C_Monto,
