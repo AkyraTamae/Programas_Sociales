@@ -51,3 +51,4 @@ explore: cierres_credencial_usa {
 explore: estatus_creditos_construyo {}
 explore: prueba_llamadas {}
 explore: SMS_pachuca_leon {}
+explore: asignaciones_ministraciones {}
