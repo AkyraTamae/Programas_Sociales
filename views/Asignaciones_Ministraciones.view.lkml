@@ -58,7 +58,7 @@ view: asignaciones_ministraciones {
         LEFT JOIN
           `mgcp-10078073-bxl-dwh-prod.stg_YoConstruyo.RespuestaFondeador` RF ON RF.IdCreditoYoConstruyo = CC.Id
         WHERE
-          NumeroMinistracion IS NOT NULL AND UserResponse IN ('Transacción exitosa', 'Transacción Exitosa', 'SPEI REALIZADO.', 'SPEI REALIZADO')
+          NumeroMinistracion IS NOT NULL AND UserResponse IN ('Transacción exitosa', 'Transacción Exitosa', 'SPEI REALIZADO.', 'SPEI REALIZADO') AND MC.Success IS TRUE
         GROUP BY
           NumeroCuenta,
           Dispersiones.NumeroCredito
