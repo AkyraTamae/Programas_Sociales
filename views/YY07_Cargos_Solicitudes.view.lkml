@@ -135,4 +135,19 @@ view: yy07_cargos_solicitudes {
     type: count
     drill_fields: [id]
   }
+  ###########################################
+
+  dimension: programa {
+    type: string
+    sql:
+    case
+    when ${TABLE}.Producto = 'K303' then 'Equipa Tu Casa'
+    when ${TABLE}.Producto = 'K281' then 'Renueva'
+    when ${TABLE}.Producto in ('K671', 'K672') then 'Repara'
+    end ;;
+  }
+
+
+
+  ###########################################
 }
