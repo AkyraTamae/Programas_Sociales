@@ -6,10 +6,14 @@ view: broxel_nexus_kpi {
         AA.AssignedTo,
         --AB.CreatedByUserId,
         AB.CreatedBy,
+        B.WorkItemType,
         B.Title,
         B.AreaPath,
         B.IterationPath,
-        SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) AS 'Sprint',
+        CASE
+        WHEN SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) = 'Brox' THEN 0
+        ELSE CAST(SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) AS INT)
+        END AS 'Sprint',
         --Calculos de tiempos, del primer Ready a Done, si no hay Ready va del primer Committed a Done
         CASE
         WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(HOUR, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
@@ -48,15 +52,19 @@ view: broxel_nexus_kpi {
       --Titulo, Área, Sprint
           dbo.WorkItem B WITH (NOLOCK) ON A.Id = B.Id
       WHERE
-        B.AreaPath = 'Broxel Nexus\All Squads\BI Squad'
+        B.AreaPath = 'Broxel Nexus\All Squads\BI Squad' AND SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) != 'Brox'
       GROUP BY
         A.Id,
         AA.AssignedTo,
         AB.CreatedBy,
+        B.WorkItemType,
         B.Title,
         B.AreaPath,
         B.IterationPath,
-        SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) ;;
+        CASE
+        WHEN SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) = 'Brox' THEN 0
+        ELSE CAST(SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) AS INT)
+        END ;;
   }
 
   measure: count {
@@ -79,6 +87,11 @@ view: broxel_nexus_kpi {
     sql: ${TABLE}.CreatedBy ;;
   }
 
+  dimension: work_item_type {
+    type: string
+    sql: ${TABLE}.WorkItemType ;;
+  }
+
   dimension: title {
     type: string
     sql: ${TABLE}.Title ;;
@@ -95,7 +108,7 @@ view: broxel_nexus_kpi {
   }
 
   dimension: sprint {
-    type: string
+    type: number
     sql: ${TABLE}.Sprint ;;
   }
 
@@ -119,11 +132,27 @@ view: broxel_nexus_kpi {
     sql: ${TABLE}.Done ;;
   }
 
+  ###########################################
+
+  measure: sum_time_elapsed {
+    type: sum
+    sql: ${TABLE}.TimeElapsed ;;
+  }
+
+  measure: avg_time_elapsed {
+    type: average
+    sql: ${TABLE}.TimeElapsed ;;
+  }
+
+  ###########################################
+
+
   set: detail {
     fields: [
         id,
   assigned_to,
   created_by,
+  work_item_type,
   title,
   area_path,
   iteration_path,
