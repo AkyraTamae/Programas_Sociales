@@ -52,7 +52,7 @@ view: broxel_nexus_kpi {
       --Titulo, Área, Sprint
           dbo.WorkItem B WITH (NOLOCK) ON A.Id = B.Id
       WHERE
-        B.AreaPath = 'Broxel Nexus\All Squads\BI Squad' AND SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) != 'Brox'
+        SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) != 'Brox'
       GROUP BY
         A.Id,
         AA.AssignedTo,
