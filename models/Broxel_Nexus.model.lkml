@@ -15,3 +15,5 @@ map_layer: mexico_layer{
   #file: "/mapas/map.json"
   file: "/Mapa/Estados_MX.topojson"
 }
+
+explore: broxel_nexus_kpi {}
