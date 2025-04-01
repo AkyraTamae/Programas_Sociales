@@ -1,4 +1,3 @@
-
 view: broxel_nexus_kpi {
   derived_table: {
     sql: SELECT
@@ -123,16 +122,16 @@ view: broxel_nexus_kpi {
   set: detail {
     fields: [
         id,
-	assigned_to,
-	created_by,
-	title,
-	area_path,
-	iteration_path,
-	sprint,
-	time_elapsed,
-	ready_time,
-	committed_time,
-	done_time
+  assigned_to,
+  created_by,
+  title,
+  area_path,
+  iteration_path,
+  sprint,
+  time_elapsed,
+  ready_time,
+  committed_time,
+  done_time
     ]
   }
 }
