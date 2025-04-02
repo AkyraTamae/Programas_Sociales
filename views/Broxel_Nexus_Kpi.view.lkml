@@ -1,64 +1,64 @@
 view: broxel_nexus_kpi {
   derived_table: {
     sql: SELECT
-        A.Id,
-        --AA.AssignedToUserId,
-        AA.AssignedTo,
-        --AB.CreatedByUserId,
-        AB.CreatedBy,
-        B.WorkItemType,
-        B.Title,
-        B.AreaPath,
-        B.IterationPath,
-        CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) AS 'Sprint',
-        --Calculos de tiempos, del primer Ready a Done, si no hay Ready va del primer Committed a Done
-        CASE
-        WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
-        ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
-        END AS 'TimeElapsed',
-        MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) AS 'Ready',
-        MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END) AS 'Committed',
-        MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END) AS 'Done'
-      FROM
-        dbo.Revision A WITH (NOLOCK)
-      LEFT JOIN
-        (
-        --Usuario Asignación
-        SELECT
-          B.Id,
-          A.Id AS 'AssignedToUserId',
-          A.DisplayName AS 'AssignedTo'
-        FROM
-          dbo."User" A WITH (NOLOCK)
-        LEFT JOIN
-          dbo.WorkItem B WITH (NOLOCK) ON  A.Id = B.AssignedToId
-        )AA ON A.Id = AA.Id
-      LEFT JOIN
-        (
-        --Usuario Creación
-        SELECT
-          B.Id,
-          A.Id AS 'CreatedByUserId',
-          A.DisplayName AS 'CreatedBy'
-        FROM
-          dbo."User" A WITH (NOLOCK)
-        LEFT JOIN
-          dbo.WorkItem B WITH (NOLOCK) ON  A.Id = B.CreatedById
-        )AB ON A.Id = AB.Id
-      LEFT JOIN
-      --Titulo, Área, Sprint
-          dbo.WorkItem B WITH (NOLOCK) ON A.Id = B.Id
-      WHERE
-        B.AreaPath = 'Broxel Nexus\All Squads\BI Squad'
-      GROUP BY
-        A.Id,
-        AA.AssignedTo,
-        AB.CreatedBy,
-        B.WorkItemType,
-        B.Title,
-        B.AreaPath,
-        B.IterationPath,
-        CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) ;;
+    A.Id,
+    --AA.AssignedToUserId,
+    AA.AssignedTo,
+    --AB.CreatedByUserId,
+    AB.CreatedBy,
+    B.WorkItemType,
+    B.Title,
+    B.AreaPath,
+    B.IterationPath,
+    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) AS 'Sprint',
+    --Calculos de tiempos, del primer Ready a Done, si no hay Ready va del primer Committed a Done
+    CASE
+    WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
+    ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
+    END AS 'TimeElapsed',
+    MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) AS 'Ready',
+    MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END) AS 'Committed',
+    MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END) AS 'Done'
+    FROM
+    dbo.Revision A WITH (NOLOCK)
+    LEFT JOIN
+    (
+    --Usuario Asignación
+    SELECT
+    B.Id,
+    A.Id AS 'AssignedToUserId',
+    A.DisplayName AS 'AssignedTo'
+    FROM
+    dbo."User" A WITH (NOLOCK)
+    LEFT JOIN
+    dbo.WorkItem B WITH (NOLOCK) ON  A.Id = B.AssignedToId
+    )AA ON A.Id = AA.Id
+    LEFT JOIN
+    (
+    --Usuario Creación
+    SELECT
+    B.Id,
+    A.Id AS 'CreatedByUserId',
+    A.DisplayName AS 'CreatedBy'
+    FROM
+    dbo."User" A WITH (NOLOCK)
+    LEFT JOIN
+    dbo.WorkItem B WITH (NOLOCK) ON  A.Id = B.CreatedById
+    )AB ON A.Id = AB.Id
+    LEFT JOIN
+    --Titulo, Área, Sprint
+    dbo.WorkItem B WITH (NOLOCK) ON A.Id = B.Id
+    WHERE
+    B.AreaPath LIKE '%Broxel Nexus%' AND CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) >= 132
+    GROUP BY
+    A.Id,
+    AA.AssignedTo,
+    AB.CreatedBy,
+    B.WorkItemType,
+    B.Title,
+    B.AreaPath,
+    B.IterationPath,
+    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT);;
   }
 
   measure: count {
@@ -102,7 +102,7 @@ view: broxel_nexus_kpi {
   }
 
   dimension: sprint {
-    type: number
+    type: string
     sql: ${TABLE}.Sprint ;;
   }
 
