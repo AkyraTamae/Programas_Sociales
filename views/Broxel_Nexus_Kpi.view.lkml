@@ -16,8 +16,8 @@ view: broxel_nexus_kpi {
         END AS 'Sprint',
         --Calculos de tiempos, del primer Ready a Done, si no hay Ready va del primer Committed a Done
         CASE
-        WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(HOUR, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
-        ELSE DATEDIFF(HOUR, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
+        WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
+        ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
         END AS 'TimeElapsed',
         MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) AS 'Ready',
         MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END) AS 'Committed',
