@@ -10,10 +10,7 @@ view: broxel_nexus_kpi {
         B.Title,
         B.AreaPath,
         B.IterationPath,
-        CASE
-        WHEN SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) = 'Brox' THEN 0
-        ELSE CAST(SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) AS INT)
-        END AS 'Sprint',
+        CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) AS 'Sprint',
         --Calculos de tiempos, del primer Ready a Done, si no hay Ready va del primer Committed a Done
         CASE
         WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
@@ -52,7 +49,7 @@ view: broxel_nexus_kpi {
       --Titulo, Área, Sprint
           dbo.WorkItem B WITH (NOLOCK) ON A.Id = B.Id
       WHERE
-        B.AreaPath = 'Broxel Nexus\All Squads\BI Squad' AND SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) != 'Brox'
+        B.AreaPath = 'Broxel Nexus\All Squads\BI Squad'
       GROUP BY
         A.Id,
         AA.AssignedTo,
@@ -61,10 +58,7 @@ view: broxel_nexus_kpi {
         B.Title,
         B.AreaPath,
         B.IterationPath,
-        CASE
-        WHEN SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) = 'Brox' THEN 0
-        ELSE CAST(SUBSTRING(B.IterationPath, PATINDEX('%[0-9]%', B.IterationPath), 5) AS INT)
-        END ;;
+        CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) ;;
   }
 
   measure: count {
