@@ -12,10 +12,11 @@ view: broxel_nexus_kpi {
     B.IterationPath,
     CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) AS 'Sprint',
     --Calculos de tiempos, del primer Ready a Done, si no hay Ready va del primer Committed a Done
-    CASE
-    WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
-    ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
-    END AS 'TimeElapsed',
+    --CASE
+    --WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
+    --ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
+    --END AS 'TimeElapsed',
+    DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
     MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) AS 'Ready',
     MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END) AS 'Committed',
     MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END) AS 'Done'
