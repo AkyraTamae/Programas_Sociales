@@ -2,14 +2,15 @@ view: broxel_nexus_kpi {
   derived_table: {
     sql: SELECT
     A.Id,
-    --AA.AssignedToUserId,
+    AA.AssignedToUserId,
     AA.AssignedTo,
-    --AB.CreatedByUserId,
+    AB.CreatedByUserId,
     AB.CreatedBy,
     B.WorkItemType,
     B.Title,
     B.AreaPath,
     B.IterationPath,
+    AC.Team,
     CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) AS 'Sprint',
     --Calculos de tiempos, del primer Ready a Done, si no hay Ready va del primer Committed a Done
     --CASE
@@ -17,9 +18,12 @@ view: broxel_nexus_kpi {
     --ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
     --END AS 'TimeElapsed',
     DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
+    MIN(B.CreatedDate) AS CreatedDate,
     MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) AS 'Ready',
+    MIN(AD.FirstCommitterDate) AS 'FirstCommitterDate',
     MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END) AS 'Committed',
-    MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END) AS 'Done'
+    MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END) AS 'Done',
+    B.Nocode
     FROM
     dbo.Revision A WITH (NOLOCK)
     LEFT JOIN
@@ -49,17 +53,54 @@ view: broxel_nexus_kpi {
     LEFT JOIN
     --Titulo, Área, Sprint
     dbo.WorkItem B WITH (NOLOCK) ON A.Id = B.Id
+    LEFT JOIN
+    (
+    --Consulta que genera el Equipo, se va a relacionar con el User Id y A AssignedTo
+    SELECT
+    A.Nombre,
+    A.Correo,
+    B.Nombre AS 'Team',
+    C.Id AS 'UserId'
+    FROM
+    dbo.Integrantes A WITH (NOLOCK)
+    LEFT JOIN
+    dbo.BroxelTeams B WITH (NOLOCK) ON A.BroxelTeamId = B.Id
+    LEFT JOIN
+    dbo."User" C WITH (NOLOCK) ON A.Correo = C.UniqueName
+    )AC ON AA.AssignedToUserId = AC.UserId
+    LEFT JOIN
+    (
+    SELECT
+    w.Id AS WorkItemId,
+    MIN(c.CommitterDate) AS FirstCommitterDate
+    FROM
+    dbo.WorkItem w
+    LEFT JOIN
+    dbo.PullRequestXWorkItem prxw ON w.Id = prxw.WorkItemsId
+    LEFT JOIN
+    dbo.PullRequestXCommit prxc ON prxw.PullRequestsPullRequestId = prxc.PullRequestsPullRequestId
+    LEFT JOIN
+    dbo.[Commit] c ON prxc.CommitsCommitId = c.CommitId AND prxc.CommitsRepositoryId = c.RepositoryId
     WHERE
-    B.AreaPath LIKE '%Broxel Nexus%' AND CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) >= 132
+    Id = 277302
+    GROUP BY
+    w.Id
+    )AD ON A.Id = AD.WorkItemId
+    WHERE
+    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) >= 132
     GROUP BY
     A.Id,
+    AA.AssignedToUserId,
     AA.AssignedTo,
+    AB.CreatedByUserId,
     AB.CreatedBy,
     B.WorkItemType,
     B.Title,
     B.AreaPath,
     B.IterationPath,
-    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT);;
+    AC.Team,
+    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT),
+    B.Nocode ;;
   }
 
   measure: count {
@@ -72,9 +113,19 @@ view: broxel_nexus_kpi {
     sql: ${TABLE}.Id ;;
   }
 
+  dimension: assigned_to_user_id {
+    type: string
+    sql: ${TABLE}.AssignedToUserId ;;
+  }
+
   dimension: assigned_to {
     type: string
     sql: ${TABLE}.AssignedTo ;;
+  }
+
+  dimension: created_by_user_id {
+    type: string
+    sql: ${TABLE}.CreatedByUserId ;;
   }
 
   dimension: created_by {
@@ -102,6 +153,11 @@ view: broxel_nexus_kpi {
     sql: ${TABLE}.IterationPath ;;
   }
 
+  dimension: team {
+    type: string
+    sql: ${TABLE}.Team ;;
+  }
+
   dimension: sprint {
     type: string
     sql: ${TABLE}.Sprint ;;
@@ -112,9 +168,19 @@ view: broxel_nexus_kpi {
     sql: ${TABLE}.TimeElapsed ;;
   }
 
+  dimension_group: created_date {
+    type: time
+    sql: ${TABLE}.CreatedDate ;;
+  }
+
   dimension_group: ready {
     type: time
     sql: ${TABLE}.Ready ;;
+  }
+
+  dimension_group: first_committer_date {
+    type: time
+    sql: ${TABLE}.FirstCommitterDate ;;
   }
 
   dimension_group: committed {
@@ -125,6 +191,11 @@ view: broxel_nexus_kpi {
   dimension_group: done {
     type: time
     sql: ${TABLE}.Done ;;
+  }
+
+  dimension: nocode {
+    type: string
+    sql: ${TABLE}.Nocode ;;
   }
 
   ###########################################
@@ -144,18 +215,24 @@ view: broxel_nexus_kpi {
 
   set: detail {
     fields: [
-        id,
-  assigned_to,
-  created_by,
-  work_item_type,
-  title,
-  area_path,
-  iteration_path,
-  sprint,
-  time_elapsed,
-  ready_time,
-  committed_time,
-  done_time
+      id,
+      assigned_to_user_id,
+      assigned_to,
+      created_by_user_id,
+      created_by,
+      work_item_type,
+      title,
+      area_path,
+      iteration_path,
+      team,
+      sprint,
+      time_elapsed,
+      created_date_time,
+      ready_time,
+      first_committer_date_time,
+      committed_time,
+      done_time,
+      nocode
     ]
   }
 }
