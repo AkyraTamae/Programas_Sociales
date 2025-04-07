@@ -17,13 +17,13 @@ view: broxel_nexus_kpi {
     --WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
     --ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
     --END AS 'TimeElapsed',
-    DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
+    DATEDIFF(DAY, MIN(CASE WHEN AD.FirstCommitterDate IS NOT NULL THEN AD.FirstCommitterDate ELSE CASE WHEN A.State = 'Committed' THEN A.ChangedDate END END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
+    --DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
     MIN(B.CreatedDate) AS CreatedDate,
     MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) AS 'Ready',
     MIN(AD.FirstCommitterDate) AS 'FirstCommitterDate',
     MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END) AS 'Committed',
-    MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END) AS 'Done',
-    B.Nocode
+    MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END) AS 'Done'
     FROM
     dbo.Revision A WITH (NOLOCK)
     LEFT JOIN
@@ -99,8 +99,7 @@ view: broxel_nexus_kpi {
     B.AreaPath,
     B.IterationPath,
     AC.Team,
-    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT),
-    B.Nocode ;;
+    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) ;;
   }
 
   measure: count {
@@ -193,11 +192,6 @@ view: broxel_nexus_kpi {
     sql: ${TABLE}.Done ;;
   }
 
-  dimension: nocode {
-    type: string
-    sql: ${TABLE}.Nocode ;;
-  }
-
   ###########################################
 
   measure: sum_time_elapsed {
@@ -231,8 +225,7 @@ view: broxel_nexus_kpi {
       ready_time,
       first_committer_date_time,
       committed_time,
-      done_time,
-      nocode
+      done_time
     ]
   }
 }
