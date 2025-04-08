@@ -37,3 +37,4 @@ explore: daily_tracking_v2_bq {}
 explore: reporte_audios {}
 explore: alertas_tableros {}
 explore: rep_mujeres_con_bienestar_bq {}
+explore: cargos_funerarios {}
