@@ -17,7 +17,25 @@ view: broxel_nexus_kpi {
     --WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
     --ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
     --END AS 'TimeElapsed',
-    DATEDIFF(DAY, MIN(CASE WHEN AD.FirstCommitterDate IS NOT NULL THEN AD.FirstCommitterDate ELSE CASE WHEN A.State = 'Committed' THEN A.ChangedDate END END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
+
+    DATEDIFF(DAY,
+    MIN(CASE
+    WHEN AD.FirstCommitterDate IS NOT NULL THEN AD.FirstCommitterDate
+    WHEN AD.FirstCommitterDate IS NULL THEN CASE WHEN A.State = 'Ready' THEN A.ChangedDate END
+    WHEN CASE WHEN A.State = 'Ready' THEN A.ChangedDate END IS NULL THEN CASE WHEN A.State = 'Committed' THEN A.ChangedDate END
+    END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END)) AS 'TimeElapsed',
+
+
+
+
+
+
+
+
+
+
+
+    --DATEDIFF(DAY, MIN(CASE WHEN AD.FirstCommitterDate IS NOT NULL THEN AD.FirstCommitterDate ELSE CASE WHEN A.State = 'Committed' THEN A.ChangedDate END END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
     --DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
     MIN(B.CreatedDate) AS CreatedDate,
     MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) AS 'Ready',
