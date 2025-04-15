@@ -19,11 +19,19 @@ view: broxel_nexus_kpi {
     --END AS 'TimeElapsed',
 
     DATEDIFF(DAY,
-    MIN(CASE
-    WHEN AD.FirstCommitterDate IS NOT NULL THEN AD.FirstCommitterDate
-    WHEN AD.FirstCommitterDate IS NULL THEN CASE WHEN A.State = 'Ready' THEN A.ChangedDate END
-    WHEN CASE WHEN A.State = 'Ready' THEN A.ChangedDate END IS NULL THEN CASE WHEN A.State = 'Committed' THEN A.ChangedDate END
-    END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END)) AS 'TimeElapsed',
+        CASE
+        WHEN
+            CASE
+            WHEN MIN(AD.FirstCommitterDate) IS NULL THEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)
+            ELSE MIN(AD.FirstCommitterDate)
+            END IS NULL
+        THEN MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END)
+        ELSE
+          CASE
+          WHEN MIN(AD.FirstCommitterDate) IS NULL THEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)
+          ELSE MIN(AD.FirstCommitterDate)
+          END
+        END, MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END)) AS 'TimeElapsed',
 
 
 
