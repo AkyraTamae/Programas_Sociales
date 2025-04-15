@@ -12,12 +12,16 @@ view: broxel_nexus_kpi {
     B.IterationPath,
     AC.Team,
     CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) AS 'Sprint',
-    --Calculos de tiempos, del primer Ready a Done, si no hay Ready va del primer Committed a Done
-    --CASE
-    --WHEN MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) IS NULL THEN DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
-    --ELSE DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END), MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END))
-    --END AS 'TimeElapsed',
-
+    /*
+  Se busca calcular el tiempo transcurrido (TimeElapsed) entre el inicio de una actividad y su finalización.
+    Para determinar la fecha de inicio, se siguen estas prioridades jerárquicas:
+      Si existe un valor en FirstCommitterDate, se utiliza esta fecha.
+      Si no hay FirstCommitterDate, se toma la primera fecha con estado Ready.
+      Si no hay ninguna fecha con estado Ready, se toma la primera fecha con estado Committed.
+    La fecha de finalización corresponde al estado Done.
+    Finalmente, se calcula la diferencia en días entre la fecha seleccionada como inicio (según la jerarquía anterior) y la fecha Done.
+    Es importante destacar que la jerarquía entre FirstCommitterDate, Ready y Committed garantiza que se tome la mejor referencia posible para el cálculo del tiempo transcurrido
+    */
     DATEDIFF(DAY,
         CASE
         WHEN
@@ -32,19 +36,6 @@ view: broxel_nexus_kpi {
           ELSE MIN(AD.FirstCommitterDate)
           END
         END, MAX(CASE WHEN A.State = 'Done' THEN A.ChangedDate END)) AS 'TimeElapsed',
-
-
-
-
-
-
-
-
-
-
-
-    --DATEDIFF(DAY, MIN(CASE WHEN AD.FirstCommitterDate IS NOT NULL THEN AD.FirstCommitterDate ELSE CASE WHEN A.State = 'Committed' THEN A.ChangedDate END END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
-    --DATEDIFF(DAY, MIN(CASE WHEN A.State = 'Committed' THEN A.ChangedDate END), MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END)) AS 'TimeElapsed',
     MIN(B.CreatedDate) AS CreatedDate,
     MIN(CASE WHEN A.State = 'Ready' THEN A.ChangedDate END) AS 'Ready',
     MIN(AD.FirstCommitterDate) AS 'FirstCommitterDate',
