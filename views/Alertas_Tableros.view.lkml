@@ -30,7 +30,7 @@ view: alertas_tableros {
         FROM
           `mgcp-10078073-bxl-dwh-prod.region-us.INFORMATION_SCHEMA.TABLE_STORAGE_BY_PROJECT`
         WHERE
-          LEFT(table_schema, STRPOS(table_schema, '_') -1) != 'raw'
+          LEFT(table_schema, STRPOS(table_schema, '_') -1) != 'raw' AND CONCAT(project_id, ".", table_schema, ".", table_name) NOT IN ('mgcp-10078073-bxl-dwh-prod.cdc_BroxelnSAFInter.CC_SALDOS_X_CUENTA_COPIA')
         )AA ON AA.table_name_key = CONCAT('mgcp-10078073-bxl-dwh-prod', ".", RIGHT(A.table_schema, LENGTH(A.table_schema) - STRPOS(A.table_schema, '_')), ".", A.table_name)
       LEFT JOIN
         `mgcp-10078073-bxl-bi-snd.BIOro.Datos_Productivos` B ON B.Az_Data_Set = RIGHT(table_schema, LENGTH(A.table_schema) - STRPOS(A.table_schema, '_')) AND B.Az_Nombre = A.table_name AND B.Az_Fecha_Corte = CAST(CURRENT_DATE() AS DATE)
