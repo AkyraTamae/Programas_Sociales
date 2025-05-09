@@ -187,6 +187,12 @@ view: transacciones_mensual_all {
     sql: ${TABLE}.Monto - ((${TABLE}.Monto * 0.035) + ((${TABLE}.Monto * 0.035) * 0.16)) ;;
   }
 
+  measure: sum_monto_liquidacion {
+    type: sum
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: ${TABLE}.monto_liquidacion ;;
+  }
+
   ###########################################
 
   set: detail {
