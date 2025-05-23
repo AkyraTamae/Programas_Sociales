@@ -11,7 +11,7 @@ view: broxel_nexus_kpi {
     B.AreaPath,
     B.IterationPath,
     AC.Team,
-    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) AS 'Sprint',
+    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(B.IterationPath)) = 0, NULL, RIGHT(B.IterationPath, (LEN(B.IterationPath) - PATINDEX('%sprint%', LOWER(B.IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) AS 'Sprint',
     /*
   Se busca calcular el tiempo transcurrido (TimeElapsed) entre el inicio de una actividad y su finalización.
     Para determinar la fecha de inicio, se siguen estas prioridades jerárquicas:
@@ -104,7 +104,7 @@ view: broxel_nexus_kpi {
     w.Id
     )AD ON A.Id = AD.WorkItemId
     WHERE
-    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) >= 132
+    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(B.IterationPath)) = 0, NULL, RIGHT(B.IterationPath, (LEN(B.IterationPath) - PATINDEX('%sprint%', LOWER(B.IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) >= 132
     GROUP BY
     A.Id,
     AA.AssignedToUserId,
@@ -116,7 +116,7 @@ view: broxel_nexus_kpi {
     B.AreaPath,
     B.IterationPath,
     AC.Team,
-    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(IterationPath)) = 0, NULL, RIGHT(IterationPath, (LEN(IterationPath) - PATINDEX('%sprint%', LOWER(IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) ;;
+    CAST(REPLACE(REPLACE(REPLACE(REPLACE(IIF(PATINDEX('%sprint%', LOWER(B.IterationPath)) = 0, NULL, RIGHT(B.IterationPath, (LEN(B.IterationPath) - PATINDEX('%sprint%', LOWER(B.IterationPath)) -6))), '\Sprint ', 0), 'Test ', 0), 'Core', 0), '0.', '') AS INT) ;;
   }
 
   measure: count {
