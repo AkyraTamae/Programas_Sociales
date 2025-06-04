@@ -46,7 +46,7 @@ view: reporte_audios {
       JOIN
         `mgcp-10078073-bxl-dwh-prod.cdc_BroxelCommon.CategoriasServiceNow` F ON F.Id = A.IdSubcategoria
       WHERE
-        A.Producto IN ('K182', 'K281', 'K303', 'K671', 'K672') AND B.NombreArchivo LIKE '%London%'
+        (A.Producto IN ('K182', 'K281', 'K303', 'K671', 'K672') AND B.NombreArchivo LIKE '%London%' AND CAST(B.Fecha AS DATE) < '2025-05-01') OR (A.Producto IN ('K182', 'K281', 'K303', 'K671', 'K672') AND CAST(B.Fecha AS DATE) >= '2025-05-01')
       ORDER BY
         B.Fecha ;;
   }
