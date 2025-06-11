@@ -48,7 +48,8 @@ view: transacciones_mensual_all {
     End As EstadoComercial,
     CAST(AA.Fecha As TimeStamp) As Fecha,
     AA.Monto,
-    AA.NombreDeMedidas
+    AA.NombreDeMedidas,
+    AA.Procesador
     From
     (
     --Transacciones Mejoravit,Equipa, Renueva
@@ -66,7 +67,8 @@ view: transacciones_mensual_all {
     When A.Producto = 'K303' Then 'Equipa tu Casa'
     When A.Producto = 'K281' Then 'Renueva'
     When A.Producto = 'K672' Then 'Repara'
-    End As NombreDeMedidas
+    End As NombreDeMedidas,
+    'PayStudio' AS Procesador
     From
     `mgcp-10078073-bxl-dwh-prod.stg_BroxelPaymentsWS.PrePayStudioMovements` A
     Inner Join
@@ -86,7 +88,8 @@ view: transacciones_mensual_all {
     B.estadoComercial,
     CAST(A.FClear As Date) As Fecha,
     A.ImpTotal As Monto,
-    'Repara' As NombreDeMedidas
+    'Repara' As NombreDeMedidas,
+    'Credencial' AS Procesador
     From
     `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ind_movimientos` A
     Inner Join
@@ -154,6 +157,11 @@ view: transacciones_mensual_all {
     sql: ${TABLE}.EstadoComercial ;;
   }
 
+  dimension: procesador{
+    type: string
+    sql: ${TABLE}.Procesador ;;
+  }
+
   measure: sum_monto {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
@@ -204,7 +212,8 @@ view: transacciones_mensual_all {
   rfc,
   estado_comercial,
   monto,
-  nombre_de_medidas
+  nombre_de_medidas,
+  procesador
     ]
   }
 }
