@@ -2,7 +2,7 @@
 view: programas_sociales_all {
   derived_table: {
     sql:Select
-  ROW_NUMBER()OVER(PARTITION BY CONCAT(D.Comercio, D.Mes_txt, D.NombreMedidas) ORDER BY CONCAT(D.Comercio, D.Mes_txt, D.NombreMedidas)) AS Id
+  ROW_NUMBER()OVER(PARTITION BY CONCAT(D.Comercio, D.Mes_txt, D.NombreMedidas) ORDER BY CONCAT(D.Comercio, D.Mes_txt, D.NombreMedidas)) AS Id,
   D.Comercio,
   D.Fecha,
   D.Mes_txt,
