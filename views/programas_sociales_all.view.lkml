@@ -2,6 +2,7 @@
 view: programas_sociales_all {
   derived_table: {
     sql:Select
+  ROW_NUMBER()OVER(PARTITION BY CONCAT(D.Comercio, D.Mes_txt, D.NombreMedidas) ORDER BY CONCAT(D.Comercio, D.Mes_txt, D.NombreMedidas)) AS Id
   D.Comercio,
   D.Fecha,
   D.Mes_txt,
@@ -313,6 +314,11 @@ Left join
     sql: ${TABLE}.keyid ;;
   }
 
+  dimension: id {
+    type: string
+    sql: ${TABLE}.id ;;
+  }
+
   set: detail {
     fields: [
       comercio,
@@ -331,7 +337,8 @@ Left join
       estado_fiscal,
       estado_comercial,
       municipio_comercial,
-      keyid
+      keyid,
+      id
     ]
   }
 }
