@@ -158,6 +158,22 @@ view: reporte_audios {
     sql: ${TABLE}.Programa ;;
   }
 
+  dimension: filtro {
+    type: string
+    sql:
+      case
+        when ${TABLE}.Descripcion_2 = 'Tarjeta comprometida' then 'Prevención de fraudes'
+        when ${TABLE}.Descripcion_2 = 'Prevención de fraudes' then 'Prevención de fraudes'
+        when ${TABLE}.Descripcion_2 = 'Error en autenticación' then 'Error en autenticación'
+        when ${TABLE}.Descripcion_2 = 'A petición de usuarios' then 'A petición de usuarios'
+        when ${TABLE}.Descripcion_2 = 'Cargos no reconocidos' then 'Cargos no reconocidos'
+        when ${TABLE}.Descripcion_2 = 'Cambio Correo/Telefono' then 'Cambio de dato'
+        else null
+      end
+
+        ;;
+  }
+
   ###########################################
 
   dimension: fecha_inicio_txt {
