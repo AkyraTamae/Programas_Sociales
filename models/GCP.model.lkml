@@ -38,3 +38,5 @@ explore: reporte_audios {}
 explore: alertas_tableros {}
 explore: rep_mujeres_con_bienestar_bq {}
 explore: cargos_funerarios {}
+explore: asignaciones_renueva_repara_equipa {}
+explore: stp {}
