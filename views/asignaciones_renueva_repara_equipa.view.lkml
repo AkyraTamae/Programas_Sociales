@@ -27,6 +27,7 @@ view: asignaciones_renueva_repara_equipa {
   }
   dimension: monto_credito {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoCredito ;;
   }
   dimension: nombre_completo {

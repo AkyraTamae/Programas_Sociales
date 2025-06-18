@@ -7,6 +7,7 @@ view: stp {
   }
   dimension: cuentas_folio20_1 {
     type: number
+    label: "Cuentas Asignadas 20"
     sql: ${TABLE}.CuentasFolio20_1 ;;
   }
   dimension: cuentas_folio80 {
@@ -15,6 +16,7 @@ view: stp {
   }
   dimension: cuentas_folio80_1 {
     type: number
+    label: "Cuentas Asignadas 80"
     sql: ${TABLE}.CuentasFolio80_1 ;;
   }
   dimension: entidad {
@@ -56,6 +58,7 @@ view: stp {
   }
   dimension: importe {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Importe ;;
   }
   dimension_group: mes_insercion {
@@ -67,19 +70,27 @@ view: stp {
   }
   dimension: monto20 {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Monto20 ;;
   }
   dimension: monto80 {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.Monto80 ;;
   }
   dimension: monto_de_asignacion20 {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoDeAsignacion20 ;;
   }
   dimension: monto_de_asignacion80 {
     type: number
+    value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.MontoDeAsignacion80 ;;
+  }
+  dimension: programa {
+    type: string
+    sql: ${TABLE}.Programa ;;
   }
   dimension: tipo_credito20 {
     type: string
@@ -89,6 +100,12 @@ view: stp {
     type: string
     sql: ${TABLE}.TipoCredito80 ;;
   }
+  measure: saldo_al_corte {
+    type: number
+    value_format: "$#,##0.00;-$#,##0.00"
+    sql: round(${TABLE}.Importe, 2) - (round(round(ifnull(${TABLE}.Monto80, 0), 2) + round(ifnull(${TABLE}.Monto20, 0), 2), 2)) ;;
+  }
+
   measure: count {
     type: count
   }
