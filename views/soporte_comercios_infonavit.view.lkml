@@ -1,6 +1,15 @@
 view: soporte_comercios_infonavit {
   sql_table_name: `mgcp-10078073-bxl-bi-snd.BIOro.SoporteComerciosInfonavit` ;;
 
+  dimension: canal {
+    type: string
+    sql:
+    case
+    when ${TABLE}.CanalEntrada = 1 then 'Llamada'
+    when ${TABLE}.CanalEntrada in (2, 4) then 'Email'
+    else null
+    end ;;
+  }
   dimension: canal_entrada {
     type: number
     sql: ${TABLE}.CanalEntrada ;;
