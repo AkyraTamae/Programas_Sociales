@@ -77,6 +77,9 @@ view: fondeos_mejoravit {
 
   dimension_group: fecha_proceso {
     type: time
+    timeframes: [raw, date, week, month, month_name, quarter, year]
+    convert_tz: no
+    datatype: date
     sql: ${TABLE}.fechaProceso ;;
   }
 
@@ -131,7 +134,6 @@ view: fondeos_mejoravit {
       clave_entidad_financiera,
       nombre_tarjetahabiente,
       folio_dispersion,
-      fecha_proceso_time,
       fecha_ejecucion_time,
       fecha_aprobacion_time,
       fecha_creacion_time,
