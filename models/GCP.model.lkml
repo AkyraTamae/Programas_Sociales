@@ -41,3 +41,4 @@ explore: cargos_funerarios {}
 explore: asignaciones_renueva_repara_equipa {}
 explore: stp {}
 explore: soporte_comercios_infonavit {}
+explore: yy08_construrama {}
