@@ -2,14 +2,14 @@
 view: finabien_repatriacion {
   derived_table: {
     sql: SELECT
-      
-          GENERATE_UUID() Id, 
+
+          GENERATE_UUID() Id,
           JSON_EXTRACT_SCALAR(JSonParametro, '$.NombreCompleto') NombreCompleto,
           JSON_EXTRACT_SCALAR(JSonParametro, '$.FechaNacimiento') FechaNacimiento,
          concat(JSON_EXTRACT_SCALAR(JSonParametro, '$.CodigoPais'),
           JSON_EXTRACT_SCALAR(JSonParametro, '$.Celular')) Telefono ,
           JSON_EXTRACT_SCALAR(JSonParametro, '$.Correo') Correo
-      
+
       FROM
         `mgcp-10078073-bxl-dwh-prod.cdc_BroxelApiConfiguracion.PeticionesValidas` PeticionesValidas
         left join `mgcp-10078073-bxl-dwh-prod.cdc_BroxelApiConfiguracion.PeticionRespuesta` PeticionRespuesta ON PeticionesValidas.Id= PeticionRespuesta.Id WHERE IdMetodo in (596) and PeticionRespuesta.Codigo = 'Exito' ;;
@@ -32,6 +32,7 @@ view: finabien_repatriacion {
 
   dimension: fecha_nacimiento {
     type: string
+    value_format: "aaaa-mm-dd"
     sql: ${TABLE}.FechaNacimiento ;;
   }
 
@@ -48,10 +49,10 @@ view: finabien_repatriacion {
   set: detail {
     fields: [
         id,
-	nombre_completo,
-	fecha_nacimiento,
-	telefono,
-	correo
+  nombre_completo,
+  fecha_nacimiento,
+  telefono,
+  correo
     ]
   }
 }
