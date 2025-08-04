@@ -31,8 +31,7 @@ view: finabien_repatriacion {
   }
 
   dimension: fecha_nacimiento {
-    type: string
-    value_format: "aaaa-mm-dd"
+    type: date
     sql: ${TABLE}.FechaNacimiento ;;
   }
 
