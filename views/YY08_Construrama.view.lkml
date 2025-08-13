@@ -446,6 +446,11 @@ view: yy08_construrama {
     sql: ${TABLE}.MontoTransaccionado ;;
   }
 
+  measure: cuentas_unicas{
+    type: count_distinct
+    sql: ${TABLE}.CuentaB2B ;;
+  }
+
   set: detail {
     fields: [
         id,
