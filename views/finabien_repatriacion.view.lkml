@@ -1,18 +1,11 @@
 
 view: finabien_repatriacion {
   derived_table: {
-    sql: SELECT
-
-          GENERATE_UUID() Id,
-          JSON_EXTRACT_SCALAR(JSonParametro, '$.NombreCompleto') NombreCompleto,
-          JSON_EXTRACT_SCALAR(JSonParametro, '$.FechaNacimiento') FechaNacimiento,
-         concat(JSON_EXTRACT_SCALAR(JSonParametro, '$.CodigoPais'),
-          JSON_EXTRACT_SCALAR(JSonParametro, '$.Celular')) Telefono ,
-          JSON_EXTRACT_SCALAR(JSonParametro, '$.Correo') Correo
+    sql: SELECT *
 
       FROM
-        `mgcp-10078073-bxl-dwh-prod.cdc_BroxelApiConfiguracion.PeticionesValidas` PeticionesValidas
-        left join `mgcp-10078073-bxl-dwh-prod.cdc_BroxelApiConfiguracion.PeticionRespuesta` PeticionRespuesta ON PeticionesValidas.Id= PeticionRespuesta.Id WHERE IdMetodo in (596) and PeticionRespuesta.Codigo = 'Exito' ;;
+         `mgcp-10078073-bxl-bi-snd.BIOro.FinabienRepatriacion`
+         ;;
   }
 
   measure: count {

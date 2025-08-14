@@ -53,4 +53,3 @@ explore: prueba_llamadas {}
 explore: SMS_pachuca_leon {}
 explore: asignaciones_ministraciones {}
 explore: yy07_cargos_solicitudes {}
-explore: finabien_repatriacion {}
