@@ -13,6 +13,11 @@ view: finabien_repatriacion {
     drill_fields: [detail*]
   }
 
+  dimension: fechapeticion {
+    type: date
+    sql: ${TABLE}.FechaPeticion ;;
+  }
+
   dimension: id {
     type: string
     sql: ${TABLE}.Id ;;
