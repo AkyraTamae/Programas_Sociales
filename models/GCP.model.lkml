@@ -43,3 +43,12 @@ explore: stp {}
 explore: soporte_comercios_infonavit {}
 explore: yy08_construrama {}
 explore: finabien_repatriacion {}
+
+explore: simulacion_nl_programa_social{}
+
+
+map_layer: edo_mex_layer {
+  #file: "/mapas/map.json"
+  file: "/Mapa/Edo_Mex.topojson"
+  property_key: "mun_name"
+}

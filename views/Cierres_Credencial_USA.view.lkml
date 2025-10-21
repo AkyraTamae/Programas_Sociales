@@ -54,6 +54,7 @@ view: cierres_credencial_usa {
     sql: ${TABLE}.ImportePesos ;;
   }
 
+
   measure: importe_d {
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
@@ -63,29 +64,35 @@ view: cierres_credencial_usa {
       Else ${TABLE}.ImportePesos
       End ;;
   }
+#
+#  measure: importe_sin_IVA {
+#    type: sum
+#    value_format: "$#,##0.00;-$#,##0.00"
+#    sql: ${TABLE}.ImportePesos/1.16 ;;
+#  }
 
-  measure: importe_sin_IVA {
+#  measure: comision_sin_IVA {
+#    type: sum
+#    value_format: "$#,##0.00;-$#,##0.00"
+#    sql:
+#      Case
+#      When ${TABLE}.TipoMovimiento = 'ATM' Then 1.9
+#      When ${TABLE}.TipoMovimiento = 'SegurosAsistencia' Then ${TABLE}.ImportePesos*0.21
+#      When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos/1.16
+#      Else 0
+#      End ;;
+#  }
+
+#  measure: ingreso_total {
+#    type: sum
+#    value_format: "$#,##0.00;-$#,##0.00"
+#    sql: (${TABLE}.MontoIntercambio/1.16) + (Case When ${TABLE}.TipoMovimiento = 'ATM' Then 1.9 When ${TABLE}.TipoMovimiento = 'SegurosAsistencia' Then ${TABLE}.ImportePesos*0.21  When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos/1.16 Else 0 End);;
+#  }
+
+  measure: ingreso_total{
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.ImportePesos/1.16 ;;
-  }
-
-  measure: comision_sin_IVA {
-    type: sum
-    value_format: "$#,##0.00;-$#,##0.00"
-    sql:
-      Case
-      When ${TABLE}.TipoMovimiento = 'ATM' Then 1.9
-      When ${TABLE}.TipoMovimiento = 'SegurosAsistencia' Then ${TABLE}.ImportePesos*0.21
-      When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos/1.16
-      Else 0
-      End ;;
-  }
-
-  measure: ingreso_total {
-    type: sum
-    value_format: "$#,##0.00;-$#,##0.00"
-    sql: (${TABLE}.MontoIntercambio/1.16) + (Case When ${TABLE}.TipoMovimiento = 'ATM' Then 1.9 When ${TABLE}.TipoMovimiento = 'SegurosAsistencia' Then ${TABLE}.ImportePesos*0.21  When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos/1.16 Else 0 End);;
+    sql: ${TABLE}.FeeAmount;;
   }
 
   measure: monto_intercambio{
@@ -179,6 +186,12 @@ view: cierres_credencial_usa {
   dimension: banco {
     type: string
     sql: ${TABLE}.Banco ;;
+  }
+
+  dimension: feeamount {
+    label: "Fee amount"
+    type: number
+    sql: ${TABLE}.FeeAmount ;;
   }
 
 #############################Filtros#############################
