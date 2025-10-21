@@ -74,7 +74,7 @@ view: transacciones_mensual_all {
     Inner Join
     `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.Comercio` B On DenMov = Comercio
     Where
-    A.Producto In ('K303','K281','K182','K672') /*And CAST(A.Fecha As Date) > CURRENT_DATE() -180*/ And A.AuthorizationCode Is Not Null And B.comercio Not In (Select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`) And B.comercio Not In ('19CBX00947')
+    A.Producto In ('K303','K281','K182','K672') /*And CAST(A.Fecha As Date) > CURRENT_DATE() -180*/ And A.AuthorizationCode Is Not Null And B.comercio Not In (Select * From `mgcp-10078073-bxl-dwh-prod.stg_broxelco_rdg.ComercioNoReportar`) And B.comercio Not In ('19CBX00947', '25CBX00472', '25CBX00554')
 
     Union All
 
