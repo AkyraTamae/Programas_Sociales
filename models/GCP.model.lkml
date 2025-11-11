@@ -34,7 +34,12 @@ explore: alertas_programas_transacciones_por_dia {}
 explore: alertas_programas_transacciones_por_hora {}
 explore: programas_transacciones_rechazadas_por_hora {}
 explore: daily_tracking_v2_bq {}
-explore: reporte_audios {}
+explore: reporte_audios {
+  access_filter: {
+    field: reporte_audios.programa  # <-- El campo que quieres filtrar
+    user_attribute: programa_filtro # <-- El atributo que creaste en el Paso 1
+  }
+}
 explore: alertas_tableros {}
 explore: rep_mujeres_con_bienestar_bq {}
 explore: cargos_funerarios {}
