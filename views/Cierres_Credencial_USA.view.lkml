@@ -52,7 +52,7 @@ view: cierres_credencial_usa {
     type: number
     value_format: "$#,##0.00;-$#,##0.00"
     sql: ${TABLE}.ImportePesos ;;
-  }
+  } # estos no son pesos son dolares, est amal el nombre de la columna
 
 
   measure: importe_d {
@@ -63,7 +63,7 @@ view: cierres_credencial_usa {
       When ${TABLE}.TipoMovimiento = 'Devoluciones' Then -1 * ${TABLE}.ImportePesos
       Else ${TABLE}.ImportePesos
       End ;;
-  }
+  } #estos no son pesos, son dolares, esta mal el nombre de la columna
 #
 #  measure: importe_sin_IVA {
 #    type: sum
@@ -92,7 +92,9 @@ view: cierres_credencial_usa {
   measure: ingreso_total{
     type: sum
     value_format: "$#,##0.00;-$#,##0.00"
-    sql: ${TABLE}.FeeAmount;;
+    sql: Case When ${TABLE}.TipoMovimiento = 'Comisiones' Then ${TABLE}.ImportePesos Else ${TABLE}.FeeAmount End
+
+    ;;
   }
 
   measure: monto_intercambio{
