@@ -196,7 +196,10 @@ view: trsnacacciones {
     type: number
     label: "% Rechazo"
     value_format: "0.00%"
-    sql: cast(${cancelacion} as numeric) / (cast(${cancelacion} as numeric) + cast(${aprobacion} as numeric))  ;;
+    sql: CASE
+    WHEN (cast(${cancelacion} as numeric) + cast(${aprobacion} as numeric)) = 0 THEN 0
+    ELSE cast(${cancelacion} as numeric) / (cast(${cancelacion} as numeric) + cast(${aprobacion} as numeric))
+    END ;;
   }
 
   dimension: descripcion_estatus_filtro {
