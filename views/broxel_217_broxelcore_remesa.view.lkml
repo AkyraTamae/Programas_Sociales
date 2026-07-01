@@ -20,6 +20,12 @@ view: broxel_217_broxelcore_remesa {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.FechaCreacion ;;
   }
+  dimension: hora_creacion {
+    type: string
+    sql: CONVERT(VARCHAR(8), ${TABLE}.FechaCreacion, 108) ;;
+    label: "Hora de Creación (HH:MM:SS)"
+    description: "Solo la hora extraída de la fecha de creación"
+  }
   dimension_group: fecha_pago {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
