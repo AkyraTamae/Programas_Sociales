@@ -50,4 +50,3 @@ explore: conteo_registro_tablas {}
 explore: remittance_pathward {}
 explore: daily_tracking_v2_az {}
 explore: daily_tracking_productivo {} #Este se mantiene aca ya que es el conteo que proviene de servidores productivos de azure
-explore: dashboard_time_spent {}
