@@ -1,3 +1,5 @@
+include: "/**/*.dashboard.lookml"   # Incluye todos los tableros LookML del proyecto
+
 connection: "azurebi"
 
 # include all the views
