@@ -47,7 +47,11 @@ From
 
   Select
     A.Comercio,
-    A.Fecha,
+    -- Se genera esta ,odificación a peticion de ticket INC0560690
+    CASE
+    WHEN A.id IN(9570746, 9570745) THEN '2026-10-31'
+    ELSE A.Fecha
+    END AS Fecha,
     DATE_TRUNC(A.Fecha, MONTH) As Mes_txt,
     Case
     When A.idPrograma = 5 Then 'Mejoravit'
