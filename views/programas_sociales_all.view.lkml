@@ -52,7 +52,11 @@ From
     WHEN A.id IN(9570746, 9570745) THEN '2026-10-31'
     ELSE A.Fecha
     END AS Fecha,
-    DATE_TRUNC(A.Fecha, MONTH) As Mes_txt,
+    -- Se genera esta ,odificación a peticion de ticket INC0560690
+    CASE
+    WHEN A.id IN(9570746, 9570745) THEN '2026-10-01'
+    ELSE DATE_TRUNC(A.Fecha, MONTH)
+    END AS Mes_txt,
     Case
     When A.idPrograma = 5 Then 'Mejoravit'
     When A.idPrograma = 10 Then 'Hipoteca Verde'
