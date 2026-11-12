@@ -57,3 +57,5 @@ map_layer: edo_mex_layer {
   file: "/Mapa/Edo_Mex.topojson"
   property_key: "mun_name"
 }
+
+explore: reporte_detallado_renueva_repara_equipa {}
