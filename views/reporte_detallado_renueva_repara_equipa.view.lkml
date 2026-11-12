@@ -67,6 +67,14 @@ view: reporte_detallado_renueva_repara_equipa {
     type: number
     sql: ${TABLE}.InactividadPreventiva ;;
   }
+  dimension: ombre_completo{
+    type: number
+    sql: ${TABLE}.NombreCompleto ;;
+  }
+  dimension: numero_credito {
+    type: number
+    sql: ${TABLE}.NumeroCredito ;;
+  }
   dimension: producto_b2_b {
     type: string
     sql: ${TABLE}.ProductoB2B ;;
