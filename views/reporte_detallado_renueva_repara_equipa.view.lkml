@@ -72,7 +72,7 @@ view: reporte_detallado_renueva_repara_equipa {
     sql: ${TABLE}.NombreCompleto ;;
   }
   dimension: numero_credito {
-    type: number
+    type: string
     sql: ${TABLE}.NumeroCredito ;;
   }
   dimension: producto_b2_b {
